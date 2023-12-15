@@ -8,15 +8,15 @@ namespace ScriptableArchitecture.Data
     public class AudioManager : MonoBehaviour
     {
         public static SoundMode SOUNDMODE;
-        public AudioMixer MainMixer;
+        [SerializeField] private SoundMode _soundMode = SOUNDMODE;
 
-        public SoundMode SoundMode = SOUNDMODE;
+        [SerializeField] private AudioMixer _mainMixer;
 
 #if UNITY_EDITOR
         private void OnValidate()
         {
-            if (SOUNDMODE != SoundMode)
-                SOUNDMODE = SoundMode;
+            if (SOUNDMODE != _soundMode)
+                SOUNDMODE = _soundMode;
         }
 #endif
 
@@ -24,8 +24,10 @@ namespace ScriptableArchitecture.Data
 
         public void Start()
         {
-            if (SoundMode == SoundMode.MixerBased)
+            if (_soundMode == SoundMode.MixerBased)
             {
+                if (_mainMixer == null) return;
+
                 foreach (AudioMixerGroup mixerGroup in AllMixerGroups)
                 {
                     GameObject g = new GameObject();
@@ -45,17 +47,17 @@ namespace ScriptableArchitecture.Data
         {
             get
             {
-                return MainMixer.FindMatchingGroups(string.Empty);
+                return _mainMixer?.FindMatchingGroups(string.Empty);
             }
         }
 
         public void PlaySoundEffect(SoundEffect soundEffect)
         {
-            if (SoundMode == SoundMode.CategoryBased) //For WebGL
+            if (_soundMode == SoundMode.CategoryBased) //For WebGL
             {
 
             }
-            else if (SoundMode == SoundMode.MixerBased)
+            else if (_soundMode == SoundMode.MixerBased)
             {
                 AudioMixerGroup audioMixerGroup = soundEffect.audioMixerSnapshot;
                 AudioSource audioSource = _audioSources.FirstOrDefault(source => source.outputAudioMixerGroup == audioMixerGroup);
