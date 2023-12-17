@@ -151,15 +151,11 @@ namespace ScriptableArchitecture.EditorScript
         }
 
 
-        /// <summary>
-        /// Code for redrawing the property when the editor is not active
-        /// From: Rijicho (https://qiita.com/Rijicho_nl/items/467458decdd119577245)
-        /// </summary>
-
         private SerializedObject _propertyObject;
-        static readonly FieldInfo fi_m_NativeObjectPtr = typeof(SerializedObject).GetField("m_NativeObjectPtr", BindingFlags.NonPublic | BindingFlags.Instance);
-        static double lastUpdateTime = 0;
-        const float _targetFramerate = 60f;
+        private FieldInfo _nativeObject = typeof(SerializedObject).GetField("m_NativeObjectPtr", BindingFlags.NonPublic | BindingFlags.Instance);
+       
+        const float _targetFramerate = 10f;
+        static double _timer = 0;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -170,28 +166,31 @@ namespace ScriptableArchitecture.EditorScript
                 EditorApplication.update += Repaint;
             }
 
-            Selection.selectionChanged -= _OnSelectionChanged;
-            Selection.selectionChanged += _OnSelectionChanged;
+            Selection.selectionChanged -= OnSelectionChange;
+            Selection.selectionChanged += OnSelectionChange;
 
             OnGUIMain(position, property, label);
         }
 
         private void Repaint()
         {
-            if (_targetFramerate <= 0 || EditorApplication.timeSinceStartup > lastUpdateTime + 1 / _targetFramerate)
+            double timeSinceStartup = EditorApplication.timeSinceStartup;
+
+            if (timeSinceStartup > _timer + 1 / _targetFramerate)
             {
-                lastUpdateTime = EditorApplication.timeSinceStartup;
+                _timer = timeSinceStartup;
+
                 foreach (var editor in ActiveEditorTracker.sharedTracker.activeEditors)
                     editor.Repaint();
             }
         }
 
-        private void _OnSelectionChanged()
+        private void OnSelectionChange()
         {
-            if (_propertyObject == null || (IntPtr)fi_m_NativeObjectPtr.GetValue(_propertyObject) == IntPtr.Zero)
+            if (_propertyObject == null || (IntPtr)_nativeObject.GetValue(_propertyObject) == IntPtr.Zero)
             {
                 EditorApplication.update -= Repaint;
-                Selection.selectionChanged -= _OnSelectionChanged;
+                Selection.selectionChanged -= OnSelectionChange;
             }
         }
     }
