@@ -551,6 +551,14 @@ namespace ScriptableArchitecture.Data
 
     public static class StringExtensions
     {
+        public static string RemoveUnderscore(this string input)
+        {
+            if (string.IsNullOrEmpty(input))
+                return input;
+
+            return input.TrimStart('_');
+        }
+
         public static string CapitalizeFirstLetter(this string input)
         {
             if (string.IsNullOrEmpty(input))

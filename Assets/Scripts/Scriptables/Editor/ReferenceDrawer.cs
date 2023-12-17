@@ -1,6 +1,8 @@
 using ScriptableArchitecture.Core;
 using System;
+using System.Reflection;
 using UnityEditor;
+using UnityEditor.Compilation;
 using UnityEngine;
 
 namespace ScriptableArchitecture.EditorScript
@@ -13,7 +15,7 @@ namespace ScriptableArchitecture.EditorScript
         float height = 18;
         bool expandedValue;
 
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        private void OnGUIMain(Rect position, SerializedProperty property, GUIContent label)
         {
             EditorGUI.BeginProperty(position, label, property);
 
@@ -22,7 +24,7 @@ namespace ScriptableArchitecture.EditorScript
             SerializedProperty constantProperty = property.FindPropertyRelative("_constant");
 
             isVariable = isVariableProperty.boolValue;
-            
+
             height = EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
 
             if (isVariable)
@@ -36,11 +38,11 @@ namespace ScriptableArchitecture.EditorScript
                     position.x -= 15f;
 
                     Rect variableRect = new Rect(position.x, position.y, position.width - 35f, EditorGUIUtility.singleLineHeight);
-                    
+
                     EditorGUI.PropertyField(variableRect, variableProperty, GUIContent.none);
-                    
+
                     Rect foldoutRect = new Rect(0, 0, 15f, EditorGUIUtility.singleLineHeight);
-                    
+
                     //Draw foldout
                     foldoutOpen = EditorGUI.Foldout(foldoutRect, foldoutOpen, GUIContent.none);
                     if (foldoutOpen && isVariable && variableProperty.objectReferenceValue != null)
@@ -51,7 +53,7 @@ namespace ScriptableArchitecture.EditorScript
                         var valueVariable = variableProperty.objectReferenceValue as Variable;
                         SerializedObject serializedObject = new SerializedObject(valueVariable);
                         SerializedProperty valueProperty = serializedObject.FindProperty("Value");
-                        
+
                         EditorGUI.BeginChangeCheck();
 
                         valueProperty.isExpanded = expandedValue;
@@ -80,7 +82,7 @@ namespace ScriptableArchitecture.EditorScript
                         Type newType = GetVariableType(variableProperty.type, out string variableTypeName);
                         Variable newVariable = ScriptableObject.CreateInstance(newType) as Variable;
 
-                        string path = EditorUtility.SaveFilePanel($"Create new {variableTypeName}", "Assets/Data", variableTypeName, "asset");
+                        string path = EditorUtility.SaveFilePanel($"Create new {variableTypeName}", "Assets/Data", property.name.RemoveUnderscore().CapitalizeFirstLetter(), "asset");
 
                         if (!string.IsNullOrEmpty(path))
                         {
@@ -146,6 +148,51 @@ namespace ScriptableArchitecture.EditorScript
                 return baseHeight + height;
 
             return baseHeight;
+        }
+
+
+        /// <summary>
+        /// Code for redrawing the property when the editor is not active
+        /// From: Rijicho (https://qiita.com/Rijicho_nl/items/467458decdd119577245)
+        /// </summary>
+
+        private SerializedObject _propertyObject;
+        static readonly FieldInfo fi_m_NativeObjectPtr = typeof(SerializedObject).GetField("m_NativeObjectPtr", BindingFlags.NonPublic | BindingFlags.Instance);
+        static double lastUpdateTime = 0;
+        const float _targetFramerate = 60f;
+
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            if (!ActiveEditorTracker.HasCustomEditor(property.serializedObject.targetObject))
+            {
+                _propertyObject = property.serializedObject;
+                EditorApplication.update -= Repaint;
+                EditorApplication.update += Repaint;
+            }
+
+            Selection.selectionChanged -= _OnSelectionChanged;
+            Selection.selectionChanged += _OnSelectionChanged;
+
+            OnGUIMain(position, property, label);
+        }
+
+        private void Repaint()
+        {
+            if (_targetFramerate <= 0 || EditorApplication.timeSinceStartup > lastUpdateTime + 1 / _targetFramerate)
+            {
+                lastUpdateTime = EditorApplication.timeSinceStartup;
+                foreach (var editor in ActiveEditorTracker.sharedTracker.activeEditors)
+                    editor.Repaint();
+            }
+        }
+
+        private void _OnSelectionChanged()
+        {
+            if (_propertyObject == null || (IntPtr)fi_m_NativeObjectPtr.GetValue(_propertyObject) == IntPtr.Zero)
+            {
+                EditorApplication.update -= Repaint;
+                Selection.selectionChanged -= _OnSelectionChanged;
+            }
         }
     }
 }
