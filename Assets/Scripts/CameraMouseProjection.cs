@@ -1,3 +1,4 @@
+using ScriptableArchitecture.Core;
 using ScriptableArchitecture.Data;
 using UnityEngine;
 
@@ -20,6 +21,8 @@ public class CameraMouseProjection : MonoBehaviour
     [Header("Components")]
     private Camera _camera;
     private Grid _grid;
+
+    [SerializeField] private Reference<Grid, Variable<Grid>> _gridReference;
 
     private void Start()
     {
