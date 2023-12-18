@@ -2,7 +2,6 @@ using ScriptableArchitecture.Core;
 using System;
 using System.Reflection;
 using UnityEditor;
-using UnityEditor.Compilation;
 using UnityEngine;
 
 namespace ScriptableArchitecture.EditorScript

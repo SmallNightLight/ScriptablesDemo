@@ -12,7 +12,7 @@ public class CameraMouseProjection : MonoBehaviour
     [SerializeField] private Vector3Reference _currentMouseCellPosition;
 
     [Header("Get Scriptables")]
-
+    [SerializeField] private Receiver _gridReceiver;
 
     [Header("Snapping")]
     [SerializeField] private Vector3 _mouseOffset;
@@ -27,7 +27,7 @@ public class CameraMouseProjection : MonoBehaviour
     private void Start()
     {
         _camera = GetComponent<Camera>();
-        _grid = FindObjectOfType<Grid>();
+        _grid = _gridReceiver.Get<Grid>();
     }
 
     private void Update()
