@@ -348,8 +348,8 @@ MonoBehaviour:
     _variable: {fileID: 11400000, guid: 73f27a3635f32384a81f81f87c7f8f94, type: 2}
     _constant: {x: 0, y: 0, z: 0}
   _gridReceiver: {fileID: 11400000, guid: e3061784a9dcf4143a9c0c77661623c7, type: 2}
-  _mouseOffset: {x: 0, y: 0.3, z: 0}
-  _objectOffset: {x: 0, y: -0.2, z: 0}
+  _mouseOffset: {x: 0, y: -0.4, z: 0}
+  _objectOffset: {x: 0, y: 0.6, z: 0}
 --- !u!1001 &666825907
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14872,7 +14872,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7560165667566592751, guid: 686c14034f41dbd4da8aae878bacd9de, type: 3}
       propertyPath: m_CellSize.x
-      value: 20
+      value: 2.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

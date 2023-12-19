@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting.YamlDotNet.Core;
 using UnityEngine;
 
 namespace ScriptableArchitecture.Core
@@ -7,8 +6,8 @@ namespace ScriptableArchitecture.Core
     [CreateAssetMenu(fileName = "Receiver", menuName = "Scriptables/Receiver")]
     public class Receiver : ScriptableObject
     {
-        private List<Emitter> _emitters = new List<Emitter>();
-        private Emitter _activeEmitter;
+        [SerializeField] private List<Emitter> _emitters = new List<Emitter>();
+        [SerializeField] private Emitter _activeEmitter;
 
         public T Value<T>() where T : Object
         {
@@ -52,7 +51,7 @@ namespace ScriptableArchitecture.Core
 
         public void UpdatePriorityList()
         {
-            if (_emitters == null || _emitters.Count == 0) 
+            if (_emitters == null || _emitters.Count == 0 || _emitters[0] == null) 
             {
                 _activeEmitter = null;
                 return;
@@ -63,6 +62,9 @@ namespace ScriptableArchitecture.Core
 
             for(int i = 1; i < _emitters.Count; i++)
             {
+                if (_emitters[i] == null)
+                    continue;
+
                 if (_emitters[i].Priority > priority)
                 {
                     priorityEmitter = _emitters[i];

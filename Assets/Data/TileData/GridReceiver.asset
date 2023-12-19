@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87ca5948316842d44a221dbb0c08b492, type: 3}
   m_Name: GridReceiver
   m_EditorClassIdentifier: 
+  _emitters: []
+  _activeEmitter: {fileID: 0}
