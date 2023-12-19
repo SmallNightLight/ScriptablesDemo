@@ -1,4 +1,4 @@
-using System;
+using Unity.VisualScripting.YamlDotNet.Core;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -7,12 +7,12 @@ namespace ScriptableArchitecture.Core
     public class Emitter : MonoBehaviour
     {
         [SerializeField] private Receiver _receiver;
-        [SerializeField] private ReceiveType _receiveType = ReceiveType.AlwaysActive;
+        [SerializeField] private Object _value;
+
+        [SerializeField] private bool _activateOnStart = true;
 
         [Tooltip("Higher number for more important emmiters")]
         [SerializeField] private int _priority = 0;
-
-        [SerializeField] private Object _value;
 
         public int Priority
         {
@@ -29,12 +29,13 @@ namespace ScriptableArchitecture.Core
 
         private bool _isAdded;
 
-        public T GetValue<T>() where T : Object
+        public T Value<T>() where T : Object
         {
             if (_value is T)
                 return _value as T;
 
             Debug.LogError($"Could not convert from \"{_value.GetType()} to {typeof(T)} ");
+            Debug.Break();
             return null;
         }
 
@@ -50,7 +51,7 @@ namespace ScriptableArchitecture.Core
 
         private void OnEnable()
         {
-            if (_receiveType.HasFlag(ReceiveType.AlwaysActive))
+            if (_activateOnStart)
                 Register();
         }
 
@@ -62,22 +63,22 @@ namespace ScriptableArchitecture.Core
         public void Register()
         {
             _isAdded = true;
-            _receiver.RegisterEmmiter(this);
+            _receiver.RegisterEmitter(this);
         }
 
         public void Unregister()
         {
             if (_isAdded)
-                _receiver?.UnregisterEmmiter(this);
+                _receiver?.UnregisterEmitter(this);
 
             _isAdded = false;
         }
 
-        [Flags]
-        private enum ReceiveType
+#if UNITY_EDITOR
+        private void OnValidate()
         {
-            None = 0,
-            AlwaysActive = 1 << 0,
+            _receiver?.UpdatePriorityList(this);
         }
+#endif
     }
 }

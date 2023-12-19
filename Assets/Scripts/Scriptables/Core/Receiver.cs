@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting.YamlDotNet.Core;
 using UnityEngine;
 
 namespace ScriptableArchitecture.Core
@@ -7,11 +8,20 @@ namespace ScriptableArchitecture.Core
     public class Receiver : ScriptableObject
     {
         private List<Emitter> _emitters = new List<Emitter>();
-        private Emitter _currentEmitter;
+        private Emitter _activeEmitter;
 
-        public T Get<T>() where T : Object => _currentEmitter.GetValue<T>();
+        public T Value<T>() where T : Object
+        {
+            if (_activeEmitter == null)
+            {
+                Debug.LogError($"No active emitter in {name}, make sure to first add an emitter");
+                Debug.Break();
+                return null;
+            }
 
-        public void RegisterEmmiter(Emitter emitter)
+            return _activeEmitter.Value<T>();
+        }
+        public void RegisterEmitter(Emitter emitter)
         {
             if (_emitters.Contains(emitter)) return;
 
@@ -19,24 +29,24 @@ namespace ScriptableArchitecture.Core
             UpdatePriorityList(emitter);
         }
 
-        public void UnregisterEmmiter(Emitter emitter)
+        public void UnregisterEmitter(Emitter emitter)
         {
             if (!_emitters.Contains(emitter)) return;
 
             _emitters.Remove(emitter);
 
-            if (_currentEmitter == emitter)
+            if (_activeEmitter == emitter)
                 UpdatePriorityList();
         }
 
-        public void RemoveAllEmmiters()
+        public void RemoveAllEmitters()
         {
             _emitters.Clear();
         }
 
         public void UpdatePriorityList(Emitter changedEmitter)
         {
-            if (_currentEmitter == null || changedEmitter.Priority > _currentEmitter.Priority)
+            if (_activeEmitter == null || changedEmitter == _activeEmitter || changedEmitter.Priority > _activeEmitter.Priority)
                 UpdatePriorityList();
         }
 
@@ -44,7 +54,7 @@ namespace ScriptableArchitecture.Core
         {
             if (_emitters == null || _emitters.Count == 0) 
             {
-                _currentEmitter = null;
+                _activeEmitter = null;
                 return;
             }
             
@@ -60,7 +70,7 @@ namespace ScriptableArchitecture.Core
                 }
             }
 
-            _currentEmitter = priorityEmitter;
+            _activeEmitter = priorityEmitter;
         }
     }
 }

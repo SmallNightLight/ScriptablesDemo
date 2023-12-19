@@ -20,21 +20,17 @@ public class CameraMouseProjection : MonoBehaviour
 
     [Header("Components")]
     private Camera _camera;
-    private Grid _grid;
-
-    [SerializeField] private Reference<Grid, Variable<Grid>> _gridReference;
 
     private void Start()
     {
         _camera = GetComponent<Camera>();
-        _grid = _gridReceiver.Get<Grid>();
     }
 
     private void Update()
     {
         _worldMousePosition.Value = _camera.ScreenToWorldPoint(Input.mousePosition) + _mouseOffset;
-        Vector3Int cellPosition = _grid.WorldToCell(_worldMousePosition.Value);
-        _currentMouseCellPosition.Value = _grid.GetCellCenterWorld(cellPosition) + _objectOffset;
+        Vector3Int cellPosition = _gridReceiver.Value<Grid>().WorldToCell(_worldMousePosition.Value);
+        _currentMouseCellPosition.Value = _gridReceiver.Value<Grid>().GetCellCenterWorld(cellPosition) + _objectOffset;
 
         test.transform.position = _currentMouseCellPosition.Value;
     }

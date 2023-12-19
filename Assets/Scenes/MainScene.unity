@@ -207,6 +207,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &441706099 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3786238316547261857, guid: 686c14034f41dbd4da8aae878bacd9de, type: 3}
+  m_PrefabInstance: {fileID: 666825907}
+  m_PrefabAsset: {fileID: 0}
+--- !u!156049354 &441706100 stripped
+Grid:
+  m_CorrespondingSourceObject: {fileID: 7560165667566592751, guid: 686c14034f41dbd4da8aae878bacd9de, type: 3}
+  m_PrefabInstance: {fileID: 666825907}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &441706102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441706099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4150bdae78eaf1948939a5c69f59662c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _receiver: {fileID: 11400000, guid: e3061784a9dcf4143a9c0c77661623c7, type: 2}
+  _value: {fileID: 441706100}
+  _activateOnStart: 1
+  _priority: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -14844,10 +14870,17 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[533].second.m_TileObjectToInstantiateIndex
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 7560165667566592751, guid: 686c14034f41dbd4da8aae878bacd9de, type: 3}
+      propertyPath: m_CellSize.x
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3786238316547261857, guid: 686c14034f41dbd4da8aae878bacd9de, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 441706102}
   m_SourcePrefab: {fileID: 100100000, guid: 686c14034f41dbd4da8aae878bacd9de, type: 3}
 --- !u!1 &807737968
 GameObject:
@@ -29190,9 +29223,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _receiver: {fileID: 11400000, guid: e3061784a9dcf4143a9c0c77661623c7, type: 2}
-  _receiveType: -1
-  _priority: 0
   _value: {fileID: 1625401739}
+  _activateOnStart: 1
+  _priority: 1
 --- !u!156049354 &1625401739 stripped
 Grid:
   m_CorrespondingSourceObject: {fileID: 7560165667566592751, guid: 686c14034f41dbd4da8aae878bacd9de, type: 3}
