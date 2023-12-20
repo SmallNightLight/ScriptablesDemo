@@ -5,7 +5,7 @@ namespace ScriptableArchitecture.Core
 {
     public class GameEventBase : ScriptableObject
     {
-        private List<GameEventListenerBase> _listeners = new List<GameEventListenerBase>();
+        [SerializeField] private List<GameEventListenerBase> _listeners = new List<GameEventListenerBase>();
 
         public void Raise()
         {
