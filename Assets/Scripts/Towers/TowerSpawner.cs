@@ -18,10 +18,22 @@ public class TowerSpawner : MonoBehaviour
     [SerializeField] private SpriteRenderer _previewSprite;
     private Grid _grid;
 
-    //[SerializeField] private Reference<bool> boolRef;
+    [SerializeField] private Reference<bool> _newBool6;
+    [SerializeField] private Reference<bool> _newBool4;
+    [SerializeField] private Reference<bool> _newBool7;
+    [SerializeField] private Reference<Material> _newSO;
+    [SerializeField] private BoolReference _oldBool;
+
+
     private void Start()
     {
         _grid = GetComponent<Grid>();
+
+        Debug.Log(_newBool7.Value);
+        _newBool7.Value = true;
+        Debug.Log(_newBool7.Value);
+        _newBool7.Value = false;
+        _newBool7.Value = true;
     }
 
     private void Update()

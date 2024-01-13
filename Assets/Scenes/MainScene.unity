@@ -14553,6 +14553,62 @@ PrefabInstance:
       propertyPath: _event
       value: 
       objectReference: {fileID: 11400000, guid: e9fcc3a745e4f7145beb385b9406d616, type: 2}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _newSO._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: be309737337e7f043a2f66c87f4f309d, type: 2}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: boolRef._constant
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _boolRef._constant
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _newSO._isVariable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _newBool7._constant
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _newBool7._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: d4e11003cd7f9fe41a9e9da1d716316b, type: 2}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: boolRef._isVariable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _boolRef._isVariable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _newBool._isVariable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _oldBool._isVariable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _newBool3._isVariable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _newBool4._isVariable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _newBool6._isVariable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _newBool7._isVariable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7438383195733591137, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -25,15 +25,14 @@ namespace ScriptableArchitecture.EditorScript
 
         public override void OnInspectorGUI()
         {
-            if (target == null)
-                return;
+            if (target == null) return;
 
             serializedObject.Update();
 
             EditorGUILayout.PropertyField(_valueProperty);
             EditorGUILayout.PropertyField(_showVariableProp);
 
-            if ((VariableType)_showVariableProp.enumValueIndex == VariableType.ResetOnGameStart)
+            if ((InitializeType)_showVariableProp.enumValueIndex == InitializeType.ResetOnGameStart)
             {
                 serializedObject.ApplyModifiedProperties();
                 serializedObject.Update();
