@@ -21,6 +21,12 @@ namespace ScriptableArchitecture.Core
             }
             set
             {
+                if (_variable.Type == InitializeType.ReadOnly)
+                {
+                    Debug.LogWarning($"Cannot set: {_variable.name} (Readonly)");
+                    return;
+                }
+
                 if (_isVariable && _variable != null)
                     _variable.Value = value;
                 else
