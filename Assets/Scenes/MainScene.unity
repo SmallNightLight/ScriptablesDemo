@@ -229,7 +229,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _worldMousePosition:
-    _valueType: UnityEngine.Vector3
     _isVariable: 1
     _variable: {fileID: 11400000, guid: 39774358b137cd746ae092f1d541b20a, type: 2}
     _constant: {x: 0, y: 0, z: 0}
@@ -14550,28 +14549,64 @@ PrefabInstance:
       propertyPath: m_Name
       value: TowerSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 1727239478276223399, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _event
+      value: 
+      objectReference: {fileID: 11400000, guid: e9fcc3a745e4f7145beb385b9406d616, type: 2}
     - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-      propertyPath: _boolTest1._constant
-      value: -285.38
-      objectReference: {fileID: 0}
+      propertyPath: _newSO._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: be309737337e7f043a2f66c87f4f309d, type: 2}
     - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-      propertyPath: _boolTest2._constant
+      propertyPath: boolRef._constant
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-      propertyPath: _boolTest._isVariable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-      propertyPath: _boolTest2._isVariable
+      propertyPath: _boolRef._constant
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-      propertyPath: _boolTest3._isVariable
+      propertyPath: _newSO._isVariable
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-      propertyPath: _boolTest4._isVariable
+      propertyPath: _newBool7._constant
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _newBool7._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: d4e11003cd7f9fe41a9e9da1d716316b, type: 2}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: boolRef._isVariable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _boolRef._isVariable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _newBool._isVariable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _oldBool._isVariable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _newBool3._isVariable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _newBool4._isVariable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _newBool6._isVariable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _newBool7._isVariable
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7438383195733591137, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}

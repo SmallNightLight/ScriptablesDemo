@@ -10,6 +10,8 @@ namespace ScriptableArchitecture.EditorScript
 {
     public class ScriptableCreatorWindow : EditorWindow
     {
+        private Assembly[] _assemblies;
+
         private int _currentToolbar = 0;
         private string[] _toolbarNames = { "Scriptable Creator", "Data Creator" };
 
@@ -30,13 +32,18 @@ namespace ScriptableArchitecture.EditorScript
 
         #region Folder paths
 
-        private const string _dataPointsPath = "Assets/Scripts/Scriptables/Data/DataPoints";
-        private const string _eventListenersPath = "Assets/Scripts/Scriptables/Data/EventListeners";
-        private const string _gameEventsPath = "Assets/Scripts/Scriptables/Data/GameEvents";
-        private const string _referencesPath = "Assets/Scripts/Scriptables/Data/References";
-        private const string _variablesPath = "Assets/Scripts/Scriptables/Data/Variables";
+        const string _dataPointsPath = "Assets/Scripts/Scriptables/Data/DataPoints";
+        const string _eventListenersPath = "Assets/Scripts/Scriptables/Data/EventListeners";
+        const string _gameEventsPath = "Assets/Scripts/Scriptables/Data/GameEvents";
+        const string _referencesPath = "Assets/Scripts/Scriptables/Data/References";
+        const string _variablesPath = "Assets/Scripts/Scriptables/Data/Variables";
 
         #endregion
+
+        private void OnEnable()
+        {
+            LoadAssemblies();
+        }
 
         [MenuItem("Window/Scriptable Creator")]
         public static void OpenWindow()
@@ -210,7 +217,7 @@ namespace ScriptableArchitecture.EditorScript
 
             File.Delete($"{_eventListenersPath}/{baseName}GameEventListener.cs");
             File.Delete($"{_gameEventsPath}/{baseName}GameEvent.cs");
-            //File.Delete($"{_referencesPath}/{baseName}Reference.cs");
+            File.Delete($"{_referencesPath}/{baseName}Reference.cs");
             File.Delete($"{_variablesPath}/{baseName}Variable.cs");
 
             AssetDatabase.Refresh();
@@ -225,18 +232,8 @@ namespace ScriptableArchitecture.EditorScript
             EditorGUILayout.Space();
 
             if (GUILayout.Button("Create Scriptable"))
-            {
-                CreateScriptable(_scriptableType);
+                CreateScriptable();
 
-                _currentDataWindow = WindowOptions.Content;
-                _currentScriptName = _scriptableType.CapitalizeFirstLetter();
-                _currentScriptContents = "";
-                Repaint();
-
-                _scriptableType = "";
-                _scrollPositionScriptable = Vector2.zero;
-            }
-                
             GUILayout.EndVertical();
         }
 
@@ -284,46 +281,48 @@ namespace ScriptableArchitecture.EditorScript
             EditorGUILayout.EndVertical();
         }
 
-        public static void CheckAndCreateScriptable(Type scriptableType)
+        private void CreateScriptable()
         {
-            string scriptableName = ConvertToStringType(scriptableType);
-            Debug.Log(scriptableName);
-        }
-
-        private static void CreateScriptable(string scriptableType)
-        {
-            if (string.IsNullOrEmpty(scriptableType))
+            if (string.IsNullOrEmpty(_scriptableType))
             {
                 Debug.LogWarning("No scriptable type selected!");
                 return;
             }
 
             string baseScript = "";
-            string nameSpace = GetNameSpace(scriptableType);
+            string nameSpace = GetNameSpace(_scriptableType);
 
             if (nameSpace != null)
                 baseScript += $"using {nameSpace};\n";
             else
             {
                 //Check if variable is non-primitive
-                if (ConvertToSystemType(scriptableType) == null)
+                if (ConvertToSystemType(_scriptableType) == null)
                 {
-                    Debug.LogWarning($"NameSpace of property type not found: {scriptableType}");
+                    Debug.LogWarning($"NameSpace of property type not found: {_scriptableType}");
                     return;
                 }
             }
 
-            string scriptName = scriptableType.CapitalizeFirstLetter();
+            string scriptName = _scriptableType.CapitalizeFirstLetter();
 
-            CreateScript(_variablesPath, scriptName + "Variable", GetVariableScript(scriptableType, scriptName, baseScript));
-            //CreateScript(_referencesPath, scriptName + "Reference", GetReferenceScript(scriptableType, scriptName, baseScript));
-            CreateScript(_gameEventsPath, scriptName + "GameEvent", GetGameEventScript(scriptableType, scriptName, baseScript));
-            CreateScript(_eventListenersPath, scriptName + "GameEventListener", GetGameEventListenerScript(scriptableType, scriptName, baseScript));
+            CreateScript(_variablesPath, scriptName + "Variable", GetVariableScript(_scriptableType, scriptName, baseScript));
+            CreateScript(_referencesPath, scriptName + "Reference", GetReferenceScript(_scriptableType, scriptName, baseScript));
+            CreateScript(_gameEventsPath, scriptName + "GameEvent", GetGameEventScript(_scriptableType, scriptName, baseScript));
+            CreateScript(_eventListenersPath, scriptName + "GameEventListener", GetGameEventListenerScript(_scriptableType, scriptName, baseScript));
 
             AssetDatabase.Refresh();
+
+            _currentDataWindow = WindowOptions.Content;
+            _currentScriptName = _scriptableType.CapitalizeFirstLetter();
+            _currentScriptContents = "";
+            Repaint();
+
+            _scriptableType = "";
+            _scrollPositionScriptable = Vector2.zero;
         }
 
-        private static void CreateScript(string folderPath, string scriptName, string script)
+        private void CreateScript(string folderPath, string scriptName, string script)
         {
             string scriptFilePath = $"{folderPath}/{scriptName}.cs";
 
@@ -429,9 +428,9 @@ namespace ScriptableArchitecture.EditorScript
             _scrollPositionDataPointCreator = Vector2.zero;
         }
 
-        private static string GetNameSpace(string typeName)
+        private string GetNameSpace(string typeName)
         {
-            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+            foreach (Assembly assembly in _assemblies)
             {
                 string namespaceName = assembly.GetTypes().Where(t => t.Name == typeName).Select(t => t.Namespace).FirstOrDefault();
                 if (!string.IsNullOrEmpty(namespaceName))
@@ -439,6 +438,11 @@ namespace ScriptableArchitecture.EditorScript
             }
 
             return null;
+        }
+
+        private void LoadAssemblies()
+        {
+            _assemblies = AppDomain.CurrentDomain.GetAssemblies();
         }
 
         public static Type ConvertToSystemType(string typeName)
@@ -463,52 +467,11 @@ namespace ScriptableArchitecture.EditorScript
                 "object" => typeof(object),
                 "string" => typeof(string),
                 "dynamic" => typeof(object),
-                _ => null
+                _ => null //Invalid type keyword
             };
         }
 
-        public static string ConvertToStringType(Type type)
-        {
-
-            if (type == typeof(bool))
-                return "bool";
-            if (type == typeof(byte))
-                return "byte";
-            if (type == typeof(sbyte))
-                return "sbyte";
-            if (type == typeof(char))
-                return "char";
-            if (type == typeof(decimal))
-                return "decimal";
-            if (type == typeof(double))
-                return "double";
-            if (type == typeof(float))
-                return "float";
-            if (type == typeof(int))
-                return "int";
-            if (type == typeof(uint))
-                return "uint";
-            if (type == typeof(IntPtr))
-                return "nint";
-            if (type == typeof(UIntPtr))
-                return "nuint";
-            if (type == typeof(long))
-                return "long";
-            if (type == typeof(ulong))
-                return "ulong";
-            if (type == typeof(short))
-                return "short";
-            if (type == typeof(ushort))
-                return "ushort";
-            if (type == typeof(object))
-                return "object";
-            if (type == typeof(string))
-                return "string";
-
-            return type.Name;
-        }
-
-        private static string GetVariableScript(string type, string scriptName, string baseScript)
+        private string GetVariableScript(string type, string scriptName, string baseScript)
         {
             if (baseScript.Contains("using UnityEngine;") || baseScript.Contains("using ScriptableArchitecture.Data;"))
                 baseScript = "";
@@ -525,7 +488,7 @@ namespace ScriptableArchitecture.Data
 }}";
         }
 
-        private static string GetReferenceScript(string type, string scriptName, string baseScript)
+        private string GetReferenceScript(string type, string scriptName, string baseScript)
         {
             if (baseScript.Contains("using ScriptableArchitecture.Data;"))
                 baseScript = "";
@@ -544,7 +507,7 @@ namespace ScriptableArchitecture.Data
 }}";
         }
 
-        private static string GetGameEventScript(string type, string scriptName, string baseScript)
+        private string GetGameEventScript(string type, string scriptName, string baseScript)
         {
             if (baseScript.Contains("using UnityEngine;") || baseScript.Contains("using ScriptableArchitecture.Data;"))
                 baseScript = "";
@@ -562,7 +525,7 @@ namespace ScriptableArchitecture.Data
 
         }
 
-        private static string GetGameEventListenerScript(string type, string scriptName, string baseScript)
+        private string GetGameEventListenerScript(string type, string scriptName, string baseScript)
         {
             if (baseScript.Contains("using UnityEngine;") || baseScript.Contains("using ScriptableArchitecture.Data;"))
                 baseScript = "";

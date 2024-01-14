@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace ScriptableArchitecture.Core
 {
-    [Serializable]
-    public class Reference<T> : BaseReference
+    [System.Serializable]
+    public abstract class Reference<T, TVariable> where TVariable : Variable<T>
     {
         [SerializeField] protected bool _isVariable;
-        [SerializeField] protected Variable<T> _variable;
+        [SerializeField] protected TVariable _variable;
         [SerializeField] protected T _constant;
 
         public T Value
@@ -30,20 +30,5 @@ namespace ScriptableArchitecture.Core
                 }
             }
         }
-
-#if UNITY_EDITOR
-        public Reference()
-        {
-            _valueType = typeof(T).AssemblyQualifiedName;
-        }
-#endif
-    }
-
-    [Serializable]
-    public abstract class BaseReference 
-    {
-#if UNITY_EDITOR
-        [SerializeField] protected string _valueType;
-#endif
     }
 }

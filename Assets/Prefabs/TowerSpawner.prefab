@@ -48,20 +48,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canPlaceTower:
-    _valueType: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
     _isVariable: 1
     _variable: {fileID: 11400000, guid: a3c94657fbbbddf4989c2801e33ddbe1, type: 2}
     _constant: 0
   _worldMousePosition:
-    _valueType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
     _isVariable: 1
     _variable: {fileID: 11400000, guid: 39774358b137cd746ae092f1d541b20a, type: 2}
     _constant: {x: 0, y: 0, z: 0}
   _towerPrefab: {fileID: 601080569172190573, guid: d47c1cf79d54d834c89fda051400ba82, type: 3}
   _defaultTowerData:
-    _valueType: ScriptableArchitecture.Data.TowerData, ScriptableAssembly.Data, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
     _isVariable: 1
     _variable: {fileID: 11400000, guid: 87d7d6e93f584e74c9c1d746555acffb, type: 2}
     _constant:
@@ -71,41 +66,6 @@ MonoBehaviour:
   _mouseOffset: {x: 0, y: -0.4, z: 0}
   _objectOffset: {x: 0, y: 0.85, z: 0}
   _previewSprite: {fileID: 8195564351888214612}
-  _boolTest:
-    _valueType: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-    _isVariable: 1
-    _variable: {fileID: 0}
-    _constant: 1
-  _boolTest1:
-    _valueType: System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-    _isVariable: 0
-    _variable: {fileID: 0}
-    _constant: 53373
-  _boolTest2:
-    _valueType: System.UInt16, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-    _isVariable: 1
-    _variable: {fileID: 0}
-    _constant: 0
-  _boolTest3:
-    _valueType: ScriptableArchitecture.Data.TowerData, ScriptableAssembly.Data, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    _isVariable: 1
-    _variable: {fileID: 0}
-    _constant:
-      Name: 
-      Description: 
-      Sprite: {fileID: 0}
-  _boolTest4:
-    _valueType: ScriptableArchitecture.Data.SoundEffect, ScriptableAssembly.Data,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    _isVariable: 1
-    _variable: {fileID: 0}
-    _constant:
-      audioMixerSnapshot: {fileID: 0}
-      AudioClip: {fileID: 0}
-      Volume: 0
-      Pitch: 0
-      Loop: 0
 --- !u!156049354 &1127174864782804616
 Grid:
   m_ObjectHideFlags: 0

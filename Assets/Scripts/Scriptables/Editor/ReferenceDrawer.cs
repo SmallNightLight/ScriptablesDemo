@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ScriptableArchitecture.EditorScript
 {
-    [CustomPropertyDrawer(typeof(BaseReference), true)]
+    [CustomPropertyDrawer(typeof(Reference<,>), true)]
     public class ReferenceDrawer : PropertyDrawer
     {
         bool foldoutOpen;
@@ -16,12 +16,11 @@ namespace ScriptableArchitecture.EditorScript
 
         private void OnGUIMain(Rect position, SerializedProperty property, GUIContent label)
         {
-            EditorGUI.BeginProperty(new Rect(position.x, position.y, position.width - 50, position.height), label, property);
+            EditorGUI.BeginProperty(position, label, property);
 
             SerializedProperty isVariableProperty = property.FindPropertyRelative("_isVariable");
             SerializedProperty variableProperty = property.FindPropertyRelative("_variable");
             SerializedProperty constantProperty = property.FindPropertyRelative("_constant");
-            SerializedProperty typeProperty = property.FindPropertyRelative("_valueType");
 
             isVariable = isVariableProperty.boolValue;
 
@@ -79,16 +78,10 @@ namespace ScriptableArchitecture.EditorScript
                     Rect newRect = new Rect(position.x + position.width - 70f, position.y, 50f, position.height);
                     if (GUI.Button(newRect, "New", EditorStyles.miniButton))
                     {
-                        Type genericType = Type.GetType(typeProperty.stringValue); //GetVariableType(variableProperty.type, out string variableTypeName);
-                        Type variableType = typeof(Variable<>).MakeGenericType(genericType);
+                        Type newType = GetVariableType(variableProperty.type, out string variableTypeName);
+                        Variable newVariable = ScriptableObject.CreateInstance(newType) as Variable;
 
-                        string na = variableType.Name;
-
-                        Variable newVariable = ScriptableObject.CreateInstance(variableType) as Variable;
-
-                        ScriptableCreatorWindow.CheckAndCreateScriptable(genericType);
-
-                        string path = EditorUtility.SaveFilePanel($"Create new {typeProperty.stringValue}", "Assets/Data", property.name.RemoveUnderscore().CapitalizeFirstLetter(), "asset");
+                        string path = EditorUtility.SaveFilePanel($"Create new {variableTypeName}", "Assets/Data", property.name.RemoveUnderscore().CapitalizeFirstLetter(), "asset");
 
                         if (!string.IsNullOrEmpty(path))
                         {
@@ -107,7 +100,7 @@ namespace ScriptableArchitecture.EditorScript
             }
             else
             {
-                Rect valueRect = new Rect(position.x, position.y, position.width - 20f, position.height);
+                Rect valueRect = new Rect(0, 0, position.width - 20f, position.height);
                 EditorGUI.PropertyField(valueRect, constantProperty, new GUIContent(property.displayName), true);
                 height = constantProperty.isExpanded ? EditorGUI.GetPropertyHeight(constantProperty, GUIContent.none, true) - EditorGUIUtility.singleLineHeight : 0;
             }
@@ -165,9 +158,6 @@ namespace ScriptableArchitecture.EditorScript
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            if (position.width == 1)
-                return;
-           
             if (!ActiveEditorTracker.HasCustomEditor(property.serializedObject.targetObject))
             {
                 _propertyObject = property.serializedObject;
@@ -177,7 +167,7 @@ namespace ScriptableArchitecture.EditorScript
 
             Selection.selectionChanged -= OnSelectionChange;
             Selection.selectionChanged += OnSelectionChange;
-            
+
             OnGUIMain(position, property, label);
         }
 
