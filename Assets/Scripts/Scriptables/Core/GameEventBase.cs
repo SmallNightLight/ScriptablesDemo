@@ -79,7 +79,7 @@ namespace ScriptableArchitecture.Core
     {
         private List<GameEventListenerBase<T>> _listeners = new List<GameEventListenerBase<T>>();
 
-        public T DebugValue;
+        public T DefaultValue;
 
         public void Raise(T value)
         {
@@ -88,6 +88,11 @@ namespace ScriptableArchitecture.Core
                 _listeners[i].OnEventRaised(value);
                 Log($"Raised value: {value} on {_listeners[i].name}");
             }
+        }
+
+        public void RaiseWithDefaultValue()
+        {
+            Raise(DefaultValue);
         }
 
         public void RegisterListener(GameEventListenerBase<T> listener)

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Value: {x: 14.942146, y: 21.068869, z: -10}
   Type: 0
-  DefaultValue: {x: 0, y: 0, z: 0}
+  StartValue: {x: 0, y: 0, z: 0}

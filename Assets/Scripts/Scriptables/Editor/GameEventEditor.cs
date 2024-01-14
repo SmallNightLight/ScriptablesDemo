@@ -51,7 +51,7 @@ namespace ScriptableArchitecture.EditorScript
 
         private void OnEnable()
         {
-            _debugValueProperty = serializedObject.FindProperty("DebugValue");
+            _debugValueProperty = serializedObject.FindProperty("DefaultValue");
             _raiseMethod = target.GetType().BaseType.GetMethod("Raise", BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public);
         }
 
@@ -68,7 +68,7 @@ namespace ScriptableArchitecture.EditorScript
             if (GUILayout.Button("Raise Event"))
             {
                 Type targetType = _debugValueProperty.serializedObject.targetObject.GetType();
-                FieldInfo targetField = targetType.GetField("DebugValue", BindingFlags.Instance | BindingFlags.Public);
+                FieldInfo targetField = targetType.GetField("DefaultValue", BindingFlags.Instance | BindingFlags.Public);
                 object debugValue = targetField.GetValue(_debugValueProperty.serializedObject.targetObject);
                 _raiseMethod.Invoke(target, new object[1] { debugValue });
             }

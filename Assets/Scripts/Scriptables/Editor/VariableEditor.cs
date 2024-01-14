@@ -20,7 +20,7 @@ namespace ScriptableArchitecture.EditorScript
 
             _valueProperty = serializedObject.FindProperty("Value");
             _showVariableProp = serializedObject.FindProperty("Type");
-            _defaultValueProperty = serializedObject.FindProperty("DefaultValue");
+            _defaultValueProperty = serializedObject.FindProperty("StartValue");
         }
 
         public override void OnInspectorGUI()
