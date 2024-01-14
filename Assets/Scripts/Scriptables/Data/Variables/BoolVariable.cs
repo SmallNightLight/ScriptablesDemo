@@ -1,5 +1,4 @@
 using ScriptableArchitecture.Core;
-using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 
 namespace ScriptableArchitecture.Data

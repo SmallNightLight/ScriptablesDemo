@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Grid))]
 public class TowerSpawner : MonoBehaviour
 {
-    [SerializeField] private BoolReference _canPlaceTower;
+    [SerializeField] private Reference<bool> _canPlaceTower;
     [SerializeField] private Vector3Reference _worldMousePosition;
     [SerializeField] private GameObject _towerPrefab;
     [SerializeField] private TowerDataReference _defaultTowerData;
@@ -18,22 +18,18 @@ public class TowerSpawner : MonoBehaviour
     [SerializeField] private SpriteRenderer _previewSprite;
     private Grid _grid;
 
-    [SerializeField] private Reference<bool> _newBool6;
-    [SerializeField] private Reference<bool> _newBool4;
-    [SerializeField] private Reference<bool> _newBool7;
-    [SerializeField] private Reference<Material> _newSO;
-    [SerializeField] private BoolReference _oldBool;
-
+    [SerializeField] private Reference<bool> _boolTest;
+    [SerializeField] private Reference<double> _boolTest1;
+    [SerializeField] private Reference<ushort> _boolTest2;
+    [SerializeField] private Reference<TowerData> _boolTest3;
+    [SerializeField] private Reference<SoundEffect> _boolTest4;
+    //[SerializeField] private Reference<System.Numerics.BigInteger> _boolTest5;
 
     private void Start()
     {
         _grid = GetComponent<Grid>();
 
-        Debug.Log(_newBool7.Value);
-        _newBool7.Value = true;
-        Debug.Log(_newBool7.Value);
-        _newBool7.Value = false;
-        _newBool7.Value = true;
+        
     }
 
     private void Update()
