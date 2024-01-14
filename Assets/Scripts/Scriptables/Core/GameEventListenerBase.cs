@@ -3,36 +3,43 @@ using UnityEngine.Events;
 
 namespace ScriptableArchitecture.Core
 {
-    public abstract class GameEventListenerBase : MonoBehaviour
+    public abstract class GameEventListenerBase : MonoBehaviour, IListener
     {
-        [SerializeField] private GameEventBase _event;
-
-        //1.0 Using simple Unity events
+        public GameEventBase Event;
         [SerializeField] private UnityEvent _response;
         
-        //2.0 Using custome events
-        //[SerializeField] private ResponseEvent _scriptableResponse;
-
         public void OnEventRaised()
         {
             _response.Invoke();
-            //_scriptableResponse.Invoke();
         }
 
         private void OnEnable()
         {
-            _event.RegisterListener(this);
+            if (Event == null)
+            {
+                Debug.LogWarning($"No Event selected on {name}");
+                return;
+            }
+                
+            Event.RegisterListener(this);
         }
 
         private void OnDisable()
         {
-            _event.UnregisterListener(this);
+            if (Event == null)
+                return;
+
+            Event.UnregisterListener(this);
         }
+
+        public Object GetListenerObject() => this;
+
+        public IGameEvent GetGameEvent() => Event;
     }
 
-    public abstract class GameEventListenerBase<T> : MonoBehaviour
+    public abstract class GameEventListenerBase<T> : MonoBehaviour, IListener
     {
-        [SerializeField] private GameEventBase<T> _event;
+        public GameEventBase<T> Event;
         [SerializeField] private UnityEvent<T> _response;
 
         public void OnEventRaised(T value)
@@ -42,21 +49,32 @@ namespace ScriptableArchitecture.Core
 
         private void OnEnable()
         {
-            if (_event == null)
+            if (Event == null)
             {
-                Debug.LogWarning("No Event selected");
+                Debug.LogWarning($"No Event selected on {name}");
                 return;
             }
 
-            _event.RegisterListener(this);
+            Event.RegisterListener(this);
         }
 
         private void OnDisable()
         {
-            if (_event == null)
+            if (Event == null)
                 return;
 
-            _event.UnregisterListener(this);
+            Event.UnregisterListener(this);
         }
+
+        public Object GetListenerObject() => this;
+
+        public IGameEvent GetGameEvent() => Event;
+    }
+
+    public interface IListener
+    {
+        public Object GetListenerObject();
+
+        public IGameEvent GetGameEvent();
     }
 }

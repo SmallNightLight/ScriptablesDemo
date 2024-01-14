@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f14d52b7674510941b60eb8d8eb1b2ff, type: 3}
-  m_Name: NewSO
+  m_Script: {fileID: 11500000, guid: 9c8b93c38051a0949b22b4bd93a767b5, type: 3}
+  m_Name: GameEvent3
   m_EditorClassIdentifier: 
-  VariableType: 0
+  _listeners: []

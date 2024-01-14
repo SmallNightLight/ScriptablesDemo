@@ -27,6 +27,6 @@ namespace ScriptableArchitecture.Core
 
     public enum InitializeType
     {
-        Normal, ResetOnGameStart //, ReadOnly
+        Normal, ResetOnGameStart, ReadOnly
     }
 }
