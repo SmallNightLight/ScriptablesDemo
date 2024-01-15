@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36f84f64c48d10f458900bd2816b7d0a, type: 3}
   m_Name: CanPlaceTower
   m_EditorClassIdentifier: 
-  Value: 1
-  Type: 0
-  DefaultValue: 0
+  Value: 0
+  Type: 1
+  StartValue: 0
+  _variableType: 0
+  DefaultValue: 1

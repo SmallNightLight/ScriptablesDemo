@@ -10,6 +10,7 @@ namespace ScriptableArchitecture.EditorScript
     public class GameEventEditor : Editor
     {
         private GameEventBase _target;
+        private bool _showDebugEvent;
         private bool _showListeners;
         private bool _showStackTrace;
         private Vector2 _scrollStacktrace;
@@ -17,6 +18,8 @@ namespace ScriptableArchitecture.EditorScript
         private void OnEnable()
         {
             _target = (GameEventBase)target;
+
+            _showDebugEvent = true;
         }
 
         public override void OnInspectorGUI()
@@ -24,14 +27,22 @@ namespace ScriptableArchitecture.EditorScript
             //Draw debug options
             EditorGUILayout.Space();
             serializedObject.Update();
+
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            EditorGUILayout.LabelField("Debug Event", EditorStyles.boldLabel);
-            serializedObject.ApplyModifiedProperties();
-            EditorGUILayout.Space();
+            EditorGUI.indentLevel++;
 
-            if (GUILayout.Button("Raise Event"))
-                _target.Raise();
+            _showDebugEvent = EditorGUILayout.Foldout(_showDebugEvent, "Game Event", true, new GUIStyle(EditorStyles.foldout) { fontStyle = FontStyle.Bold });
 
+            if (_showDebugEvent)
+            {
+                serializedObject.ApplyModifiedProperties();
+                EditorGUILayout.Space();
+
+                if (GUILayout.Button("Raise Event"))
+                    _target.Raise();
+            }
+
+            EditorGUI.indentLevel--;
             EditorGUILayout.EndVertical();
 
             GameEventEditorHelper.DrawListeners(target as IGameEvent, ref _showListeners);
