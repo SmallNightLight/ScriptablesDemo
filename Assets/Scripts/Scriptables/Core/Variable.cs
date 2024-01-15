@@ -8,10 +8,7 @@ namespace ScriptableArchitecture.Core
     {
         [SerializeField]
         public T Value;
-        public InitializeType Type;
         public T StartValue;
-
-        [SerializeField] private VariableType _variableType;
 
         private List<IListener<T>> _listeners = new List<IListener<T>>();
 
@@ -19,7 +16,7 @@ namespace ScriptableArchitecture.Core
         private void OnEnable()
         {
             //This is only for the editor as the build game does not save Scriptable objects across sessions
-            if (Type == InitializeType.ResetOnGameStart)
+            if (InitializeType == InitializeType.ResetOnGameStart)
                 Value = StartValue;
 
 #if UNITY_EDITOR
@@ -100,15 +97,9 @@ namespace ScriptableArchitecture.Core
         public T DebugValue;
     }
 
-    public abstract class Variable : ScriptableObject { }
-
-    public enum InitializeType
+    public abstract class Variable : ScriptableObject 
     {
-        Normal, ResetOnGameStart, ReadOnly
-    }
-
-    public enum VariableType
-    {
-        Variable, VariableEvent, Event
+        public VariableType VariableType;
+        public InitializeType InitializeType;
     }
 }

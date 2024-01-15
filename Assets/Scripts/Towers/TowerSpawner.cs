@@ -17,6 +17,7 @@ public class TowerSpawner : MonoBehaviour
     [SerializeField] private SpriteRenderer _previewSprite;
     private Grid _grid;
 
+    [SerializeField] private GameEvent _gameEvent;
     
     private void Start()
     {

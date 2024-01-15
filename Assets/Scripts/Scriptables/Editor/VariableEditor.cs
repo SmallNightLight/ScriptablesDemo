@@ -37,12 +37,12 @@ namespace ScriptableArchitecture.EditorScript
 
             //Variable
             _valueProperty = serializedObject.FindProperty("Value");
-            _initializeTypeProperty = serializedObject.FindProperty("Type");
+            _initializeTypeProperty = serializedObject.FindProperty("InitializeType");
             _startValueProperty = serializedObject.FindProperty("StartValue");
 
             //Event
             _debugValueProperty = serializedObject.FindProperty("DebugValue");
-            _variableTypeProperty = serializedObject.FindProperty("_variableType");
+            _variableTypeProperty = serializedObject.FindProperty("VariableType");
             _raiseMethod = target.GetType().BaseType.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).Where(m => m.GetParameters().Length == 1).ToArray().FirstOrDefault();
             _showDebugEvent = true;
 

@@ -566,5 +566,11 @@ namespace ScriptableArchitecture.Data
 
             return char.ToUpper(input[0]) + input.Substring(1);
         }
+
+        public static string RemoveAfterDot(this string input)
+        {
+            int dotIndex = input.IndexOf('.');
+            return (dotIndex != -1) ? input.Substring(0, dotIndex) : input;
+        }
     }
 }
