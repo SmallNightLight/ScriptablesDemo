@@ -6,47 +6,47 @@ namespace ScriptableArchitecture.Core
 {
     public class GameEventBase : ScriptableObject, IGameEvent
     {
-        private List<GameEventListenerBase> _listeners = new List<GameEventListenerBase>();
+        private List<IListenerEmpty> _listeners = new List<IListenerEmpty>();
 
         public void Raise()
         {
             for (int i = _listeners.Count - 1; i >= 0; i--)
             {
                 _listeners[i].OnEventRaised();
-                Log($"Raised {_listeners[i].name}");
+                Log($"Raised", _listeners[i]);
             }
         }
 
-        public void RegisterListener(GameEventListenerBase listener)
+        public void RegisterListener(IListenerEmpty listener)
         {
             if (!_listeners.Contains(listener))
             {
                 _listeners.Add(listener);
-                Log($"Registered listener: {listener.name}");
+                Log($"Registered listener", listener);
             }
             else
             {
-                Log($"Tried registering an existing listener: {listener.name}");
+                Log($"Tried registering an existing listener", listener);
             }
         }
 
-        public void UnregisterListener(GameEventListenerBase listener)
+        public void UnregisterListener(IListenerEmpty listener)
         {
             if (_listeners.Contains(listener))
             {
                 _listeners.Remove(listener);
-                Log($"Unregistered listener: {listener.name}");
+                Log($"Unregistered listener", listener);
             }
             else
             {
-                Log($"Tried removing a non existing listener: {listener.name}");
+                Log($"Tried removing a non existing listener", listener);
             }   
         }
 
         public void RemoveAllListeners()
         {
             _listeners.Clear();
-            Log("Cleared all listeners");
+            Log("Cleared all listeners", null);
         }
 
         public List<IListener> GetListeners() => _listeners.Cast<IListener>().ToList();
@@ -61,88 +61,10 @@ namespace ScriptableArchitecture.Core
 #endif
         }
 
-        private void Log(string message)
+        private void Log(string message, IListener listener)
         {
 #if UNITY_EDITOR
-            _stacktrace.Add(message);
-#endif
-        }
-
-        public Stacktrace GetStackTrace() => _stacktrace;
-
-#if UNITY_EDITOR
-        private Stacktrace _stacktrace = new Stacktrace();
-#endif
-    }
-
-    public class GameEventBase<T> : ScriptableObject, IGameEvent
-    {
-        private List<GameEventListenerBase<T>> _listeners = new List<GameEventListenerBase<T>>();
-
-        public T DefaultValue;
-
-        public void Raise(T value)
-        {
-            for (int i = _listeners.Count - 1; i >= 0; i--)
-            {
-                _listeners[i].OnEventRaised(value);
-                Log($"Raised value: {value} on {_listeners[i].name}");
-            }
-        }
-
-        public void RaiseWithDefaultValue()
-        {
-            Raise(DefaultValue);
-        }
-
-        public void RegisterListener(GameEventListenerBase<T> listener)
-        {
-            if (!_listeners.Contains(listener))
-            {
-                _listeners.Add(listener);
-                Log($"Registered listener: {listener.name}");
-            }
-            else
-            {
-                Log($"Tried registering an existing listener: {listener.name}");
-            }
-        }
-
-        public void UnregisterListener(GameEventListenerBase<T> listener)
-        {
-            if (_listeners.Contains(listener))
-            {
-                _listeners.Remove(listener);
-                Log($"Unregistered listener: {listener.name}");
-            }
-            else
-            {
-                Log($"Tried removing a non existing listener: {listener.name}");
-            }
-        }
-
-        public void RemoveAllListeners()
-        {
-            _listeners.Clear();
-            Log("Cleared all listeners");
-        }
-
-        public List<IListener> GetListeners() => _listeners.Cast<IListener>().ToList();
-
-
-        //Stack trace
-
-        private void OnEnable()
-        {
-#if UNITY_EDITOR
-            _stacktrace.Clear();
-#endif
-        }
-
-        private void Log(string message)
-        {
-#if UNITY_EDITOR
-            _stacktrace.Add(message);
+            _stacktrace.Add($"{message}" + (listener != null ? $" ({listener.GetName()})" : ""));
 #endif
         }
 
@@ -158,5 +80,11 @@ namespace ScriptableArchitecture.Core
         public List<IListener> GetListeners();
 
         public Stacktrace GetStackTrace();
+    }
+
+    public interface IGameEvent<T> : IGameEvent
+    {
+        public void RegisterListener(IListener<T> listener);
+        public void UnregisterListener(IListener<T> listener);
     }
 }

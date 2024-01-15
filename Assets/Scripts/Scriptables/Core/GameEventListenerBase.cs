@@ -3,9 +3,9 @@ using UnityEngine.Events;
 
 namespace ScriptableArchitecture.Core
 {
-    public abstract class GameEventListenerBase : MonoBehaviour, IListener
+    public abstract class GameEventListenerBase : MonoBehaviour, IListenerEmpty
     {
-        public GameEventBase Event;
+        [SerializeField] private GameEventBase _event;
         [SerializeField] private UnityEvent _response;
         
         public void OnEventRaised()
@@ -15,31 +15,31 @@ namespace ScriptableArchitecture.Core
 
         private void OnEnable()
         {
-            if (Event == null)
+            if (_event == null)
             {
                 Debug.LogWarning($"No Event selected on {name}");
                 return;
             }
                 
-            Event.RegisterListener(this);
+            _event.RegisterListener(this);
         }
 
         private void OnDisable()
         {
-            if (Event == null)
-                return;
+            if (_event == null) return;
 
-            Event.UnregisterListener(this);
+            _event.UnregisterListener(this);
         }
 
         public Object GetListenerObject() => this;
 
-        public IGameEvent GetGameEvent() => Event;
+        public IGameEvent GetGameEvent() => _event;
+
+        public string GetName() => name;
     }
 
-    public abstract class GameEventListenerBase<T> : MonoBehaviour, IListener
+    public abstract class GameEventListenerBase<T> : MonoBehaviour, IListener<T>
     {
-        public GameEventBase<T> Event;
         [SerializeField] private UnityEvent<T> _response;
 
         public void OnEventRaised(T value)
@@ -49,32 +49,54 @@ namespace ScriptableArchitecture.Core
 
         private void OnEnable()
         {
-            if (Event == null)
+            IGameEvent<T> genericEvent = GetGameEventT();
+
+            if (genericEvent == null)
             {
                 Debug.LogWarning($"No Event selected on {name}");
                 return;
             }
 
-            Event.RegisterListener(this);
+            genericEvent.RegisterListener(this);
         }
 
         private void OnDisable()
         {
-            if (Event == null)
+            IGameEvent<T> genericEvent = GetGameEventT();
+
+            if (genericEvent == null)
                 return;
 
-            Event.UnregisterListener(this);
+            genericEvent.UnregisterListener(this);
         }
 
         public Object GetListenerObject() => this;
 
-        public IGameEvent GetGameEvent() => Event;
+        public abstract IGameEvent<T> GetGameEventT();
+
+        public IGameEvent GetGameEvent() => GetGameEventT();
+
+        public string GetName() => name;
     }
 
-    public interface IListener
+    public interface IListener 
     {
         public Object GetListenerObject();
 
         public IGameEvent GetGameEvent();
+
+        public string GetName();
+    }
+
+    public interface IListenerEmpty : IListener
+    {
+        public void OnEventRaised();
+    } 
+
+    public interface IListener<T> : IListener
+    {
+        public void OnEventRaised(T value);
+
+        public IGameEvent<T> GetGameEventT();
     }
 }

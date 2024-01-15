@@ -25,7 +25,7 @@ namespace ScriptableArchitecture.EditorScript
             else
             {
                 foreach (GameObject gameObject in UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects())
-                    foreach (var listener in gameObject.GetComponentsInChildren<IListener>())
+                    foreach (IListener listener in gameObject.GetComponentsInChildren<IListener>())
                         if (listener.GetGameEvent() == gameEvent)
                             listeners.Add(listener);
             }
@@ -39,7 +39,7 @@ namespace ScriptableArchitecture.EditorScript
                 EditorGUI.BeginDisabledGroup(true);
                 EditorGUILayout.Space();
 
-                foreach (var listener in listeners)
+                foreach (IListener listener in listeners)
                     EditorGUILayout.ObjectField(listener.GetListenerObject(), typeof(GameEventListenerBase), true);
 
                 EditorGUILayout.Space();

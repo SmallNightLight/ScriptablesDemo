@@ -34,6 +34,10 @@ MonoBehaviour:
         Description: 
         Sprite: {fileID: 0}
   Type: 0
-  DefaultValue:
+  StartValue:
+    BaseName: 
+    Towers: []
+  _variableType: 0
+  DebugValue:
     BaseName: 
     Towers: []

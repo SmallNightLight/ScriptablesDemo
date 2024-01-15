@@ -6,7 +6,6 @@ public class CameraMouseProjection : MonoBehaviour
 {
     [Header("Set Scriptables")]
     [SerializeField] private Vector3Reference _worldMousePosition;
-    [SerializeField] private Vector3GameEvent _mouseDownEvent;
 
     [Header("Components")]
     private Camera _camera;
@@ -21,6 +20,6 @@ public class CameraMouseProjection : MonoBehaviour
         _worldMousePosition.Value = _camera.ScreenToWorldPoint(Input.mousePosition);
 
         if (Input.GetMouseButtonDown(0))
-            _mouseDownEvent.Raise(_worldMousePosition.Value);
+            _worldMousePosition.Raise();
     }
 }

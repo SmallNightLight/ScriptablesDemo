@@ -36,5 +36,17 @@ namespace ScriptableArchitecture.Core
                 }
             }
         }
+
+        public void Raise(T value)
+        {
+            if (_isVariable)
+                _variable.Raise(value);
+        }
+
+        public void Raise()
+        {
+            if (_isVariable)
+                _variable.Raise();
+        }
     }
 }
