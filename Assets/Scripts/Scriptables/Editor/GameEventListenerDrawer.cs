@@ -2,14 +2,53 @@ using ScriptableArchitecture.Core;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(GameEventListenerBase<>))]
-public class GameEventListenerDrawer : Editor
+namespace ScriptableArchitecture.EditorScript
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(GameEventListenerBase), true)]
+    public class GameEventListenerDrawer : Editor
     {
-        
-        DrawDefaultInspector();
+        private SerializedProperty _eventProeperty;
+        private SerializedProperty _responseEvent;
 
-        // You can add custom GUI elements or modify the existing ones here if needed
+        private void OnEnable()
+        {
+            _eventProeperty = serializedObject.FindProperty("_event");
+            _responseEvent = serializedObject.FindProperty("_response");
+        }
+
+        public override void OnInspectorGUI()
+        {
+            serializedObject.Update();
+
+            EditorGUILayout.PropertyField(_eventProeperty);
+            EditorGUILayout.Space(5);
+            EditorGUILayout.PropertyField(_responseEvent);
+
+            serializedObject.ApplyModifiedProperties();
+        }
+    }
+
+    [CustomEditor(typeof(GameEventListenerBase<>), true)]
+    public class GameEventListenerDrawerT : Editor
+    {
+        private SerializedProperty _eventProeperty;
+        private SerializedProperty _responseEvent;
+
+        private void OnEnable()
+        {
+            _eventProeperty = serializedObject.FindProperty("_event");
+            _responseEvent = serializedObject.FindProperty("_response");
+        }
+
+        public override void OnInspectorGUI()
+        {
+            serializedObject.Update();
+
+            EditorGUILayout.PropertyField(_eventProeperty);
+            EditorGUILayout.Space(5);
+            EditorGUILayout.PropertyField(_responseEvent);
+
+            serializedObject.ApplyModifiedProperties();
+        }
     }
 }

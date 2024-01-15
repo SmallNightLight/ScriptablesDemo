@@ -14,6 +14,8 @@ namespace ScriptableArchitecture.EditorScript
         float height = 18;
         bool expandedValue;
 
+        
+
         private void OnGUIMain(Rect position, SerializedProperty property, GUIContent label)
         {
             EditorGUI.BeginProperty(position, label, property);
@@ -30,72 +32,72 @@ namespace ScriptableArchitecture.EditorScript
             {
                 if (variableProperty.boxedValue != null)
                 {
-                    position.x += 15f;
-                    position.width += 15;
+                    //position.x += 15f;
+                    //position.width += 15;
 
-                    position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
-                    position.x -= 15f;
+                    //position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
+                    //position.x -= 15f;
 
-                    Rect variableRect = new Rect(position.x, position.y, position.width - 35f, EditorGUIUtility.singleLineHeight);
+                    Rect variableRect = new Rect(position.x - 15, position.y, position.width - 22f, EditorGUIUtility.singleLineHeight);
 
-                    EditorGUI.PropertyField(variableRect, variableProperty, GUIContent.none);
+                    EditorGUI.PropertyField(variableRect, variableProperty, label);
 
-                    Rect foldoutRect = new Rect(0, 0, 15f, EditorGUIUtility.singleLineHeight);
+                    //Rect foldoutRect = new Rect(0, 0, 15f, EditorGUIUtility.singleLineHeight);
 
-                    //Draw foldout
-                    foldoutOpen = EditorGUI.Foldout(foldoutRect, foldoutOpen, GUIContent.none);
-                    if (foldoutOpen && isVariable && variableProperty.objectReferenceValue != null)
-                    {
-                        Rect valueRect = new Rect(0, EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing, EditorGUIUtility.currentViewWidth - 20, EditorGUIUtility.singleLineHeight);
-                        EditorGUI.indentLevel++;
+                    ////Draw foldout
+                    //foldoutOpen = EditorGUI.Foldout(foldoutRect, foldoutOpen, GUIContent.none);
+                    //if (foldoutOpen && isVariable && variableProperty.objectReferenceValue != null)
+                    //{
+                    //    Rect valueRect = new Rect(0, EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing, EditorGUIUtility.currentViewWidth - 20, EditorGUIUtility.singleLineHeight);
+                    //    EditorGUI.indentLevel++;
 
-                        var valueVariable = variableProperty.objectReferenceValue as Variable;
-                        SerializedObject serializedObject = new SerializedObject(valueVariable);
-                        SerializedProperty valueProperty = serializedObject.FindProperty("Value");
+                    //    var valueVariable = variableProperty.objectReferenceValue as Variable;
+                    //    SerializedObject serializedObject = new SerializedObject(valueVariable);
+                    //    SerializedProperty valueProperty = serializedObject.FindProperty("Value");
 
-                        EditorGUI.BeginChangeCheck();
+                    //    EditorGUI.BeginChangeCheck();
 
-                        valueProperty.isExpanded = expandedValue;
-                        EditorGUI.PropertyField(valueRect, valueProperty, true);
-                        expandedValue = valueProperty.isExpanded;
+                    //    valueProperty.isExpanded = expandedValue;
+                    //    EditorGUI.PropertyField(valueRect, valueProperty, true);
+                    //    expandedValue = valueProperty.isExpanded;
 
-                        if (EditorGUI.EndChangeCheck())
-                            serializedObject.ApplyModifiedProperties();
+                    //    if (EditorGUI.EndChangeCheck())
+                    //        serializedObject.ApplyModifiedProperties();
 
-                        height = EditorGUI.GetPropertyHeight(valueProperty) + EditorGUIUtility.standardVerticalSpacing + 2;
-                        EditorGUI.indentLevel--;
-                    }
+                    //    height = EditorGUI.GetPropertyHeight(valueProperty) + EditorGUIUtility.standardVerticalSpacing + 2;
+                    //    EditorGUI.indentLevel--;
+                    //}
 
-                    position.width -= 15;
+                    //position.width -= 15;
                 }
                 else
                 {
                     position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
-                    Rect valueRect = new Rect(position.x, position.y, position.width - 72f, position.height);
+                    Rect valueRect = new Rect(position.x, position.y, position.width - 20f, position.height);
 
                     EditorGUI.PropertyField(valueRect, variableProperty, GUIContent.none);
 
-                    Rect newRect = new Rect(position.x + position.width - 70f, position.y, 50f, position.height);
-                    if (GUI.Button(newRect, "New", EditorStyles.miniButton))
-                    {
-                        Type newType = GetVariableType(variableProperty.type, out string variableTypeName);
-                        Variable newVariable = ScriptableObject.CreateInstance(newType) as Variable;
+                    //Rect newRect = new Rect(position.x + position.width - 70f, position.y, 50f, position.height);
+                    //if (GUI.Button(newRect, "New", EditorStyles.miniButton))
+                    //{
+                    //    Type newType = GetVariableType(variableProperty.type, out string variableTypeName);
+                    //    Variable newVariable = ScriptableObject.CreateInstance(newType) as Variable;
 
-                        string path = EditorUtility.SaveFilePanel($"Create new {variableTypeName}", "Assets/Data", property.name.RemoveUnderscore().CapitalizeFirstLetter(), "asset");
+                    //    string path = EditorUtility.SaveFilePanel($"Create new {variableTypeName}", "Assets/Data", property.name.RemoveUnderscore().CapitalizeFirstLetter(), "asset");
 
-                        if (!string.IsNullOrEmpty(path))
-                        {
-                            path = "Assets" + path.Substring(Application.dataPath.Length);
+                    //    if (!string.IsNullOrEmpty(path))
+                    //    {
+                    //        path = "Assets" + path.Substring(Application.dataPath.Length);
 
-                            AssetDatabase.CreateAsset(newVariable, path);
-                            AssetDatabase.SaveAssets();
-                            AssetDatabase.Refresh();
+                    //        AssetDatabase.CreateAsset(newVariable, path);
+                    //        AssetDatabase.SaveAssets();
+                    //        AssetDatabase.Refresh();
 
-                            variableProperty.objectReferenceValue = newVariable;
-                            isVariableProperty.boolValue = true;
-                            property.serializedObject.ApplyModifiedProperties();
-                        }
-                    }
+                    //        variableProperty.objectReferenceValue = newVariable;
+                    //        isVariableProperty.boolValue = true;
+                    //        property.serializedObject.ApplyModifiedProperties();
+                    //    }
+                    //}
                 }
             }
             else
@@ -141,12 +143,8 @@ namespace ScriptableArchitecture.EditorScript
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            float baseHeight = base.GetPropertyHeight(property, label);
-
-            if ((foldoutOpen && isVariable) || !isVariable)
-                return baseHeight + height;
-
-            return baseHeight;
+            SerializedProperty variableProperty = property.FindPropertyRelative("_variable");
+            return EditorGUI.GetPropertyHeight(variableProperty, true);
         }
 
 

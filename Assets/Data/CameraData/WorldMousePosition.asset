@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a744849c3b6a09d43940a44d795c5ee1, type: 3}
   m_Name: WorldMousePosition
   m_EditorClassIdentifier: 
-  Value: {x: 19.590076, y: 24.992449, z: -10}
+  Value: {x: 1, y: 24.733332, z: -10}
   Type: 0
   StartValue: {x: 0, y: 0, z: 0}
   _variableType: 1

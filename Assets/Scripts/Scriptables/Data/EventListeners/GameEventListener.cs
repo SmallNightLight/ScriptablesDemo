@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ScriptableArchitecture.Data
 {
-    [AddComponentMenu("GameEvent Listeners/Event Listener")]
+    [AddComponentMenu("GameEvent Listeners/Game Event Listener")]
     public class GameEventListener : GameEventListenerBase
     {
     }
