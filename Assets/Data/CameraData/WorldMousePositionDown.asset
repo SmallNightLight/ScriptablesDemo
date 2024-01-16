@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a744849c3b6a09d43940a44d795c5ee1, type: 3}
-  m_Name: WorldMousePosition
+  m_Name: WorldMousePositionDown
   m_EditorClassIdentifier: 
   VariableType: 1
   InitializeType: 0
-  Value: {x: 1, y: 24.733332, z: -10}
+  Value: {x: 39.16694, y: 4.08803, z: -10}
   StartValue: {x: 0, y: 0, z: 0}
   DebugValue: {x: 3, y: 0, z: 0}

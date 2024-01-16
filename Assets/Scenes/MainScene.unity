@@ -14548,34 +14548,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TowerSpawner
       objectReference: {fileID: 0}
-    - target: {fileID: 1727239478276223399, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-      propertyPath: _event
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1727239478276223399, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-      propertyPath: _canPlaceTower._variable
-      value: 
-      objectReference: {fileID: 11400000, guid: a3c94657fbbbddf4989c2801e33ddbe1, type: 2}
-    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-      propertyPath: _canPlaceTower._isVariable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-      propertyPath: _defaultTowerData._variable
-      value: 
-      objectReference: {fileID: 11400000, guid: cecbaead274275f46b8ae13b6bc1ad66, type: 2}
-    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-      propertyPath: _defaultTowerData._isVariable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-      propertyPath: _worldMousePosition._isVariable
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7438383195733591137, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

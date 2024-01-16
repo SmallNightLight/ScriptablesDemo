@@ -12,12 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52fbde2715c39294bb354db41c88f6fc, type: 3}
   m_Name: ArcherTower3
   m_EditorClassIdentifier: 
+  VariableType: 0
+  InitializeType: 2
   Value:
     Name: 
     Description: 
     Sprite: {fileID: 21300000, guid: 7ff475a72b9d0cb4abcdfa54f5a6db47, type: 3}
-  Type: 0
-  DefaultValue:
+  StartValue:
+    Name: Archer3
+    Description: 
+    Sprite: {fileID: 21300000, guid: 7ff475a72b9d0cb4abcdfa54f5a6db47, type: 3}
+  DebugValue:
     Name: 
     Description: 
     Sprite: {fileID: 0}

@@ -2,16 +2,16 @@ using ScriptableArchitecture.Core;
 using System;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace ScriptableArchitecture.EditorScript
 {
     [CustomPropertyDrawer(typeof(Variable<>), true)]
     public class VariableDrawer : PropertyDrawer
     {
-        bool foldoutOpen;
-        bool expandedValue;
-        float height = 18f;
+        private bool _foldoutOpen;
+        private bool _expandedValue;
+        private bool _expandedStartValue;
+        private float _height = 18f;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -19,7 +19,7 @@ namespace ScriptableArchitecture.EditorScript
 
             EditorGUI.BeginProperty(position, label, property);
 
-            height = EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+            _height = EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
 
             if (property.boxedValue != null)
             {
@@ -30,26 +30,61 @@ namespace ScriptableArchitecture.EditorScript
                 Rect foldoutRect = new Rect(position.x + 15f, position.y, 15f, EditorGUIUtility.singleLineHeight);
 
                 //Draw foldout
-                foldoutOpen = EditorGUI.Foldout(foldoutRect, foldoutOpen, label);
-                if (foldoutOpen && property.objectReferenceValue != null)
+                _foldoutOpen = EditorGUI.Foldout(foldoutRect, _foldoutOpen, label);
+                if (_foldoutOpen && property.objectReferenceValue != null)
                 {
                     Rect valueRect = new Rect(position.x / 2f + 10f, position.y + EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing + 1f, EditorGUIUtility.currentViewWidth - 22f, EditorGUIUtility.singleLineHeight);
                     EditorGUI.indentLevel++;
+                    bool inPlaymode = EditorApplication.isPlaying;
 
                     var valueVariable = property.objectReferenceValue as Variable;
                     SerializedObject serializedObject = new SerializedObject(valueVariable);
                     SerializedProperty valueProperty = serializedObject.FindProperty("Value");
+                    SerializedProperty startValueProperty = serializedObject.FindProperty("StartValue");
+                    SerializedProperty _variableTypeProperty = serializedObject.FindProperty("VariableType");
+                    SerializedProperty _initializeTypeProperty = serializedObject.FindProperty("InitializeType");
+
+                    VariableType variableType = (VariableType)_variableTypeProperty.enumValueIndex;
+                    InitializeType initializeType = (InitializeType)_initializeTypeProperty.enumValueIndex;
 
                     EditorGUI.BeginChangeCheck();
 
-                    valueProperty.isExpanded = expandedValue;
-                    EditorGUI.PropertyField(valueRect, valueProperty, true);
-                    expandedValue = valueProperty.isExpanded;
+                    if (variableType == VariableType.Variable || variableType == VariableType.VariableEvent)
+                    {
+                        if (inPlaymode && initializeType != InitializeType.ReadOnly)
+                        {
+                            valueProperty.isExpanded = _expandedValue;
+                            EditorGUI.PropertyField(valueRect, valueProperty, true);
+                            _expandedValue = valueProperty.isExpanded;
+
+                            float height = EditorGUI.GetPropertyHeight(valueProperty) + EditorGUIUtility.standardVerticalSpacing + 1;
+                            _height += height;
+                            valueRect.y += height;
+                        }
+
+                        if (initializeType == InitializeType.ResetOnGameStart || initializeType == InitializeType.ReadOnly)
+                        {
+                            startValueProperty.isExpanded = _expandedStartValue;
+                            EditorGUI.PropertyField(valueRect, startValueProperty, true);
+                            _expandedStartValue = startValueProperty.isExpanded;
+
+                            float height = EditorGUI.GetPropertyHeight(startValueProperty) + EditorGUIUtility.standardVerticalSpacing + 1;
+                            _height += height;
+                            valueRect.y += height;
+                        }
+                    }
+
+                    EditorGUI.PropertyField(valueRect, _variableTypeProperty, true);
+
+                    valueRect.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+                    _height += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+
+                    EditorGUI.PropertyField(valueRect, _initializeTypeProperty, true);
+                    _height++;
 
                     if (EditorGUI.EndChangeCheck())
                         serializedObject.ApplyModifiedProperties();
 
-                    height = EditorGUI.GetPropertyHeight(valueProperty) + EditorGUIUtility.standardVerticalSpacing + 4f;
                     EditorGUI.indentLevel--;
                 }
             }
@@ -94,8 +129,8 @@ namespace ScriptableArchitecture.EditorScript
         {
             float baseHeight = base.GetPropertyHeight(property, label);
 
-            if (foldoutOpen)
-                return baseHeight + height;
+            if (_foldoutOpen)
+                return baseHeight + _height;
 
             return baseHeight;
         }

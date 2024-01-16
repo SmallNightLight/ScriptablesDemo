@@ -14,7 +14,9 @@ namespace ScriptableArchitecture.Core
         {
             get
             {
-                if (_isVariable && _variable != null)
+                if (_isVariable && _variable.InitializeType == InitializeType.ReadOnly)
+                    return _variable.StartValue;
+                else if (_isVariable && _variable != null)
                     return _variable.Value;
                 else
                     return _constant;

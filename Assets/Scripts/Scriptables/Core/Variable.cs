@@ -6,7 +6,6 @@ namespace ScriptableArchitecture.Core
 {
     public abstract class Variable<T> : Variable, IGameEvent<T>
     {
-        [SerializeField]
         public T Value;
         public T StartValue;
 

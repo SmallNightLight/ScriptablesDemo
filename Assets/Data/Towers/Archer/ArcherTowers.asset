@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ea17397c7222e418436b24ae1f22cd, type: 3}
   m_Name: ArcherTowers
   m_EditorClassIdentifier: 
+  VariableType: 0
+  InitializeType: 2
   Value:
     BaseName: Archer
     Towers:
@@ -33,11 +35,27 @@ MonoBehaviour:
         Name: 
         Description: 
         Sprite: {fileID: 0}
-  Type: 0
   StartValue:
     BaseName: 
-    Towers: []
-  _variableType: 0
+    Towers:
+    - _isVariable: 1
+      _variable: {fileID: 11400000, guid: 87d7d6e93f584e74c9c1d746555acffb, type: 2}
+      _constant:
+        Name: 
+        Description: 
+        Sprite: {fileID: 0}
+    - _isVariable: 1
+      _variable: {fileID: 11400000, guid: cecbaead274275f46b8ae13b6bc1ad66, type: 2}
+      _constant:
+        Name: 
+        Description: 
+        Sprite: {fileID: 0}
+    - _isVariable: 1
+      _variable: {fileID: 11400000, guid: cf04895cc9fe6c24d8a13774f923d3fb, type: 2}
+      _constant:
+        Name: 
+        Description: 
+        Sprite: {fileID: 0}
   DebugValue:
     BaseName: 
     Towers: []

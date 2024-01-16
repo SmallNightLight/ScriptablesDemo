@@ -8,6 +8,7 @@ using System.Linq;
 namespace ScriptableArchitecture.EditorScript
 {
     [CustomEditor(typeof(Variable<>), true)]
+    [CanEditMultipleObjects]
     public class VariableEditor : Editor
     {
         private Variable _target;
@@ -35,14 +36,16 @@ namespace ScriptableArchitecture.EditorScript
         {
             _target = target as Variable;
 
+            //Types
+            _variableTypeProperty = serializedObject.FindProperty("VariableType");
+            _initializeTypeProperty = serializedObject.FindProperty("InitializeType");
+
             //Variable
             _valueProperty = serializedObject.FindProperty("Value");
-            _initializeTypeProperty = serializedObject.FindProperty("InitializeType");
             _startValueProperty = serializedObject.FindProperty("StartValue");
 
             //Event
             _debugValueProperty = serializedObject.FindProperty("DebugValue");
-            _variableTypeProperty = serializedObject.FindProperty("VariableType");
             _raiseMethod = target.GetType().BaseType.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).Where(m => m.GetParameters().Length == 1).ToArray().FirstOrDefault();
             _showDebugEvent = true;
 
@@ -88,15 +91,26 @@ namespace ScriptableArchitecture.EditorScript
 
             if (_showVariable)
             {
-                EditorGUILayout.PropertyField(_valueProperty);
+                EditorGUI.indentLevel++;
+                bool inPlaymode = EditorApplication.isPlaying;
 
-                if ((InitializeType)_initializeTypeProperty.enumValueIndex == InitializeType.ResetOnGameStart)
-                    EditorGUILayout.PropertyField(_startValueProperty);
+                VariableType variableType = (VariableType)_variableTypeProperty.enumValueIndex;
+                InitializeType initializeType = (InitializeType)_initializeTypeProperty.enumValueIndex;
 
-                if (GUI.changed)
-                    EditorUtility.SetDirty(_target);
+                EditorGUI.BeginChangeCheck();
+
+                if (variableType == VariableType.Variable || variableType == VariableType.VariableEvent)
+                {
+                    if (inPlaymode && initializeType != InitializeType.ReadOnly)
+                        EditorGUILayout.PropertyField(_valueProperty, true);
+
+                    if (initializeType == InitializeType.ResetOnGameStart || initializeType == InitializeType.ReadOnly)
+                        EditorGUILayout.PropertyField(_startValueProperty, true);
+                }
 
                 serializedObject.ApplyModifiedProperties();
+
+                EditorGUI.indentLevel--;
             }
         }
 
