@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ScriptableArchitecture.Data
 {
     [System.Serializable]
-    public struct TowerData : IDataPoint
+    public class TowerData : IDataPoint
     {
         public string Name;
         public string Description;

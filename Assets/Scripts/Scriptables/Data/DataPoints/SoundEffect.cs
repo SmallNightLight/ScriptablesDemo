@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 namespace ScriptableArchitecture.Data
 {
     [System.Serializable]
-    public struct SoundEffect : IDataPoint
+    public class SoundEffect : IDataPoint
     {
         public AudioMixerGroup audioMixerSnapshot;
 

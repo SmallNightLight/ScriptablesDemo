@@ -1,3 +1,4 @@
+using ScriptableArchitecture.Core;
 using ScriptableArchitecture.Data;
 using UnityEngine;
 

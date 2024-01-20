@@ -58,7 +58,7 @@ MonoBehaviour:
   _towerPrefab: {fileID: 601080569172190573, guid: d47c1cf79d54d834c89fda051400ba82, type: 3}
   _defaultTowerData:
     _isVariable: 1
-    _variable: {fileID: 11400000, guid: 87d7d6e93f584e74c9c1d746555acffb, type: 2}
+    _variable: {fileID: 11400000, guid: cecbaead274275f46b8ae13b6bc1ad66, type: 2}
     _constant:
       Name: 
       Description: 

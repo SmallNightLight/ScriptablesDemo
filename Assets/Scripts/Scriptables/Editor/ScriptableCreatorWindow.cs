@@ -18,6 +18,7 @@ namespace ScriptableArchitecture.EditorScript
         private enum WindowOptions { Empty, Content, Creator }
         private WindowOptions _currentDataWindow = WindowOptions.Empty;
         string _currentScriptName;
+        string _currentScriptPath;
         string _currentScriptContents;
 
         //Scriptables variables
@@ -61,6 +62,7 @@ namespace ScriptableArchitecture.EditorScript
             {
                 _currentScriptName = "";
                 _currentScriptContents = "";
+                _currentScriptPath = "";
 
                 _currentToolbar = newToolbar;
             }
@@ -142,6 +144,7 @@ namespace ScriptableArchitecture.EditorScript
                         _currentDataWindow = WindowOptions.Content;
                         _currentScriptName = fileName;
                         _currentScriptContents = fileContents;
+                        _currentScriptPath = assetPath;
                         Repaint();
                     }
                 }
@@ -173,9 +176,20 @@ namespace ScriptableArchitecture.EditorScript
             GUILayout.Label(_currentScriptName, EditorStyles.boldLabel);
             GUILayout.FlexibleSpace();
 
+            //Edit script
+            if (GUILayout.Button("Edit", EditorStyles.miniButtonRight, GUILayout.Width(100)))
+            {
+                UnityEngine.Object scriptAsset = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(_currentScriptPath);
+
+                if (scriptAsset != null)
+                {
+                    AssetDatabase.OpenAsset(scriptAsset);
+                }
+            }
+
             //Remove button
-            if (GUILayout.Button("Remove", EditorStyles.miniButtonRight, GUILayout.Width(150)))
-                RemoveDataPointConfirmation(_currentScriptName);
+            if (GUILayout.Button("Remove", EditorStyles.miniButtonRight, GUILayout.Width(100)))
+                RemoveConfirmation(_currentScriptName);
 
             EditorGUILayout.EndHorizontal();
 
@@ -184,7 +198,7 @@ namespace ScriptableArchitecture.EditorScript
             GUILayout.EndVertical();
         }
 
-        private void RemoveDataPointConfirmation(string baseName)
+        private void RemoveConfirmation(string baseName)
         {
             if (_currentToolbar == 0)
             {
@@ -206,6 +220,7 @@ namespace ScriptableArchitecture.EditorScript
         private void RemoveDataPoint(string baseName)
         {
             _currentScriptContents = "";
+            _currentScriptPath = "";
 
             File.Delete($"{_dataPointsPath}/{baseName}.cs");
             AssetDatabase.Refresh();
@@ -214,6 +229,7 @@ namespace ScriptableArchitecture.EditorScript
         private void RemoveScriptables(string baseName)
         {
             _currentScriptContents = "";
+            _currentScriptPath = "";
 
             File.Delete($"{_eventListenersPath}/{baseName}GameEventListener.cs");
             File.Delete($"{_gameEventsPath}/{baseName}GameEvent.cs");
@@ -316,6 +332,7 @@ namespace ScriptableArchitecture.EditorScript
             _currentDataWindow = WindowOptions.Content;
             _currentScriptName = _scriptableType.CapitalizeFirstLetter();
             _currentScriptContents = "";
+            _currentScriptPath = "";
             Repaint();
 
             _scriptableType = "";
@@ -396,7 +413,7 @@ namespace ScriptableArchitecture.EditorScript
             scriptTemplate += $@"namespace ScriptableArchitecture.Data
 {{
     [System.Serializable]
-    public struct {_dataPointName} : IDataPoint" + "\n    {\n";
+    public class {_dataPointName} : IDataPoint" + "\n    {\n";
 
             //Add properties
             foreach (PropertyData property in _dataPointProperties)
@@ -421,6 +438,7 @@ namespace ScriptableArchitecture.EditorScript
             _currentDataWindow = WindowOptions.Content;
             _currentScriptName = _dataPointName;
             _currentScriptContents = scriptTemplate;
+            _currentScriptPath = scriptFilePath;
             Repaint();
 
             _dataPointName = "";

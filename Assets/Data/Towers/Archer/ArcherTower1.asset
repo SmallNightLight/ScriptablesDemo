@@ -18,8 +18,8 @@ MonoBehaviour:
     Name: Archer1
     Description: 
     Sprite: {fileID: 21300000, guid: b6b3b7fce2d1090499e1b062c280683b, type: 3}
-  StartValue:
-    Name: Archer1
+  _startValue:
+    Name: 
     Description: 
     Sprite: {fileID: 21300000, guid: b6b3b7fce2d1090499e1b062c280683b, type: 3}
   DebugValue:

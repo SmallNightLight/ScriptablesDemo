@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ScriptableArchitecture.Data
 {
-    [CreateAssetMenu(fileName = "GameEvent", menuName = "Scriptables/GameEvents/GameEvent")]
+    [CreateAssetMenu(fileName = "GameEvent", menuName = "Scriptables/GameEvent (Empty)")]
     public class GameEvent : GameEventBase
     {
     }

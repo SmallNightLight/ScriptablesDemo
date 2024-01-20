@@ -35,7 +35,7 @@ MonoBehaviour:
         Name: 
         Description: 
         Sprite: {fileID: 0}
-  StartValue:
+  _startValue:
     BaseName: 
     Towers:
     - _isVariable: 1

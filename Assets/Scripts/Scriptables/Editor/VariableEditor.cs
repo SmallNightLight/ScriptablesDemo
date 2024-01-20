@@ -41,8 +41,8 @@ namespace ScriptableArchitecture.EditorScript
             _initializeTypeProperty = serializedObject.FindProperty("InitializeType");
 
             //Variable
-            _valueProperty = serializedObject.FindProperty("Value");
-            _startValueProperty = serializedObject.FindProperty("StartValue");
+            _valueProperty = serializedObject.FindProperty("_value");
+            _startValueProperty = serializedObject.FindProperty("_startValue");
 
             //Event
             _debugValueProperty = serializedObject.FindProperty("DebugValue");

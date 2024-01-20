@@ -2,7 +2,7 @@ namespace ScriptableArchitecture.Core
 {
     public enum VariableType
     {
-        Variable, VariableEvent, Event
+        Variable, VariableEvent, Event, RuntimeSet
     }
 
     public enum InitializeType

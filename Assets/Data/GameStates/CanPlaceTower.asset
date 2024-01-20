@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VariableType: 0
   InitializeType: 1
-  Value: 1
-  StartValue: 1
+  _value: 1
+  _startValue: 1
   DebugValue: 0

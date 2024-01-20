@@ -39,8 +39,8 @@ namespace ScriptableArchitecture.EditorScript
 
                     var valueVariable = property.objectReferenceValue as Variable;
                     SerializedObject serializedObject = new SerializedObject(valueVariable);
-                    SerializedProperty valueProperty = serializedObject.FindProperty("Value");
-                    SerializedProperty startValueProperty = serializedObject.FindProperty("StartValue");
+                    SerializedProperty valueProperty = serializedObject.FindProperty("_value");
+                    SerializedProperty startValueProperty = serializedObject.FindProperty("_startValue"); 
                     SerializedProperty _variableTypeProperty = serializedObject.FindProperty("VariableType");
                     SerializedProperty _initializeTypeProperty = serializedObject.FindProperty("InitializeType");
 
