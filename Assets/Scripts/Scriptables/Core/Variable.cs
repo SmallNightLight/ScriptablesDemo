@@ -6,42 +6,86 @@ namespace ScriptableArchitecture.Core
 {
     public abstract class Variable<T> : Variable, IGameEvent<T>
     {
+        //Variable
+
+        public InitializeType InitializeTypeVariable;
+
         [SerializeField] private T _value;
+        [SerializeField] private T _startValue;
+
         public T Value
         {
             get 
-            { 
+            {
+                if (InitializeTypeVariable == InitializeType.ReadOnly)
+                    return _startValue;
+
                 return _value;
             }
             set 
-            { 
+            {
+                if (InitializeTypeVariable == InitializeType.ReadOnly)
+                {
+                    Debug.LogWarning($"Cannot set: {name} (Readonly)");
+                    return;
+                }
+
                 _value = value;
                 Log(_stacktraceVariable, $"Set value to: {Value}");
             }
         }
 
-        [SerializeField] private T _startValue;
-        public T StartValue
+
+        //Event
+        private List<IListener<T>> _listeners;
+
+
+        //RuntimeSet
+        public InitializeType InitializeTypeRuntimeSet;
+
+        [SerializeField] private List<T> _runtimeSet;
+        [SerializeField] private List<T> _startRuntimeSet;
+
+        public IEnumerable<T> RuntimeSet
         {
             get
-            { 
-                return _startValue;
+            {
+                if (InitializeTypeVariable == InitializeType.ReadOnly)
+                    return _startRuntimeSet;
+
+                return _runtimeSet;
             }
         }
 
-        private List<IListener<T>> _listeners = new List<IListener<T>>();
-        private HashSet<T> _runtimeSet = new HashSet<T>();
 
         //OnEnable is called when the first scene is loaded, regardles if the scene has a reference to it (build game)
         private void OnEnable()
         {
-            //This is only for the editor as the build game does not save Scriptable objects across sessions
-            if (InitializeType == InitializeType.ResetOnGameStart)
+            if (VariableType == VariableType.Event || VariableType == VariableType.VariableEvent)
             {
-                Value = StartValue;
-                Log(_stacktraceVariable, $"Set value to startvalue: {Value}");
+                //This is only for the editor as the build game does not save Scriptable objects across sessions
+                if (InitializeTypeVariable == InitializeType.ResetOnGameStart)
+                {
+                    _value = _startValue;
+                    Log(_stacktraceVariable, $"Set value to startvalue: {Value}");
+                }
+
+                //Only initilize lists when needed to avoid overhead
+                _listeners = new List<IListener<T>>();
             }
-                
+            
+            if (VariableType == VariableType.RuntimeSet)
+            {
+                if (InitializeTypeRuntimeSet == InitializeType.ResetOnGameStart)
+                {
+                    _runtimeSet = new List<T>(_startRuntimeSet);
+                    Log(_stacktraceRuntimeSet, $"Set runtimeSet to startvalue");
+                }
+
+                if (InitializeTypeRuntimeSet == InitializeType.Normal)
+                    _runtimeSet = new List<T>();
+            }
+
 
 #if UNITY_EDITOR
             _stacktraceEvent.Clear();
@@ -116,30 +160,40 @@ namespace ScriptableArchitecture.Core
 
         public void Add(T value)
         {
+            if (InitializeTypeRuntimeSet == InitializeType.ReadOnly)
+            {
+                Debug.LogWarning($"Cannot add {value} to: {name} (Readonly)");
+                return;
+            }
+
             _runtimeSet.Add(value);
             Log(_stacktraceRuntimeSet, $"Added value to runtimeSet: {value}");
         }
 
         public void Remove(T value)
         {
+            if (InitializeTypeRuntimeSet == InitializeType.ReadOnly)
+            {
+                Debug.LogWarning($"Cannot remove {value} from: {name} (Readonly)");
+                return;
+            }
+
             _runtimeSet.Remove(value);
             Log(_stacktraceRuntimeSet, $"Removed value from runtimeSet: {value}");
         }
 
-        public HashSet<T> GetRuntimeSet()
+        public void ClearRuntimeSet()
         {
-            return _runtimeSet;
+            if (InitializeTypeRuntimeSet == InitializeType.ReadOnly)
+            {
+                Debug.LogWarning($"Cannot clear {name} (Readonly)");
+                return;
+            }
+
+            _runtimeSet.Clear();
+            Log(_stacktraceRuntimeSet, $"Cleared runtimeSet");
         }
 
-        public List<T> GetRuntimeList()
-        {
-            return _runtimeSet.ToList();
-        }
-
-        public bool HasRuntimeItem(T value)
-        {
-            return _runtimeSet.Contains(value);
-        }
 
         //Debugging
 
@@ -169,6 +223,5 @@ namespace ScriptableArchitecture.Core
     public abstract class Variable : ScriptableObject 
     {
         public VariableType VariableType;
-        public InitializeType InitializeType;
     }
 }

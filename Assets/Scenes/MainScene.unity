@@ -14564,6 +14564,14 @@ PrefabInstance:
       propertyPath: _sR._constant.Volume
       value: 2.55
       objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _runtimeSet._variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 2959f346439017348977ec7f6e377ffd, type: 2}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _runtimeSet._isVariable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7438383195733591137, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

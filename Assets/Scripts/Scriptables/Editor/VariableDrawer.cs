@@ -42,7 +42,7 @@ namespace ScriptableArchitecture.EditorScript
                     SerializedProperty valueProperty = serializedObject.FindProperty("_value");
                     SerializedProperty startValueProperty = serializedObject.FindProperty("_startValue"); 
                     SerializedProperty _variableTypeProperty = serializedObject.FindProperty("VariableType");
-                    SerializedProperty _initializeTypeProperty = serializedObject.FindProperty("InitializeType");
+                    SerializedProperty _initializeTypeProperty = serializedObject.FindProperty("InitializeTypeVariable");
 
                     VariableType variableType = (VariableType)_variableTypeProperty.enumValueIndex;
                     InitializeType initializeType = (InitializeType)_initializeTypeProperty.enumValueIndex;

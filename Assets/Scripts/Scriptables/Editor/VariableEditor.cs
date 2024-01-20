@@ -15,24 +15,37 @@ namespace ScriptableArchitecture.EditorScript
 
         private bool _canShowVariable;
         private bool _canShowGameEvent;
+        private bool _canShowRuntimeSet;
+
         private bool _showVariable;
         private bool _showGameEvent;
-
+        private bool _showRuntimeSet;
         private bool _showStacktrace;
 
         //Variable
+        private SerializedProperty _initializeTypeVariableProperty;
         private SerializedProperty _valueProperty;
-        private SerializedProperty _initializeTypeProperty;
         private SerializedProperty _startValueProperty;
 
         //Event
         private bool _showDebugEvent;
         private bool _showListeners;
-        private bool[] _showSubStackTraces = new bool[3];
-        private Vector2[] _scrollStacktraces = new Vector2[3];
+        
         private SerializedProperty _debugValueProperty;
         private SerializedProperty _variableTypeProperty;
         private MethodInfo _raiseMethod;
+
+        //RuntimeSet
+        private SerializedProperty _initializeTypeRuntimeSetProperty;
+        private SerializedProperty _runtimeSetProperty;
+        private SerializedProperty _startRuntimeSetProperty;
+
+
+        //Stacktrace
+        private bool[] _showSubStackTraces = new bool[3];
+        private Vector2[] _scrollStacktraces = new Vector2[3];
+
+        private bool _inPlayMode;
 
         private void OnEnable()
         {
@@ -40,7 +53,8 @@ namespace ScriptableArchitecture.EditorScript
 
             //Types
             _variableTypeProperty = serializedObject.FindProperty("VariableType");
-            _initializeTypeProperty = serializedObject.FindProperty("InitializeType");
+            _initializeTypeVariableProperty = serializedObject.FindProperty("InitializeTypeVariable");
+            _initializeTypeRuntimeSetProperty = serializedObject.FindProperty("InitializeTypeRuntimeSet");
 
             //Variable
             _valueProperty = serializedObject.FindProperty("_value");
@@ -49,6 +63,10 @@ namespace ScriptableArchitecture.EditorScript
             //Event
             _debugValueProperty = serializedObject.FindProperty("DebugValue");
             _raiseMethod = target.GetType().BaseType.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).Where(m => m.GetParameters().Length == 1).ToArray().FirstOrDefault();
+
+            //RuntimeSet
+            _runtimeSetProperty = serializedObject.FindProperty("_runtimeSet");
+            _startRuntimeSetProperty = serializedObject.FindProperty("_startRuntimeSet");
 
             ResetFoldouts();
         }
@@ -60,7 +78,12 @@ namespace ScriptableArchitecture.EditorScript
             serializedObject.Update();
 
             EditorGUI.BeginChangeCheck();
+
+            _inPlayMode = EditorApplication.isPlaying;
+
+            GUI.enabled = !_inPlayMode;
             EditorGUILayout.PropertyField(_variableTypeProperty);
+            GUI.enabled = true;
 
             if (EditorGUI.EndChangeCheck())
                 ResetFoldouts();
@@ -69,44 +92,49 @@ namespace ScriptableArchitecture.EditorScript
                 EditorUtility.SetDirty(_target);
 
             serializedObject.ApplyModifiedProperties();
-            EditorGUILayout.Space();
 
-            EditorGUILayout.Space();
             if (_canShowVariable)
+            {
+                EditorGUILayout.Space(10);
                 DrawVariableEditor();
-
-            EditorGUILayout.Space();
+            }
+                
             if (_canShowGameEvent)
+            {
+                EditorGUILayout.Space(10);
                 DrawGameEventEditor();
-
-            EditorGUILayout.Space();
+            }
+            
+            if (_canShowRuntimeSet)
+            {
+                EditorGUILayout.Space(10);
+                DrawRuntimeSetEditor();
+            }
+                
+            EditorGUILayout.Space(10);
             DrawStacktrace();
         }
 
-        public void DrawVariableEditor()
+        private void DrawVariableEditor()
         {
             _showVariable = EditorGUILayout.Foldout(_showVariable, "Variable", true, new GUIStyle(EditorStyles.foldout) { fontStyle = FontStyle.Bold });
 
             if (_showVariable)
             {
                 EditorGUI.indentLevel++;
-                bool inPlaymode = EditorApplication.isPlaying;
 
                 VariableType variableType = (VariableType)_variableTypeProperty.enumValueIndex;
-                InitializeType initializeType = (InitializeType)_initializeTypeProperty.enumValueIndex;
+                InitializeType initializeType = (InitializeType)_initializeTypeVariableProperty.enumValueIndex;
 
                 EditorGUI.BeginChangeCheck();
 
-                EditorGUILayout.PropertyField(_initializeTypeProperty);
+                EditorGUILayout.PropertyField(_initializeTypeVariableProperty);
 
-                if (variableType == VariableType.Variable || variableType == VariableType.VariableEvent)
-                {
-                    if (inPlaymode && initializeType != InitializeType.ReadOnly)
-                        EditorGUILayout.PropertyField(_valueProperty, true);
+                if (_inPlayMode && initializeType != InitializeType.ReadOnly)
+                    EditorGUILayout.PropertyField(_valueProperty, true);
 
-                    if (initializeType == InitializeType.ResetOnGameStart || initializeType == InitializeType.ReadOnly)
-                        EditorGUILayout.PropertyField(_startValueProperty, true);
-                }
+                if (initializeType == InitializeType.ResetOnGameStart || initializeType == InitializeType.ReadOnly)
+                    EditorGUILayout.PropertyField(_startValueProperty, true);
 
                 serializedObject.ApplyModifiedProperties();
 
@@ -114,13 +142,12 @@ namespace ScriptableArchitecture.EditorScript
             }
         }
 
-        public void DrawGameEventEditor()
+        private void DrawGameEventEditor()
         {
             _showGameEvent = EditorGUILayout.Foldout(_showGameEvent, "Game Event", true, new GUIStyle(EditorStyles.foldout) { fontStyle = FontStyle.Bold });
 
             if (_showGameEvent)
             {
-                EditorGUILayout.Space();
                 EditorGUILayout.BeginVertical(EditorStyles.helpBox);
                 EditorGUI.indentLevel++;
 
@@ -148,6 +175,30 @@ namespace ScriptableArchitecture.EditorScript
             }
         }
 
+        private void DrawRuntimeSetEditor()
+        {
+            _showRuntimeSet = EditorGUILayout.Foldout(_showRuntimeSet, "RuntimeSet", true, new GUIStyle(EditorStyles.foldout) { fontStyle = FontStyle.Bold });
+            
+            if (_showRuntimeSet)
+            {
+                EditorGUI.BeginChangeCheck();
+                EditorGUILayout.PropertyField(_initializeTypeRuntimeSetProperty);
+                EditorGUI.indentLevel++;
+
+                InitializeType initializeType = (InitializeType)_initializeTypeRuntimeSetProperty.enumValueIndex;
+
+                if (_inPlayMode && initializeType != InitializeType.ReadOnly)
+                    EditorGUILayout.PropertyField(_runtimeSetProperty, true);
+
+                if (initializeType == InitializeType.ResetOnGameStart || initializeType == InitializeType.ReadOnly)
+                    EditorGUILayout.PropertyField(_startRuntimeSetProperty, true);
+                
+                EditorGUI.indentLevel--;
+                EditorGUI.EndChangeCheck();
+                serializedObject.ApplyModifiedProperties();
+            }
+        }
+
         private void DrawStacktrace()
         {
             _showStacktrace = EditorGUILayout.Foldout(_showStacktrace, "Stacktrace", true, new GUIStyle(EditorStyles.foldout) { fontStyle = FontStyle.Bold });
@@ -166,8 +217,9 @@ namespace ScriptableArchitecture.EditorScript
 
                     bool drawAsVariable = _canShowVariable && (type == VariableType.Variable || type == VariableType.VariableEvent);
                     bool drawAsEvent = _canShowGameEvent && (type == VariableType.Event || type == VariableType.VariableEvent);
+                    bool drawAsRuntimeSet = _canShowRuntimeSet && (type == VariableType.RuntimeSet);
 
-                    if (drawAsVariable || drawAsEvent)
+                    if (drawAsVariable || drawAsEvent || drawAsRuntimeSet)
                         GameEventEditorHelper.DrawStackTrace(stacktrace, ref _showSubStackTraces[i], ref _scrollStacktraces[i]);
                 }
 
@@ -177,10 +229,16 @@ namespace ScriptableArchitecture.EditorScript
 
         private void ResetFoldouts()
         {
-            _canShowVariable = (VariableType)_variableTypeProperty.enumValueIndex == VariableType.Variable || (VariableType)_variableTypeProperty.enumValueIndex == VariableType.VariableEvent;
-            _canShowGameEvent = (VariableType)_variableTypeProperty.enumValueIndex == VariableType.Event || (VariableType)_variableTypeProperty.enumValueIndex == VariableType.VariableEvent;
+            VariableType variableType = (VariableType)_variableTypeProperty.enumValueIndex;
+
+            _canShowVariable = variableType == VariableType.Variable || variableType == VariableType.VariableEvent;
+            _canShowGameEvent = variableType == VariableType.Event || variableType == VariableType.VariableEvent;
+            _canShowRuntimeSet = variableType == VariableType.RuntimeSet;
+
+
             _showVariable = _canShowVariable;
             _showGameEvent = _canShowGameEvent;
+            _showRuntimeSet = _canShowRuntimeSet;
         }
     }
 }
