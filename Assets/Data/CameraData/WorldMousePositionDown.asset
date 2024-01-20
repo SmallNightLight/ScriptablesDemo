@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: WorldMousePositionDown
   m_EditorClassIdentifier: 
   VariableType: 1
-  InitializeType: 0
-  _value: {x: 4.7979174, y: -4.0249996, z: -10}
+  InitializeTypeVariable: 0
+  _value: {x: 31.731146, y: 8.286571, z: -10}
   _startValue: {x: 0, y: 0, z: 0}
+  InitializeTypeRuntimeSet: 0
+  _runtimeSet: []
+  _startRuntimeSet: []
   DebugValue: {x: 3, y: 0, z: 0}

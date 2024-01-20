@@ -18,4 +18,5 @@ MonoBehaviour:
   _startValue: 1
   InitializeTypeRuntimeSet: 0
   _runtimeSet: 
+  _startRuntimeSet: 
   DebugValue: 0

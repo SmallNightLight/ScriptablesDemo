@@ -20,7 +20,7 @@ MonoBehaviour:
     Sprite: {fileID: 0}
   _startValue:
     Name: 
-    Description: 
+    Description: 89
     Sprite: {fileID: 21300000, guid: 1ac7b1946e2bb0d42951cea15a2de459, type: 3}
   InitializeTypeRuntimeSet: 0
   _runtimeSet: []

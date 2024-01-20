@@ -123,7 +123,6 @@ namespace ScriptableArchitecture.EditorScript
             {
                 EditorGUI.indentLevel++;
 
-                VariableType variableType = (VariableType)_variableTypeProperty.enumValueIndex;
                 InitializeType initializeType = (InitializeType)_initializeTypeVariableProperty.enumValueIndex;
 
                 EditorGUI.BeginChangeCheck();
@@ -194,8 +193,9 @@ namespace ScriptableArchitecture.EditorScript
                     EditorGUILayout.PropertyField(_startRuntimeSetProperty, true);
                 
                 EditorGUI.indentLevel--;
-                EditorGUI.EndChangeCheck();
-                serializedObject.ApplyModifiedProperties();
+
+                if (EditorGUI.EndChangeCheck())
+                    serializedObject.ApplyModifiedProperties();
             }
         }
 

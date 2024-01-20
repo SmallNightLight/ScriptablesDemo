@@ -1,6 +1,7 @@
 using ScriptableArchitecture.Core;
 using System;
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace ScriptableArchitecture.EditorScript
@@ -9,9 +10,10 @@ namespace ScriptableArchitecture.EditorScript
     public class VariableDrawer : PropertyDrawer
     {
         private bool _foldoutOpen;
-        private bool _expandedValue;
-        private bool _expandedStartValue;
         private float _height = 18f;
+
+        private ReorderableList _runtimeSetList;
+        private ReorderableList _startRuntimeSetList;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -39,47 +41,75 @@ namespace ScriptableArchitecture.EditorScript
 
                     var valueVariable = property.objectReferenceValue as Variable;
                     SerializedObject serializedObject = new SerializedObject(valueVariable);
-                    SerializedProperty valueProperty = serializedObject.FindProperty("_value");
-                    SerializedProperty startValueProperty = serializedObject.FindProperty("_startValue"); 
+
+                    //Types
                     SerializedProperty _variableTypeProperty = serializedObject.FindProperty("VariableType");
-                    SerializedProperty _initializeTypeProperty = serializedObject.FindProperty("InitializeTypeVariable");
+                    SerializedProperty _initializeTypeVariableProperty = serializedObject.FindProperty("InitializeTypeVariable");
+                    SerializedProperty _initializeTypeRuntimeSetProperty = serializedObject.FindProperty("InitializeTypeRuntimeSet");
+
+                    //Variable
+                    SerializedProperty valueProperty = serializedObject.FindProperty("_value");
+                    SerializedProperty startValueProperty = serializedObject.FindProperty("_startValue");
+
+                    //RuntimeSet
+                    SerializedProperty runtimeSetProperty = serializedObject.FindProperty("_runtimeSet");
+                    SerializedProperty startRuntimeSetProperty = serializedObject.FindProperty("_startRuntimeSet");
 
                     VariableType variableType = (VariableType)_variableTypeProperty.enumValueIndex;
-                    InitializeType initializeType = (InitializeType)_initializeTypeProperty.enumValueIndex;
+                    InitializeType initializeVariableType = (InitializeType)_initializeTypeVariableProperty.enumValueIndex;
+                    InitializeType initializeRuntimeSetType = (InitializeType)_initializeTypeRuntimeSetProperty.enumValueIndex;
 
                     EditorGUI.BeginChangeCheck();
 
                     if (variableType == VariableType.Variable || variableType == VariableType.VariableEvent)
                     {
-                        if (inPlaymode && initializeType != InitializeType.ReadOnly)
+                        if (inPlaymode && initializeVariableType != InitializeType.ReadOnly)
                         {
-                            valueProperty.isExpanded = _expandedValue;
                             EditorGUI.PropertyField(valueRect, valueProperty, true);
-                            _expandedValue = valueProperty.isExpanded;
-
-                            float height = EditorGUI.GetPropertyHeight(valueProperty) + EditorGUIUtility.standardVerticalSpacing + 1;
-                            _height += height;
-                            valueRect.y += height;
+                            AddPropertyHeight(valueProperty, ref valueRect);
                         }
 
-                        if (initializeType == InitializeType.ResetOnGameStart || initializeType == InitializeType.ReadOnly)
+                        if (initializeVariableType == InitializeType.ResetOnGameStart || initializeVariableType == InitializeType.ReadOnly)
                         {
-                            startValueProperty.isExpanded = _expandedStartValue;
                             EditorGUI.PropertyField(valueRect, startValueProperty, true);
-                            _expandedStartValue = startValueProperty.isExpanded;
+                            AddPropertyHeight(startValueProperty, ref valueRect);
+                        }
+                    }
+                    
+                    if (variableType == VariableType.RuntimeSet)
+                    {
+                        if (inPlaymode && initializeRuntimeSetType != InitializeType.ReadOnly)
+                        {
+                            DrawReorderableList(ref _runtimeSetList, valueRect, runtimeSetProperty);
+                            AddPropertyHeight(runtimeSetProperty, ref valueRect, 18);
+                        }
 
-                            float height = EditorGUI.GetPropertyHeight(startValueProperty) + EditorGUIUtility.standardVerticalSpacing + 1;
-                            _height += height;
-                            valueRect.y += height;
+                        if (initializeRuntimeSetType == InitializeType.ResetOnGameStart || initializeRuntimeSetType == InitializeType.ReadOnly)
+                        {
+                            DrawReorderableList(ref _startRuntimeSetList, valueRect, startRuntimeSetProperty);
+                            serializedObject.ApplyModifiedProperties();
+                            AddPropertyHeight(startRuntimeSetProperty, ref valueRect, 18);
                         }
                     }
 
-                    EditorGUI.PropertyField(valueRect, _variableTypeProperty, true);
+                    EditorGUI.PropertyField(valueRect, _variableTypeProperty);
 
-                    valueRect.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
-                    _height += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+                    if (variableType == VariableType.Variable || variableType == VariableType.VariableEvent)
+                    {
+                        valueRect.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+                        _height += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
 
-                    EditorGUI.PropertyField(valueRect, _initializeTypeProperty, true);
+                        EditorGUI.PropertyField(valueRect, _initializeTypeVariableProperty);
+                    }
+
+                    if (variableType == VariableType.RuntimeSet)
+                    {
+                        valueRect.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+                        _height += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+
+                        EditorGUI.PropertyField(valueRect, _initializeTypeRuntimeSetProperty);
+                    }
+
                     _height++;
 
                     if (EditorGUI.EndChangeCheck())
@@ -133,6 +163,51 @@ namespace ScriptableArchitecture.EditorScript
                 return baseHeight + _height;
 
             return baseHeight;
+        }
+
+        private void AddPropertyHeight(SerializedProperty property, ref Rect valueRect, float extraHeight = 0)
+        {
+            float height = EditorGUI.GetPropertyHeight(property) + EditorGUIUtility.standardVerticalSpacing + 1 + extraHeight;
+            _height += height;
+            valueRect.y += height;
+        }
+
+        //Workaround to edit nested lists in the inspector
+
+        private void DrawReorderableList(ref ReorderableList reorderableList, Rect rect, SerializedProperty list)
+        {
+            if (reorderableList == null)
+                reorderableList = new ReorderableList(list.serializedObject, list, true, true, true, true);
+
+            reorderableList.drawHeaderCallback = (headerRect) =>
+            {
+                EditorGUI.LabelField(headerRect, list.displayName);
+            };
+
+            reorderableList.drawElementCallback = (elementRect, index, active, focused) =>
+            {
+                SerializedProperty element = list.GetArrayElementAtIndex(index);
+                EditorGUI.PropertyField(elementRect, element, true);
+            };
+
+            reorderableList.elementHeightCallback = (index) =>
+            {
+                SerializedProperty element = list.GetArrayElementAtIndex(index);
+                return EditorGUI.GetPropertyHeight(element) + EditorGUIUtility.standardVerticalSpacing;
+            };
+
+            reorderableList.onReorderCallback = (list) =>
+            {
+                //list.serializedProperty.serializedObject.ApplyModifiedProperties();
+            };
+
+            reorderableList.onChangedCallback = (list) =>
+            {
+                list.serializedProperty.serializedObject.ApplyModifiedProperties();
+               // reorderableList.serializedProperty.serializedObject.ApplyModifiedProperties();
+            };
+
+            reorderableList.DoList(rect);
         }
 
         private Type GetVariableType(string name, out string variableTypeName)
