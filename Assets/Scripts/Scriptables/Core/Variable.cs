@@ -9,18 +9,28 @@ namespace ScriptableArchitecture.Core
         [SerializeField] private T _value;
         public T Value
         {
-            get { return _value; }
-            set { _value = value; }
+            get 
+            { 
+                return _value;
+            }
+            set 
+            { 
+                _value = value;
+                Log(_stacktraceVariable, $"Set value to: {Value}");
+            }
         }
 
         [SerializeField] private T _startValue;
         public T StartValue
         {
-            get { return _startValue; }
+            get
+            { 
+                return _startValue;
+            }
         }
 
         private List<IListener<T>> _listeners = new List<IListener<T>>();
-        private HashSet<T> _items = new HashSet<T>();
+        private HashSet<T> _runtimeSet = new HashSet<T>();
 
         //OnEnable is called when the first scene is loaded, regardles if the scene has a reference to it (build game)
         private void OnEnable()
@@ -106,15 +116,30 @@ namespace ScriptableArchitecture.Core
 
         public void Add(T value)
         {
-            _items.Add(value);
+            _runtimeSet.Add(value);
             Log(_stacktraceRuntimeSet, $"Added value to runtimeSet: {value}");
         }
 
         public void Remove(T value)
         {
-            _items.Remove(value);
+            _runtimeSet.Remove(value);
+            Log(_stacktraceRuntimeSet, $"Removed value from runtimeSet: {value}");
         }
 
+        public HashSet<T> GetRuntimeSet()
+        {
+            return _runtimeSet;
+        }
+
+        public List<T> GetRuntimeList()
+        {
+            return _runtimeSet.ToList();
+        }
+
+        public bool HasRuntimeItem(T value)
+        {
+            return _runtimeSet.Contains(value);
+        }
 
         //Debugging
 
@@ -132,11 +157,12 @@ namespace ScriptableArchitecture.Core
 #endif
         }
 
-        public Stacktrace GetStackTrace() => _stacktraceEvent;
+        public Stacktrace[] GetStackTraces() => new Stacktrace[] { _stacktraceVariable, _stacktraceEvent, _stacktraceRuntimeSet };
 
-        private Stacktrace _stacktraceEvent = new Stacktrace();
-        private Stacktrace _stacktraceVariable = new Stacktrace();
-        private Stacktrace _stacktraceRuntimeSet = new Stacktrace();
+        private Stacktrace _stacktraceVariable = new Stacktrace(VariableType.Variable, 14);
+        private Stacktrace _stacktraceEvent = new Stacktrace(VariableType.Event, 100);
+        private Stacktrace _stacktraceRuntimeSet = new Stacktrace(VariableType.RuntimeSet, 100);
+
         public T DebugValue;
     }
 

@@ -13,7 +13,6 @@ namespace ScriptableArchitecture.EditorScript
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
             bool inPlaymode = EditorApplication.isPlaying;
-            EditorGUI.indentLevel++;
 
             List<IListener> listeners = new List<IListener>();
 
@@ -35,7 +34,6 @@ namespace ScriptableArchitecture.EditorScript
 
             if (showListeners)
             {
-                EditorGUI.indentLevel++;
                 EditorGUI.BeginDisabledGroup(true);
                 EditorGUILayout.Space();
 
@@ -44,23 +42,20 @@ namespace ScriptableArchitecture.EditorScript
 
                 EditorGUILayout.Space();
                 EditorGUI.EndDisabledGroup();
-                EditorGUI.indentLevel--;
             }
 
             EditorGUILayout.EndVertical();
         }
 
-        public static void DrawStackTrace(IGameEvent gameEvent, ref bool showStacktrace, ref Vector2 scrollPosition)
+        public static void DrawStackTrace(Stacktrace stacktrace, ref bool showStacktrace, ref Vector2 scrollPosition)
         {
-            Stacktrace stacktrace = gameEvent.GetStackTrace();
-
             EditorGUILayout.Space();
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
             List<string> messages = stacktrace.GetMessages();
 
             EditorGUILayout.BeginHorizontal();
-            showStacktrace = EditorGUILayout.Foldout(showStacktrace, $"Stacktrace ({messages.Count})", true, new GUIStyle(EditorStyles.foldout) { fontStyle = FontStyle.Bold });
+            showStacktrace = EditorGUILayout.Foldout(showStacktrace, $"Stacktrace {stacktrace.GetStackType()} ({messages.Count})", true, new GUIStyle(EditorStyles.foldout) { fontStyle = FontStyle.Bold });
 
             if (showStacktrace)
             {

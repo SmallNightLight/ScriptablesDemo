@@ -18,6 +18,8 @@ namespace ScriptableArchitecture.EditorScript
         private bool _showVariable;
         private bool _showGameEvent;
 
+        private bool _showStacktrace;
+
         //Variable
         private SerializedProperty _valueProperty;
         private SerializedProperty _initializeTypeProperty;
@@ -26,8 +28,8 @@ namespace ScriptableArchitecture.EditorScript
         //Event
         private bool _showDebugEvent;
         private bool _showListeners;
-        private bool _showStackTrace;
-        private Vector2 _scrollStacktrace;
+        private bool[] _showSubStackTraces = new bool[3];
+        private Vector2[] _scrollStacktraces = new Vector2[3];
         private SerializedProperty _debugValueProperty;
         private SerializedProperty _variableTypeProperty;
         private MethodInfo _raiseMethod;
@@ -47,7 +49,6 @@ namespace ScriptableArchitecture.EditorScript
             //Event
             _debugValueProperty = serializedObject.FindProperty("DebugValue");
             _raiseMethod = target.GetType().BaseType.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).Where(m => m.GetParameters().Length == 1).ToArray().FirstOrDefault();
-            _showDebugEvent = true;
 
             ResetFoldouts();
         }
@@ -64,29 +65,26 @@ namespace ScriptableArchitecture.EditorScript
             if (EditorGUI.EndChangeCheck())
                 ResetFoldouts();
 
-            if (_canShowVariable)
-                EditorGUILayout.PropertyField(_initializeTypeProperty);
-
             if (GUI.changed)
                 EditorUtility.SetDirty(_target);
 
             serializedObject.ApplyModifiedProperties();
-
             EditorGUILayout.Space();
 
+            EditorGUILayout.Space();
             if (_canShowVariable)
                 DrawVariableEditor();
 
             EditorGUILayout.Space();
-
             if (_canShowGameEvent)
                 DrawGameEventEditor();
+
+            EditorGUILayout.Space();
+            DrawStacktrace();
         }
 
         public void DrawVariableEditor()
         {
-            EditorGUILayout.Space();
-
             _showVariable = EditorGUILayout.Foldout(_showVariable, "Variable", true, new GUIStyle(EditorStyles.foldout) { fontStyle = FontStyle.Bold });
 
             if (_showVariable)
@@ -98,6 +96,8 @@ namespace ScriptableArchitecture.EditorScript
                 InitializeType initializeType = (InitializeType)_initializeTypeProperty.enumValueIndex;
 
                 EditorGUI.BeginChangeCheck();
+
+                EditorGUILayout.PropertyField(_initializeTypeProperty);
 
                 if (variableType == VariableType.Variable || variableType == VariableType.VariableEvent)
                 {
@@ -141,11 +141,37 @@ namespace ScriptableArchitecture.EditorScript
                     }
                 }
 
-                EditorGUI.indentLevel--;
                 EditorGUILayout.EndVertical();
 
                 GameEventEditorHelper.DrawListeners(target as IGameEvent, ref _showListeners);
-                GameEventEditorHelper.DrawStackTrace(target as IGameEvent, ref _showStackTrace, ref _scrollStacktrace);
+                EditorGUI.indentLevel--;
+            }
+        }
+
+        private void DrawStacktrace()
+        {
+            _showStacktrace = EditorGUILayout.Foldout(_showStacktrace, "Stacktrace", true, new GUIStyle(EditorStyles.foldout) { fontStyle = FontStyle.Bold });
+
+            if (_showStacktrace)
+            {
+                EditorGUI.indentLevel++;
+
+                Stacktrace[] stacktraces = (target as IGameEvent).GetStackTraces();
+                
+                for (int i = 0; i < stacktraces.Length; i++)
+                {
+                    Stacktrace stacktrace = stacktraces[i];
+
+                    VariableType type = stacktrace.GetStackType();
+
+                    bool drawAsVariable = _canShowVariable && (type == VariableType.Variable || type == VariableType.VariableEvent);
+                    bool drawAsEvent = _canShowGameEvent && (type == VariableType.Event || type == VariableType.VariableEvent);
+
+                    if (drawAsVariable || drawAsEvent)
+                        GameEventEditorHelper.DrawStackTrace(stacktrace, ref _showSubStackTraces[i], ref _scrollStacktraces[i]);
+                }
+
+                EditorGUI.indentLevel--;
             }
         }
 

@@ -12,7 +12,7 @@ namespace ScriptableArchitecture.EditorScript
         private GameEventBase _target;
         private bool _showDebugEvent;
         private bool _showListeners;
-        private bool _showStackTrace;
+        private bool[] _showStackTrace = new bool[1];
         private Vector2 _scrollStacktrace;
        
         private void OnEnable()
@@ -42,11 +42,10 @@ namespace ScriptableArchitecture.EditorScript
                     _target.Raise();
             }
 
-            EditorGUI.indentLevel--;
             EditorGUILayout.EndVertical();
-
             GameEventEditorHelper.DrawListeners(target as IGameEvent, ref _showListeners);
-            GameEventEditorHelper.DrawStackTrace(target as IGameEvent, ref _showStackTrace, ref _scrollStacktrace);
+            EditorGUI.indentLevel--;
+            //GameEventEditorHelper.DrawStackTrace(target as IGameEvent, ref _showStackTrace, ref _scrollStacktrace);
         }
     }
 }

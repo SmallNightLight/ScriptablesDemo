@@ -68,10 +68,10 @@ namespace ScriptableArchitecture.Core
 #endif
         }
 
-        public Stacktrace GetStackTrace() => _stacktrace;
+        public Stacktrace[] GetStackTraces() => new Stacktrace[] { _stacktrace };
 
 #if UNITY_EDITOR
-        private Stacktrace _stacktrace = new Stacktrace();
+        private Stacktrace _stacktrace = new Stacktrace(VariableType.Event, 100);
 #endif
     }
 
@@ -79,7 +79,7 @@ namespace ScriptableArchitecture.Core
     {
         public List<IListener> GetListeners();
 
-        public Stacktrace GetStackTrace();
+        public Stacktrace[] GetStackTraces();
     }
 
     public interface IGameEvent<T> : IGameEvent
