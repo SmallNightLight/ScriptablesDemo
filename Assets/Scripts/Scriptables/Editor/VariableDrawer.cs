@@ -87,7 +87,6 @@ namespace ScriptableArchitecture.EditorScript
                         if (initializeRuntimeSetType == InitializeType.ResetOnGameStart || initializeRuntimeSetType == InitializeType.ReadOnly)
                         {
                             DrawReorderableList(ref _startRuntimeSetList, valueRect, startRuntimeSetProperty);
-                            serializedObject.ApplyModifiedProperties();
                             AddPropertyHeight(startRuntimeSetProperty, ref valueRect, 18);
                         }
                     }
@@ -113,7 +112,11 @@ namespace ScriptableArchitecture.EditorScript
                     _height++;
 
                     if (EditorGUI.EndChangeCheck())
+                    {
                         serializedObject.ApplyModifiedProperties();
+                        //startRuntimeSetProperty.serializedObject.ApplyModifiedProperties();
+                    }
+                        
 
                     EditorGUI.indentLevel--;
                 }
@@ -177,7 +180,7 @@ namespace ScriptableArchitecture.EditorScript
         private void DrawReorderableList(ref ReorderableList reorderableList, Rect rect, SerializedProperty list)
         {
             if (reorderableList == null)
-                reorderableList = new ReorderableList(list.serializedObject, list, true, true, true, true);
+                reorderableList = new ReorderableList(list.serializedObject, list, false, true, true, true);
 
             reorderableList.drawHeaderCallback = (headerRect) =>
             {
@@ -196,15 +199,26 @@ namespace ScriptableArchitecture.EditorScript
                 return EditorGUI.GetPropertyHeight(element) + EditorGUIUtility.standardVerticalSpacing;
             };
 
-            reorderableList.onReorderCallback = (list) =>
+            reorderableList.onAddCallback = (list) =>
             {
-                //list.serializedProperty.serializedObject.ApplyModifiedProperties();
+                list.serializedProperty.serializedObject.Update();
+                list.serializedProperty.arraySize++;
+                list.index = list.serializedProperty.arraySize - 1;
+                list.serializedProperty.serializedObject.ApplyModifiedProperties();
             };
 
-            reorderableList.onChangedCallback = (list) =>
+            reorderableList.onRemoveCallback = (list) =>
             {
+                list.serializedProperty.serializedObject.Update();
+                list.serializedProperty.DeleteArrayElementAtIndex(list.index);
                 list.serializedProperty.serializedObject.ApplyModifiedProperties();
-               // reorderableList.serializedProperty.serializedObject.ApplyModifiedProperties();
+            };
+
+            //Bug can't reorder - snaps back to old value
+            reorderableList.onReorderCallback = (list) =>
+            {
+                list.serializedProperty.serializedObject.Update();
+                list.serializedProperty.serializedObject.ApplyModifiedProperties();
             };
 
             reorderableList.DoList(rect);

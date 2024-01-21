@@ -14544,6 +14544,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1127174864782804616, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1179342732549582041, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
       propertyPath: m_Name
       value: TowerSpawner
