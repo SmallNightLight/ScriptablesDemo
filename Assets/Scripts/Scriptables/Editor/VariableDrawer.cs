@@ -112,12 +112,8 @@ namespace ScriptableArchitecture.EditorScript
                     _height++;
 
                     if (EditorGUI.EndChangeCheck())
-                    {
                         serializedObject.ApplyModifiedProperties();
-                        //startRuntimeSetProperty.serializedObject.ApplyModifiedProperties();
-                    }
                         
-
                     EditorGUI.indentLevel--;
                 }
             }
@@ -133,9 +129,13 @@ namespace ScriptableArchitecture.EditorScript
                 {
                     Type newType = GetVariableType(property.type, out string variableTypeName);
                     Variable newVariable = ScriptableObject.CreateInstance(newType) as Variable;
-                    
-                    if (label.text.ToLower().Contains("event"))
+
+                    string typeName = label.text.ToLower();
+
+                    if (typeName.Contains("event"))
                         newVariable.VariableType = VariableType.Event;
+                    else if (typeName.Contains("runtimeset") || typeName.Contains("list") || typeName.Contains("collection"))
+                        newVariable.VariableType = VariableType.RuntimeSet;
 
                     string path = EditorUtility.SaveFilePanel($"Create new {variableTypeName}", "Assets/Data", property.propertyPath.RemoveUnderscore().CapitalizeFirstLetter().RemoveAfterDot(), "asset");
 
@@ -214,7 +214,7 @@ namespace ScriptableArchitecture.EditorScript
                 list.serializedProperty.serializedObject.ApplyModifiedProperties();
             };
 
-            //Bug can't reorder - snaps back to old value
+            //Bug can't reorder - snaps back to old value - don't allow reordering
             reorderableList.onReorderCallback = (list) =>
             {
                 list.serializedProperty.serializedObject.Update();

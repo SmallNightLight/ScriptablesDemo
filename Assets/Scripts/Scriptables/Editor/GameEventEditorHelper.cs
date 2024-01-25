@@ -47,11 +47,6 @@ namespace ScriptableArchitecture.EditorScript
             EditorGUILayout.EndVertical();
         }
 
-        public static void DrawRuntimeSet(IGameEvent gameEvent, ref bool showListeners)
-        { 
-            
-        }
-
         public static void DrawStackTrace(Stacktrace stacktrace, ref bool showStacktrace, ref Vector2 scrollPosition)
         {
             EditorGUILayout.Space();

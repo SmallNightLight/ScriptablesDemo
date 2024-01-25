@@ -235,7 +235,6 @@ namespace ScriptableArchitecture.EditorScript
             _canShowGameEvent = variableType == VariableType.Event || variableType == VariableType.VariableEvent;
             _canShowRuntimeSet = variableType == VariableType.RuntimeSet;
 
-
             _showVariable = _canShowVariable;
             _showGameEvent = _canShowGameEvent;
             _showRuntimeSet = _canShowRuntimeSet;

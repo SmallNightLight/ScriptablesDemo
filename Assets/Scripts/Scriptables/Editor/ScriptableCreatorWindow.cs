@@ -324,7 +324,6 @@ namespace ScriptableArchitecture.EditorScript
 
             CreateScript(_variablesPath, scriptName + "Variable", GetVariableScript(_scriptableType, scriptName, baseScript));
             CreateScript(_referencesPath, scriptName + "Reference", GetReferenceScript(_scriptableType, scriptName, baseScript));
-            CreateScript(_gameEventsPath, scriptName + "GameEvent", GetGameEventScript(_scriptableType, scriptName, baseScript));
             CreateScript(_eventListenersPath, scriptName + "GameEventListener", GetGameEventListenerScript(_scriptableType, scriptName, baseScript));
 
             AssetDatabase.Refresh();
@@ -525,24 +524,6 @@ namespace ScriptableArchitecture.Data
 }}";
         }
 
-        private string GetGameEventScript(string type, string scriptName, string baseScript)
-        {
-            if (baseScript.Contains("using UnityEngine;") || baseScript.Contains("using ScriptableArchitecture.Data;"))
-                baseScript = "";
-
-            return baseScript + $@"using ScriptableArchitecture.Core;
-using UnityEngine;
-
-namespace ScriptableArchitecture.Data
-{{
-    [CreateAssetMenu(fileName = ""{scriptName}GameEvent"", menuName = ""Scriptables/GameEvents/{scriptName}GameEvent"")]
-    public class {scriptName}GameEvent : GameEventBase<{type}>
-    {{
-    }}
-}}";
-
-        }
-
         private string GetGameEventListenerScript(string type, string scriptName, string baseScript)
         {
             if (baseScript.Contains("using UnityEngine;") || baseScript.Contains("using ScriptableArchitecture.Data;"))
@@ -556,6 +537,9 @@ namespace ScriptableArchitecture.Data
     [AddComponentMenu(""GameEvent Listeners/{scriptName} Event Listener"")]
     public class {scriptName}GameEventListener : GameEventListenerBase<{type}>
     {{
+        [SerializeField] private {scriptName}Variable _event;
+
+        public override IGameEvent<{type}> GetGameEventT() => _event;
     }}
 }}";
         }
