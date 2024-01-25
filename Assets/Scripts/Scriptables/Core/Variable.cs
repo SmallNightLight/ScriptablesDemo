@@ -61,7 +61,7 @@ namespace ScriptableArchitecture.Core
         //OnEnable is called when the first scene is loaded, regardles if the scene has a reference to it (build game)
         private void OnEnable()
         {
-            if (VariableType == VariableType.Event || VariableType == VariableType.VariableEvent)
+            if (VariableType == VariableType.Variable || VariableType == VariableType.VariableEvent)
             {
                 //This is only for the editor as the build game does not save Scriptable objects across sessions
                 if (InitializeTypeVariable == InitializeType.ResetOnGameStart)
@@ -69,7 +69,10 @@ namespace ScriptableArchitecture.Core
                     _value = _startValue;
                     Log(_stacktraceVariable, $"Set value to startvalue: {Value}");
                 }
+            }
 
+            if (VariableType == VariableType.Event || VariableType == VariableType.VariableEvent)
+            {
                 //Only initilize lists when needed to avoid overhead
                 _listeners = new List<IListener<T>>();
             }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24e811cf5ce541b4d93b1c219bfb98f8, type: 3}
-  m_Name: Wave1
+  m_Name: Wave2
   m_EditorClassIdentifier: 
   VariableType: 0
   InitializeTypeVariable: 2
@@ -18,7 +18,7 @@ MonoBehaviour:
     SpawnSpeed: 0
     EnemyData: []
   _startValue:
-    SpawnSpeed: 2.5
+    SpawnSpeed: 1.5
     EnemyData:
     - Enemy:
         _isVariable: 1
@@ -29,19 +29,8 @@ MonoBehaviour:
           Speed: 0
           Coins: 0
           Sprite: {fileID: 0}
-      Count: 3
-      Time: 10
-    - Enemy:
-        _isVariable: 1
-        _variable: {fileID: 11400000, guid: 908dc9d863de17440b6121852fce7d3e, type: 2}
-        _constant:
-          Heath: 0
-          Damage: 0
-          Speed: 0
-          Coins: 0
-          Sprite: {fileID: 0}
-      Count: 5
-      Time: 15
+      Count: 6
+      Time: 8
     - Enemy:
         _isVariable: 1
         _variable: {fileID: 11400000, guid: 91b314a8196f1e04a90349ad6ab88305, type: 2}
@@ -51,7 +40,18 @@ MonoBehaviour:
           Speed: 0
           Coins: 0
           Sprite: {fileID: 0}
-      Count: 2
+      Count: 5
+      Time: 5
+    - Enemy:
+        _isVariable: 1
+        _variable: {fileID: 11400000, guid: 91b314a8196f1e04a90349ad6ab88305, type: 2}
+        _constant:
+          Heath: 0
+          Damage: 0
+          Speed: 0
+          Coins: 0
+          Sprite: {fileID: 0}
+      Count: 7
       Time: 10
   InitializeTypeRuntimeSet: 0
   _runtimeSet: []
