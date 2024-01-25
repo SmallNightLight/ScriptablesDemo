@@ -11,11 +11,13 @@ public class Enemy : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private float _targetMargin;
+    //[SerializeField] private WorldTextMessageReference _destroyEvent;
+    [SerializeField] private GameEvent _destroyEvent;
 
     [Header("Components")]
     [SerializeField] private SpriteRenderer _enemyRenderer;
 
-    private int _pathIndex;
+    private int _pathIndex = 0;
 
     private void Start()
     {
@@ -26,12 +28,12 @@ public class Enemy : MonoBehaviour
             transform.position = Path.RuntimeSet[0];
     }
 
-    void Update()
+    private void Update()
     {
         MoveTowardsTarget();
     }
 
-    void MoveTowardsTarget()
+    private void MoveTowardsTarget()
     {
         if (_pathIndex < Path.RuntimeSet.Count())
         {
@@ -46,5 +48,10 @@ public class Enemy : MonoBehaviour
             //Reached end of path
             Debug.Log("Game over");
         }
+    }
+
+    private void OnDestroy()
+    {
+        
     }
 }
