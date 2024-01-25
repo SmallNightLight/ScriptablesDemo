@@ -15179,6 +15179,14 @@ MonoBehaviour:
     _isVariable: 1
     _variable: {fileID: 11400000, guid: 3efdcbb92f0cde747896134f0c0845ee, type: 2}
     _constant: 0
+  _inTowerPreview:
+    _isVariable: 1
+    _variable: {fileID: 0}
+    _constant: 0
+  _selectingTower:
+    _isVariable: 1
+    _variable: {fileID: 0}
+    _constant: 0
   _gameSpeed: 1
 --- !u!114 &1767034042
 MonoBehaviour:
@@ -15227,6 +15235,38 @@ PrefabInstance:
     - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
       propertyPath: _sR._isVariable
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _previewUnable.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _previewUnable.b
+      value: 0.24701849
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _previewUnable.g
+      value: 0.43490097
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _previewUnable.r
+      value: 0.8584906
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _previewPossible.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _previewPossible.b
+      value: 0.4765931
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _previewPossible.g
+      value: 0.9622642
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
+      propertyPath: _previewPossible.r
+      value: 0.5570227
       objectReference: {fileID: 0}
     - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
       propertyPath: _sR._constant.Loop

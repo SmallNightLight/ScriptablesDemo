@@ -14,8 +14,11 @@ public class Enemy : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private SpriteRenderer _enemyRenderer;
+    [SerializeField] private DisplayHealth _healthDisplayer;
 
     private int _pathIndex = 0;
+
+    private int _currentHealth;
 
     private void Start()
     {
@@ -24,11 +27,21 @@ public class Enemy : MonoBehaviour
 
         if (Path.RuntimeSet.Count() > 0)
             transform.position = Path.RuntimeSet[0];
+
+        _currentHealth = EnemyData.Value.Heath;
+
+        if (_healthDisplayer != null)
+        {
+            _healthDisplayer.StartHealth = _currentHealth;
+            _healthDisplayer.CurrentHealth = _currentHealth;
+        }
     }
 
     private void Update()
     {
         MoveTowardsTarget();
+
+        _healthDisplayer.CurrentHealth = _currentHealth;
     }
 
     private void MoveTowardsTarget()
