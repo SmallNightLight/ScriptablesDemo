@@ -11,14 +11,15 @@ public class Enemy : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float _targetMargin;
     [SerializeField] private EnemyDeathDataReference _destroyEvent;
+    [SerializeField] private IntReference _endCount;
 
     [Header("Components")]
     [SerializeField] private SpriteRenderer _enemyRenderer;
     [SerializeField] private DisplayHealth _healthDisplayer;
 
     private int _pathIndex = 0;
-
     private int _currentHealth;
+    private bool _reachedEnd;
 
     private void Start()
     {
@@ -57,12 +58,17 @@ public class Enemy : MonoBehaviour
         else
         {
             //Reached end of path
-            Debug.Log("Game over");
+            Debug.Log("Enemy reached end");
+            _reachedEnd = true;
+            _endCount.Value++;
+            Destroy(gameObject);
         }
     }
 
     private void OnDestroy()
     {
+        if (_reachedEnd) return;
+
         EnemyDeathData deathData = new EnemyDeathData();
         deathData.EnemyData = EnemyData.Value;
         deathData.Position = transform.position;

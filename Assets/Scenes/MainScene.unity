@@ -15179,13 +15179,26 @@ MonoBehaviour:
     _isVariable: 1
     _variable: {fileID: 11400000, guid: 3efdcbb92f0cde747896134f0c0845ee, type: 2}
     _constant: 0
+  _enemyEndCount:
+    _isVariable: 0
+    _variable: {fileID: 0}
+    _constant: 3
+  _endCounter:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: 99bf1efc471ccad42a03aaa1bc691c1a, type: 2}
+    _constant: 0
+  _gameOverEvent: {fileID: 11400000, guid: 7527b641c67da594389c6a1ec207bfac, type: 2}
+  _hasReachedEnd:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: 2c34993023de0264f950551b3a348115, type: 2}
+    _constant: 0
   _inTowerPreview:
     _isVariable: 1
-    _variable: {fileID: 0}
+    _variable: {fileID: 11400000, guid: 7e68d058e7b460a448af9ba298e0f076, type: 2}
     _constant: 0
   _selectingTower:
     _isVariable: 1
-    _variable: {fileID: 0}
+    _variable: {fileID: 11400000, guid: b42826a6a21e2b941a6421a846c67aba, type: 2}
     _constant: 0
   _gameSpeed: 1
 --- !u!114 &1767034042

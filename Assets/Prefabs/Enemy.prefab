@@ -123,6 +123,10 @@ MonoBehaviour:
         Coins: 0
         Sprite: {fileID: 0}
       Position: {x: 0, y: 0}
+  _endCount:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: 99bf1efc471ccad42a03aaa1bc691c1a, type: 2}
+    _constant: 0
   _enemyRenderer: {fileID: 9013637005201814346}
   _healthDisplayer: {fileID: 4452751547831027055}
 --- !u!1 &5133156193466485810
