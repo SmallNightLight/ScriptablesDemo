@@ -111,5 +111,15 @@ MonoBehaviour:
     _variable: {fileID: 11400000, guid: 35143ff3dee12c441b8b1039190efd0b, type: 2}
     _constant: {x: 0, y: 0}
   _targetMargin: 0.001
-  _destroyEvent: {fileID: 11400000, guid: 866eb4bcd91861a4e8445ff01ce5527b, type: 2}
+  _destroyEvent:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: 866eb4bcd91861a4e8445ff01ce5527b, type: 2}
+    _constant:
+      EnemyData:
+        Heath: 0
+        Damage: 0
+        Speed: 0
+        Coins: 0
+        Sprite: {fileID: 0}
+      Position: {x: 0, y: 0}
   _enemyRenderer: {fileID: 9013637005201814346}

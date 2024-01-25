@@ -39,7 +39,7 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < _waves[waveIndex].Value.EnemyData[enemyWaveIndex].Count; i++)
         {
             //Spawn enemy
-            Enemy enemy = Instantiate(_enemyPrefab).GetComponent<Enemy>();
+            Enemy enemy = Instantiate(_enemyPrefab, transform).GetComponent<Enemy>();
             enemy.EnemyData = enemyWave.Enemy;
             enemy.Path = Path;
 

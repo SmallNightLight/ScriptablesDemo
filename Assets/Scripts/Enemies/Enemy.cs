@@ -1,5 +1,4 @@
 using ScriptableArchitecture.Data;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -11,8 +10,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private float _targetMargin;
-    //[SerializeField] private WorldTextMessageReference _destroyEvent;
-    [SerializeField] private GameEvent _destroyEvent;
+    [SerializeField] private EnemyDeathDataReference _destroyEvent;
 
     [Header("Components")]
     [SerializeField] private SpriteRenderer _enemyRenderer;
@@ -52,6 +50,10 @@ public class Enemy : MonoBehaviour
 
     private void OnDestroy()
     {
-        
+        EnemyDeathData deathData = new EnemyDeathData();
+        deathData.EnemyData = EnemyData.Value;
+        deathData.Position = transform.position;
+
+        _destroyEvent.Raise(deathData);
     }
 }

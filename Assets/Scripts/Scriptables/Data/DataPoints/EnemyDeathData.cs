@@ -1,13 +1,13 @@
 using ScriptableArchitecture.Core;
 using UnityEngine;
+using ScriptableArchitecture.Data;
 
 namespace ScriptableArchitecture.Data
 {
     [System.Serializable]
-    public class WorldTextMessage : IDataPoint
+    public class EnemyDeathData : IDataPoint
     {
-        public string Message;
+        public EnemyData EnemyData;
         public Vector2 Position;
-        public float Duration = 2.0f;
     }
 }
