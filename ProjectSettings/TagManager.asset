@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 2541053085
+    locked: 0
+  - name: Enemies
+    uniqueID: 601854709
+    locked: 0
+  - name: Towers
+    uniqueID: 2671789039
+    locked: 0
+  - name: Particles
+    uniqueID: 1526950173
+    locked: 0

@@ -1,4 +1,5 @@
 using ScriptableArchitecture.Core;
+using UnityEngine;
 
 namespace ScriptableArchitecture.Data
 {
@@ -7,5 +8,8 @@ namespace ScriptableArchitecture.Data
     {
         public int Heath;
         public int Damage;
+        public float Speed;
+        public int Coins;
+        public Sprite Sprite;
     }
 }

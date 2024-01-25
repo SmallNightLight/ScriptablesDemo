@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
+    [Header("Data")]
     public TowerDataReference TowerData;
 
     [Header("Components")]
@@ -10,6 +11,7 @@ public class Tower : MonoBehaviour
 
     private void Start()
     {
-        _towerRenderer.sprite = TowerData.Value.Sprite;
+        if(_towerRenderer != null)
+            _towerRenderer.sprite = TowerData.Value.Sprite;
     }
 }

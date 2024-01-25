@@ -54,7 +54,7 @@ namespace ScriptableArchitecture.Core
 
         //RuntimeSet
 
-        public IEnumerable<T> RuntimeSet
+        public List<T> RuntimeSet
         {
             get
             {

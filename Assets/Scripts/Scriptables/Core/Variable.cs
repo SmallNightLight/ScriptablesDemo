@@ -46,11 +46,11 @@ namespace ScriptableArchitecture.Core
         [SerializeField] private List<T> _runtimeSet;
         [SerializeField] private List<T> _startRuntimeSet;
 
-        public IEnumerable<T> RuntimeSet
+        public List<T> RuntimeSet
         {
             get
             {
-                if (InitializeTypeVariable == InitializeType.ReadOnly)
+                if (InitializeTypeRuntimeSet == InitializeType.ReadOnly)
                     return _startRuntimeSet;
 
                 return _runtimeSet;
