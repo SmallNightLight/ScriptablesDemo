@@ -11,7 +11,6 @@ public class PlayerManager : MonoBehaviour, ISetupManager, IUpdateManager
     [SerializeField] private GameEvent _gameOverEvent;
     [SerializeField] private BoolReference _hasReachedEnd;
 
-    [SerializeField] private BoolReference _inTowerPreview;
     [SerializeField] private BoolReference _selectingTower;
 
     [SerializeField, Range(0.0f, 5.0f)] private float _gameSpeed = 1.0f;

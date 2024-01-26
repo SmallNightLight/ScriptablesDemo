@@ -10,22 +10,40 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52fbde2715c39294bb354db41c88f6fc, type: 3}
-  m_Name: ArcherTower3
+  m_Name: PreviewTower
   m_EditorClassIdentifier: 
-  VariableType: 0
-  InitializeTypeVariable: 2
+  VariableType: 1
+  InitializeTypeVariable: 0
   _value:
     Name: 
     Description: 
-    Sprite: {fileID: 0}
+    StartTower:
+      Sprite: {fileID: 0}
+      Cost: 0
+      Damage: 0
+      Range: 0
+      TowerType: 0
+    UpgradeTowers: []
   _startValue:
     Name: 
     Description: 
-    Sprite: {fileID: 21300000, guid: 7ff475a72b9d0cb4abcdfa54f5a6db47, type: 3}
+    StartTower:
+      Sprite: {fileID: 0}
+      Cost: 0
+      Damage: 0
+      Range: 0
+      TowerType: 0
+    UpgradeTowers: []
   InitializeTypeRuntimeSet: 0
   _runtimeSet: []
   _startRuntimeSet: []
   DebugValue:
     Name: 
     Description: 
-    Sprite: {fileID: 0}
+    StartTower:
+      Sprite: {fileID: 0}
+      Cost: 0
+      Damage: 0
+      Range: 0
+      TowerType: 0
+    UpgradeTowers: []

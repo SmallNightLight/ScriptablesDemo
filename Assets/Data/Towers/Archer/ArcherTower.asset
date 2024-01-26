@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52fbde2715c39294bb354db41c88f6fc, type: 3}
+  m_Name: ArcherTower
+  m_EditorClassIdentifier: 
+  VariableType: 0
+  InitializeTypeVariable: 2
+  _value:
+    Name: 
+    Description: 
+    StartTower:
+      Sprite: {fileID: 0}
+      Cost: 0
+      Damage: 0
+      Range: 0
+      TowerType: 0
+    UpgradeTowers: []
+  _startValue:
+    Name: Archer
+    Description: Long ranged tower
+    StartTower:
+      Sprite: {fileID: 21300000, guid: b6b3b7fce2d1090499e1b062c280683b, type: 3}
+      Cost: 30
+      Damage: 5
+      Range: 5
+      TowerType: 1
+    UpgradeTowers:
+    - Sprite: {fileID: 21300000, guid: 1ac7b1946e2bb0d42951cea15a2de459, type: 3}
+      Cost: 20
+      Damage: 8
+      Range: 8
+      TowerType: 1
+    - Sprite: {fileID: 21300000, guid: 7ff475a72b9d0cb4abcdfa54f5a6db47, type: 3}
+      Cost: 30
+      Damage: 15
+      Range: 13
+      TowerType: 1
+  InitializeTypeRuntimeSet: 0
+  _runtimeSet: []
+  _startRuntimeSet: []
+  DebugValue:
+    Name: 
+    Description: 
+    StartTower:
+      Sprite: {fileID: 0}
+      Cost: 0
+      Damage: 0
+      Range: 0
+      TowerType: 0
+    UpgradeTowers: []

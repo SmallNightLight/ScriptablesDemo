@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: InTowerPreview
   m_EditorClassIdentifier: 
   VariableType: 0
-  InitializeTypeVariable: 0
+  InitializeTypeVariable: 1
   _value: 0
   _startValue: 0
   InitializeTypeRuntimeSet: 0

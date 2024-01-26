@@ -8,9 +8,10 @@ using UnityEngine.Tilemaps;
 public class TowerSpawner : MonoBehaviour
 {
     [SerializeField] private BoolReference _canPlaceTower;
+    [SerializeField] private BoolReference _inTowerPreview;
     [SerializeField] private Vector3Reference _worldMousePosition;
     [SerializeField] private GameObject _towerPrefab;
-    [SerializeField] private TowerDataReference _defaultTowerData;
+    [SerializeField] private TowerDataReference _previewTower;
 
     [SerializeField] private Color _previewPossible;
     [SerializeField] private Color _previewUnable;
@@ -34,22 +35,33 @@ public class TowerSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (_canPlaceTower.Value && _previewSprite)
+        if (_inTowerPreview.Value)
         {
-            //Preview
-            _previewSprite.sprite = _defaultTowerData.Value.Sprite;
-
-            Vector3Int cellPosition = GetCellPosition(_worldMousePosition.Value);
-            bool isPlacable = !_currentTowerPositions.Contains(cellPosition) && !IsPath(GetCellPosition(_worldMousePosition.Value));
-
-            _previewSprite.color = isPlacable ? _previewPossible: _previewUnable;
-            _previewSprite.transform.position = GetSnappedPosition(cellPosition);
+            PreviewTower();
         }
+    }
+
+    public void EnableTowerPreview()
+    {
+        _inTowerPreview.Value = true;
+    }
+
+    private void PreviewTower()
+    {
+        if (_previewSprite == null || _previewTower.Value.StartTower == null) return;
+
+        _previewSprite.sprite = _previewTower.Value.StartTower.Sprite;
+
+        Vector3Int cellPosition = GetCellPosition(_worldMousePosition.Value);
+        bool isPlacable = !_currentTowerPositions.Contains(cellPosition) && !IsPath(GetCellPosition(_worldMousePosition.Value));
+
+        _previewSprite.color = isPlacable ? _previewPossible : _previewUnable;
+        _previewSprite.transform.position = GetSnappedPosition(cellPosition);
     }
 
     public void MouseDown(Vector3 worldMousePosition)
     {
-        if (_canPlaceTower.Value)
+        if (_inTowerPreview.Value)
             PlaceTower(worldMousePosition);
     }
 
@@ -63,7 +75,10 @@ public class TowerSpawner : MonoBehaviour
         Vector3 position = GetSnappedPosition(cellPosition);
         GameObject newTower = Instantiate(_towerPrefab, position, Quaternion.identity);
         newTower.transform.SetParent(transform);
-        newTower.GetComponent<Tower>().TowerData = _defaultTowerData;
+        newTower.GetComponent<Tower>().TowerData = _previewTower;
+
+        _inTowerPreview.Value = false;
+        _previewSprite.sprite = null;
     }
 
     private Vector3 GetSnappedPosition(Vector3Int cellPosition) => _grid.GetCellCenterWorld(cellPosition) + _objectOffset;
