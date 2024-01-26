@@ -63,9 +63,12 @@ MonoBehaviour:
       Name: 
       Description: 
       Sprite: {fileID: 0}
+  _previewPossible: {r: 0.5570227, g: 0.9622642, b: 0.4765931, a: 1}
+  _previewUnable: {r: 0.8584906, g: 0.43490097, b: 0.24701849, a: 1}
   _mouseOffset: {x: 0, y: -0.4, z: 0}
   _objectOffset: {x: 0, y: 0.85, z: 0}
   _previewSprite: {fileID: 8195564351888214612}
+  _groundTileMap: {fileID: 11400000, guid: a48c7dab314fd77479e9b0fd461870df, type: 2}
 --- !u!156049354 &1127174864782804616
 Grid:
   m_ObjectHideFlags: 0
@@ -176,9 +179,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingLayerID: -1623178257
+  m_SortingLayer: 3
+  m_SortingOrder: 3
   m_Sprite: {fileID: 0}
   m_Color: {r: 0.6509804, g: 0.9137255, b: 0.45490196, a: 0.77254903}
   m_FlipX: 0

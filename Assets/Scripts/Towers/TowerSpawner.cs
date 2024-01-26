@@ -1,6 +1,8 @@
+using ScriptableArchitecture.Core;
 using ScriptableArchitecture.Data;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Grid))]
 public class TowerSpawner : MonoBehaviour
@@ -19,9 +21,11 @@ public class TowerSpawner : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private SpriteRenderer _previewSprite;
+    [SerializeField] private Receiver _groundTileMap;
     private Grid _grid;
 
     private HashSet<Vector3Int> _currentTowerPositions = new HashSet<Vector3Int>();
+    [SerializeField] private List<TileBase> _pathTiles = new List<TileBase>();
 
     private void Start()
     {
@@ -36,7 +40,9 @@ public class TowerSpawner : MonoBehaviour
             _previewSprite.sprite = _defaultTowerData.Value.Sprite;
 
             Vector3Int cellPosition = GetCellPosition(_worldMousePosition.Value);
-            _previewSprite.color = _currentTowerPositions.Contains(cellPosition) ? _previewUnable : _previewPossible;
+            bool isPlacable = !_currentTowerPositions.Contains(cellPosition) && !IsPath(GetCellPosition(_worldMousePosition.Value));
+
+            _previewSprite.color = isPlacable ? _previewPossible: _previewUnable;
             _previewSprite.transform.position = GetSnappedPosition(cellPosition);
         }
     }
@@ -51,7 +57,7 @@ public class TowerSpawner : MonoBehaviour
     {
         Vector3Int cellPosition = GetCellPosition(worldMousePosition);
 
-        if (!AddTowerPosition(cellPosition))
+        if (!AddTowerPosition(cellPosition) || IsPath(cellPosition))
             return;
 
         Vector3 position = GetSnappedPosition(cellPosition);
@@ -71,5 +77,12 @@ public class TowerSpawner : MonoBehaviour
 
         _currentTowerPositions.Add(cellPosition);
         return true;
+    }
+
+    private bool IsPath(Vector3Int cellPosition)
+    {
+        Tilemap map = _groundTileMap.Value<Tilemap>();
+        TileBase tile = map.GetTile(new Vector3Int(cellPosition.x, cellPosition.y, 0));
+        return _pathTiles.Contains(tile);
     }
 }
