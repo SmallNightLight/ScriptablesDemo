@@ -279,7 +279,7 @@ MonoBehaviour:
         Cost: 0
         Damage: 0
         Range: 0
-        TowerType: 0
+        ProjectilePrefabs: []
       UpgradeTowers: []
   _previewTowerEvent:
     _isVariable: 1
@@ -292,7 +292,7 @@ MonoBehaviour:
         Cost: 0
         Damage: 0
         Range: 0
-        TowerType: 0
+        ProjectilePrefabs: []
       UpgradeTowers: []
 --- !u!1 &341533374
 GameObject:
@@ -1160,50 +1160,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _event: {fileID: 11400000, guid: 866eb4bcd91861a4e8445ff01ce5527b, type: 2}
---- !u!1 &2075712395 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1179342732549582041, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-  m_PrefabInstance: {fileID: 4335628732122363105}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2075712398 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-  m_PrefabInstance: {fileID: 4335628732122363105}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2075712395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e1532e1edebc30459b94c7965ad869e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2075712400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2075712395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d2cd47264e7a334b88557a305ba5eb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2075712398}
-        m_TargetAssemblyTypeName: TowerSpawner, Assembly-CSharp
-        m_MethodName: EnableTowerPreview
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _event: {fileID: 11400000, guid: f0508dedcff55cb4085ef66023f913ec, type: 2}
 --- !u!1 &2085046750
 GameObject:
   m_ObjectHideFlags: 0
@@ -1336,26 +1292,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TowerSpawner
       objectReference: {fileID: 0}
-    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-      propertyPath: _previewTower._variable
-      value: 
-      objectReference: {fileID: 11400000, guid: f0508dedcff55cb4085ef66023f913ec, type: 2}
-    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-      propertyPath: _inTowerPreview._variable
-      value: 
-      objectReference: {fileID: 11400000, guid: 7e68d058e7b460a448af9ba298e0f076, type: 2}
-    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-      propertyPath: _previewTower._isVariable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-      propertyPath: _inTowerPreview._isVariable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5342207517075869783, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-      propertyPath: _defaultTowerData._isVariable
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7438383195733591137, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1399,10 +1335,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1179342732549582041, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2075712400}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18025f828f1935243b15fd2f7a6f975c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

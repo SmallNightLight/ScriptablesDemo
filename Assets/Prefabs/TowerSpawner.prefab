@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5342207517075869783}
   - component: {fileID: 1127174864782804616}
   - component: {fileID: 1727239478276223399}
+  - component: {fileID: 4236074748925576125}
   m_Layer: 0
   m_Name: TowerSpawner
   m_TagString: Untagged
@@ -51,18 +52,28 @@ MonoBehaviour:
     _isVariable: 1
     _variable: {fileID: 11400000, guid: a3c94657fbbbddf4989c2801e33ddbe1, type: 2}
     _constant: 0
+  _inTowerPreview:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: 7e68d058e7b460a448af9ba298e0f076, type: 2}
+    _constant: 0
   _worldMousePosition:
     _isVariable: 1
     _variable: {fileID: 11400000, guid: 39774358b137cd746ae092f1d541b20a, type: 2}
     _constant: {x: 0, y: 0, z: 0}
   _towerPrefab: {fileID: 601080569172190573, guid: d47c1cf79d54d834c89fda051400ba82, type: 3}
-  _defaultTowerData:
+  _previewTower:
     _isVariable: 1
-    _variable: {fileID: 11400000, guid: cecbaead274275f46b8ae13b6bc1ad66, type: 2}
+    _variable: {fileID: 11400000, guid: f0508dedcff55cb4085ef66023f913ec, type: 2}
     _constant:
       Name: 
       Description: 
-      Sprite: {fileID: 0}
+      StartTower:
+        Sprite: {fileID: 0}
+        Cost: 0
+        Damage: 0
+        Range: 0
+        TowerType: 0
+      UpgradeTowers: []
   _previewPossible: {r: 0.5570227, g: 0.9622642, b: 0.4765931, a: 1}
   _previewUnable: {r: 0.8584906, g: 0.43490097, b: 0.24701849, a: 1}
   _mouseOffset: {x: 0, y: -0.4, z: 0}
@@ -143,6 +154,34 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _event: {fileID: 11400000, guid: 39774358b137cd746ae092f1d541b20a, type: 2}
+--- !u!114 &4236074748925576125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179342732549582041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d2cd47264e7a334b88557a305ba5eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5342207517075869783}
+        m_TargetAssemblyTypeName: TowerSpawner, Assembly-CSharp
+        m_MethodName: EnableTowerPreview
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _event: {fileID: 11400000, guid: f0508dedcff55cb4085ef66023f913ec, type: 2}
 --- !u!1 &5988917979990552897
 GameObject:
   m_ObjectHideFlags: 0

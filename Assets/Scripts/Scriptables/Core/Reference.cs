@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 
 namespace ScriptableArchitecture.Core
 {
     [Serializable]
-    public abstract class Reference<T, TVariable> where TVariable : Variable<T>
+    public class Reference<T, TVariable> where TVariable : Variable<T>
     {
         [SerializeField] protected bool _isVariable;
         [SerializeField] protected TVariable _variable;
@@ -35,7 +33,6 @@ namespace ScriptableArchitecture.Core
                 }
             }
         }
-
 
         //Event
 

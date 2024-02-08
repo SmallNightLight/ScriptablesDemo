@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace ScriptableArchitecture.Data
 {
+#if UNITY_EDITOR
     public class SoundToSO
     {
         [MenuItem("Convert/Sound/Sound to SO - Sound Effect")]
@@ -32,7 +33,12 @@ namespace ScriptableArchitecture.Data
                             AssetDatabase.CreateFolder(previousPath.Substring(0, previousPath.LastIndexOf("/")), previousPath.Substring(previousPath.LastIndexOf("/") + 1));
                     }
 
-                    asset.Value.AudioClip = (AudioClip)AssetDatabase.LoadAssetAtPath(audioClipPath, typeof(AudioClip));
+                    SoundEffect soundEffect = new SoundEffect();
+                    soundEffect.AudioClip = (AudioClip)AssetDatabase.LoadAssetAtPath(audioClipPath, typeof(AudioClip));
+
+                    asset.VariableType = Core.VariableType.Variable;
+                    asset.SetStartValueImmediatly(soundEffect);
+                    asset.InitializeTypeVariable = Core.InitializeType.ReadOnly;
 
                     string newPath = path.Substring(0, path.LastIndexOf(".")) + ".asset";
 
@@ -49,4 +55,5 @@ namespace ScriptableArchitecture.Data
             }
         }
     }
+#endif
 }

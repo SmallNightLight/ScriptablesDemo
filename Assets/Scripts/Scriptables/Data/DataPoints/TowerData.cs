@@ -20,14 +20,6 @@ namespace ScriptableArchitecture.Data
         public int Cost;
         public int Damage;
         public float Range;
-        public TowerType TowerType;
-    }
-
-    public enum TowerType
-    {
-        None,
-        SingleTarget,
-        AOE,
-        Debuff
+        public List<GameObject> ProjectilePrefabs;
     }
 }

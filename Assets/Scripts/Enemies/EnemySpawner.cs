@@ -40,7 +40,7 @@ public class EnemySpawner : MonoBehaviour
         {
             //Spawn enemy
             Enemy enemy = Instantiate(_enemyPrefab, transform).GetComponent<Enemy>();
-            enemy.EnemyData = enemyWave.Enemy;
+            enemy.EnemyData = enemyWave.Enemy.Copy();
             enemy.Path = Path;
 
             yield return new WaitForSeconds(_waves[waveIndex].Value.SpawnSpeed);

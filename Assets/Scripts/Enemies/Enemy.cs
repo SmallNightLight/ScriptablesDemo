@@ -1,4 +1,5 @@
 using ScriptableArchitecture.Data;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -7,6 +8,9 @@ public class Enemy : MonoBehaviour
     [Header("Data")]
     public EnemyDataReference EnemyData;
     public Vector2Reference Path;
+
+    [Header("Effects")]
+    [SerializeField] private List<Effect> _currentEffects;
 
     [Header("Settings")]
     [SerializeField] private float _targetMargin;
@@ -18,7 +22,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private DisplayHealth _healthDisplayer;
 
     private int _pathIndex = 0;
-    private int _currentHealth;
+    private float _currentHealth;
     private bool _reachedEnd;
 
     private void Start()
@@ -41,8 +45,36 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         MoveTowardsTarget();
+        UpdateEffect();
 
         _healthDisplayer.CurrentHealth = _currentHealth;
+    }
+
+    private void UpdateEffect()
+    {
+        for (int i = _currentEffects.Count - 1; i >= 0; i--)
+        {
+            if (_currentEffects[i] == null || _currentEffects[i].IsEnded())
+            {
+                _currentEffects.RemoveAt(i);
+                continue;
+            }
+
+            _currentEffects[i].UpdateEffect(Time.deltaTime);
+        }
+    }
+
+    public void AddEffect(Effect baseEffect)
+    {
+        if (baseEffect == null)
+        {
+            Debug.LogWarning("Cannot add effect - baseEffect is null");
+            return;
+        }
+
+        Effect newEffect = Instantiate(baseEffect);
+        newEffect.EnemyData = EnemyData.Value;
+        _currentEffects.Add(newEffect);
     }
 
     private void MoveTowardsTarget()
