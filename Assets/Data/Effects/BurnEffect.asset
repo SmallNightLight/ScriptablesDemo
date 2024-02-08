@@ -18,5 +18,5 @@ MonoBehaviour:
     Speed: 0
     Coins: 0
     Sprite: {fileID: 0}
-  Duration: 2
+  Duration: 10
   TotalDamage: 40

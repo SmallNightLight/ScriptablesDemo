@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SlowEffect
   m_EditorClassIdentifier: 
   EnemyData:
-    Heath: 0
+    Health: 0
     Damage: 0
     Speed: 0
     Coins: 0
     Sprite: {fileID: 0}
-  Duration: 1
+  Duration: 10
   SlowDownFactor: 0.3

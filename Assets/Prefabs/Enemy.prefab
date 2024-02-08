@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3604238584034984684}
   - component: {fileID: 9013637005201814346}
   - component: {fileID: 131099167996251595}
+  - component: {fileID: 1437147342600070066}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -111,6 +112,7 @@ MonoBehaviour:
     _isVariable: 1
     _variable: {fileID: 11400000, guid: 35143ff3dee12c441b8b1039190efd0b, type: 2}
     _constant: {x: 0, y: 0}
+  _currentEffects: []
   _targetMargin: 0.001
   _destroyEvent:
     _isVariable: 1
@@ -129,6 +131,34 @@ MonoBehaviour:
     _constant: 0
   _enemyRenderer: {fileID: 9013637005201814346}
   _healthDisplayer: {fileID: 4452751547831027055}
+--- !u!114 &1437147342600070066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865488156311241634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84ab5de3674f7f449b652f5c53308c21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 131099167996251595}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: AddEffect
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _event: {fileID: 11400000, guid: 8019b90283aa55948bcd0e867465479a, type: 2}
 --- !u!1 &5133156193466485810
 GameObject:
   m_ObjectHideFlags: 0

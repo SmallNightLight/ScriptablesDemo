@@ -6,11 +6,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [Header("Data")]
-    public EnemyDataReference EnemyData;
+    public EnemyDataReference BaseEnemyData;
+    [SerializeField] private EnemyData _currentEnemyData;
     public Vector2Reference Path;
 
     [Header("Effects")]
-    [SerializeField] private List<Effect> _currentEffects;
+    [SerializeField] private List<Effect> _currentEffects = new List<Effect>();
 
     [Header("Settings")]
     [SerializeField] private float _targetMargin;
@@ -22,23 +23,22 @@ public class Enemy : MonoBehaviour
     [SerializeField] private DisplayHealth _healthDisplayer;
 
     private int _pathIndex = 0;
-    private float _currentHealth;
     private bool _reachedEnd;
 
     private void Start()
     {
+        _currentEnemyData = BaseEnemyData.Value.Copy();
+
         if (_enemyRenderer != null)
-            _enemyRenderer.sprite = EnemyData.Value.Sprite;
+            _enemyRenderer.sprite = _currentEnemyData.Sprite;
 
         if (Path.RuntimeSet.Count() > 0)
             transform.position = Path.RuntimeSet[0];
 
-        _currentHealth = EnemyData.Value.Heath;
-
         if (_healthDisplayer != null)
         {
-            _healthDisplayer.StartHealth = _currentHealth;
-            _healthDisplayer.CurrentHealth = _currentHealth;
+            _healthDisplayer.StartHealth = _currentEnemyData.Health;
+            _healthDisplayer.CurrentHealth = _currentEnemyData.Health;
         }
     }
 
@@ -47,11 +47,13 @@ public class Enemy : MonoBehaviour
         MoveTowardsTarget();
         UpdateEffect();
 
-        _healthDisplayer.CurrentHealth = _currentHealth;
+        _healthDisplayer.CurrentHealth = _currentEnemyData.Health;
     }
 
     private void UpdateEffect()
     {
+        if (_currentEffects == null) return;
+
         for (int i = _currentEffects.Count - 1; i >= 0; i--)
         {
             if (_currentEffects[i] == null || _currentEffects[i].IsEnded())
@@ -64,6 +66,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public Effect baseEf;
+
+    [ContextMenu("GFF")]
+    public void GFF() => AddEffect(baseEf);
+
     public void AddEffect(Effect baseEffect)
     {
         if (baseEffect == null)
@@ -73,7 +80,7 @@ public class Enemy : MonoBehaviour
         }
 
         Effect newEffect = Instantiate(baseEffect);
-        newEffect.EnemyData = EnemyData.Value;
+        newEffect.EnemyData = _currentEnemyData;
         _currentEffects.Add(newEffect);
     }
 
@@ -82,7 +89,7 @@ public class Enemy : MonoBehaviour
         if (_pathIndex < Path.RuntimeSet.Count())
         {
             //Move along the path until it reaches the next target
-            transform.position = Vector2.MoveTowards(transform.position, Path.RuntimeSet[_pathIndex], EnemyData.Value.Speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, Path.RuntimeSet[_pathIndex], _currentEnemyData.Speed * Time.deltaTime);
 
             if (Vector3.Distance(transform.position, Path.RuntimeSet[_pathIndex]) < _targetMargin)
                 _pathIndex++;
@@ -102,7 +109,7 @@ public class Enemy : MonoBehaviour
         if (_reachedEnd) return;
 
         EnemyDeathData deathData = new EnemyDeathData();
-        deathData.EnemyData = EnemyData.Value;
+        deathData.EnemyData = _currentEnemyData;
         deathData.Position = transform.position;
 
         _destroyEvent.Raise(deathData);

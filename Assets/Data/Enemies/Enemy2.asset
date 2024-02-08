@@ -15,13 +15,13 @@ MonoBehaviour:
   VariableType: 0
   InitializeTypeVariable: 2
   _value:
-    Heath: 0
+    Health: 0
     Damage: 0
     Speed: 0
     Coins: 0
     Sprite: {fileID: 0}
   _startValue:
-    Heath: 70
+    Health: 150
     Damage: 8
     Speed: 1.5
     Coins: 20
@@ -30,7 +30,7 @@ MonoBehaviour:
   _runtimeSet: []
   _startRuntimeSet: []
   DebugValue:
-    Heath: 0
+    Health: 0
     Damage: 0
     Speed: 0
     Coins: 0
