@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: BurnEffect
   m_EditorClassIdentifier: 
   EnemyData:
-    Heath: 0
+    Health: 0
     Damage: 0
     Speed: 0
     Coins: 0
     Sprite: {fileID: 0}
+    Position: {x: 0, y: 0, z: 0}
+    IsDead: 0
   Duration: 10
-  TotalDamage: 40
+  TotalDamage: 10

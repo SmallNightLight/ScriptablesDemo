@@ -222,6 +222,7 @@ namespace ScriptableArchitecture.Core
 
         public Stacktrace[] GetStackTraces() => new Stacktrace[] { _stacktraceVariable, _stacktraceEvent, _stacktraceRuntimeSet };
 
+        //Initialize stack traces for different Variable Types with a maximum capacity
         private Stacktrace _stacktraceVariable = new Stacktrace(VariableType.Variable, 14);
         private Stacktrace _stacktraceEvent = new Stacktrace(VariableType.Event, 100);
         private Stacktrace _stacktraceRuntimeSet = new Stacktrace(VariableType.RuntimeSet, 100);

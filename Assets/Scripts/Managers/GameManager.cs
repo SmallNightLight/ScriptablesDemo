@@ -11,13 +11,13 @@ public class GameManager : MonoBehaviour
         _updateManagers = GetComponentsInChildren<IUpdateManager>();
 
         foreach (ISetupManager setupManager in _setupManagers)
-            setupManager.Setup();
+            setupManager?.Setup();
     }
 
     private void Update()
     {
         foreach (IUpdateManager updateManager in _updateManagers)
-            updateManager.Update();
+            updateManager?.Update();
     }
 }
 

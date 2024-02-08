@@ -7,11 +7,10 @@ public class Enemy : MonoBehaviour
 {
     [Header("Data")]
     public EnemyDataReference BaseEnemyData;
-    [SerializeField] private EnemyData _currentEnemyData;
+    [SerializeField] private EnemyDataReference _enemyList;
     public Vector2Reference Path;
 
-    [Header("Effects")]
-    [SerializeField] private List<Effect> _currentEffects = new List<Effect>();
+    [SerializeField] private EnemyData _currentEnemyData;
 
     [Header("Settings")]
     [SerializeField] private float _targetMargin;
@@ -28,6 +27,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         _currentEnemyData = BaseEnemyData.Value.Copy();
+        _enemyList.Add(_currentEnemyData);
 
         if (_enemyRenderer != null)
             _enemyRenderer.sprite = _currentEnemyData.Sprite;
@@ -45,43 +45,18 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         MoveTowardsTarget();
-        UpdateEffect();
+        UpdatePosition();
+        _currentEnemyData?.UpdateEffects();
 
-        _healthDisplayer.CurrentHealth = _currentEnemyData.Health;
+        if (_currentEnemyData.Health <= 0.5f)
+            Death();
+
+        _healthDisplayer.CurrentHealth = Mathf.Max(_currentEnemyData.Health, 0);
     }
 
-    private void UpdateEffect()
+    private void UpdatePosition()
     {
-        if (_currentEffects == null) return;
-
-        for (int i = _currentEffects.Count - 1; i >= 0; i--)
-        {
-            if (_currentEffects[i] == null || _currentEffects[i].IsEnded())
-            {
-                _currentEffects.RemoveAt(i);
-                continue;
-            }
-
-            _currentEffects[i].UpdateEffect(Time.deltaTime);
-        }
-    }
-
-    public Effect baseEf;
-
-    [ContextMenu("GFF")]
-    public void GFF() => AddEffect(baseEf);
-
-    public void AddEffect(Effect baseEffect)
-    {
-        if (baseEffect == null)
-        {
-            Debug.LogWarning("Cannot add effect - baseEffect is null");
-            return;
-        }
-
-        Effect newEffect = Instantiate(baseEffect);
-        newEffect.EnemyData = _currentEnemyData;
-        _currentEffects.Add(newEffect);
+        _currentEnemyData.Position = transform.position;
     }
 
     private void MoveTowardsTarget()
@@ -104,8 +79,16 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private void Death()
+    {
+        _currentEnemyData.IsDead = true;
+        Destroy(gameObject);
+    }
+
     private void OnDestroy()
     {
+        _enemyList.Remove(_currentEnemyData);
+
         if (_reachedEnd) return;
 
         EnemyDeathData deathData = new EnemyDeathData();

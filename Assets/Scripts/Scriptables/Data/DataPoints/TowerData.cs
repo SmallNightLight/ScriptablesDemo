@@ -20,6 +20,8 @@ namespace ScriptableArchitecture.Data
         public int Cost;
         public int Damage;
         public float Range;
-        public List<GameObject> ProjectilePrefabs;
+        public float Interval;
+        public float ProjectileSpeed;
+        public List<Effect> Effects;
     }
 }

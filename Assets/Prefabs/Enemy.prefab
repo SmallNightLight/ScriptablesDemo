@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3604238584034984684}
   - component: {fileID: 9013637005201814346}
   - component: {fileID: 131099167996251595}
-  - component: {fileID: 1437147342600070066}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -99,31 +98,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec229a7032562b418b03ef64a6f60e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyData:
-    _isVariable: 0
+  BaseEnemyData:
+    _isVariable: 1
     _variable: {fileID: 0}
     _constant:
-      Heath: 100
-      Damage: 10
-      Speed: 1
-      Coins: 10
-      Sprite: {fileID: 21300000, guid: 098dc7d4fcfdc2d4184462319e192e36, type: 3}
+      Health: 0
+      Damage: 0
+      Speed: 0
+      Coins: 0
+      Sprite: {fileID: 0}
+      Position: {x: 0, y: 0, z: 0}
+  _enemyList:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: b27e6599758d40247b4353aabbbecf8a, type: 2}
+    _constant:
+      Health: 0
+      Damage: 0
+      Speed: 0
+      Coins: 0
+      Sprite: {fileID: 0}
+      Position: {x: 0, y: 0, z: 0}
   Path:
     _isVariable: 1
     _variable: {fileID: 11400000, guid: 35143ff3dee12c441b8b1039190efd0b, type: 2}
     _constant: {x: 0, y: 0}
-  _currentEffects: []
+  _currentEnemyData:
+    Health: 0
+    Damage: 0
+    Speed: 0
+    Coins: 0
+    Sprite: {fileID: 0}
+    Position: {x: 0, y: 0, z: 0}
   _targetMargin: 0.001
   _destroyEvent:
     _isVariable: 1
     _variable: {fileID: 11400000, guid: 866eb4bcd91861a4e8445ff01ce5527b, type: 2}
     _constant:
       EnemyData:
-        Heath: 0
+        Health: 0
         Damage: 0
         Speed: 0
         Coins: 0
         Sprite: {fileID: 0}
+        Position: {x: 0, y: 0, z: 0}
       Position: {x: 0, y: 0}
   _endCount:
     _isVariable: 1
@@ -131,34 +148,6 @@ MonoBehaviour:
     _constant: 0
   _enemyRenderer: {fileID: 9013637005201814346}
   _healthDisplayer: {fileID: 4452751547831027055}
---- !u!114 &1437147342600070066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 865488156311241634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84ab5de3674f7f449b652f5c53308c21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 131099167996251595}
-        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
-        m_MethodName: AddEffect
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _event: {fileID: 11400000, guid: 8019b90283aa55948bcd0e867465479a, type: 2}
 --- !u!1 &5133156193466485810
 GameObject:
   m_ObjectHideFlags: 0

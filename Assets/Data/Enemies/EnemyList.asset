@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdc1fe27657d47143abe0161bf33347c, type: 3}
+  m_Name: EnemyList
+  m_EditorClassIdentifier: 
+  VariableType: 3
+  InitializeTypeVariable: 0
+  _value:
+    Health: 0
+    Damage: 0
+    Speed: 0
+    Coins: 0
+    Sprite: {fileID: 0}
+    Position: {x: 0, y: 0, z: 0}
+  _startValue:
+    Health: 0
+    Damage: 0
+    Speed: 0
+    Coins: 0
+    Sprite: {fileID: 0}
+    Position: {x: 0, y: 0, z: 0}
+  InitializeTypeRuntimeSet: 0
+  _runtimeSet: []
+  _startRuntimeSet: []
+  DebugValue:
+    Health: 0
+    Damage: 0
+    Speed: 0
+    Coins: 0
+    Sprite: {fileID: 0}
+    Position: {x: 0, y: 0, z: 0}

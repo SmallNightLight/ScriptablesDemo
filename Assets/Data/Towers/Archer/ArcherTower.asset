@@ -22,7 +22,9 @@ MonoBehaviour:
       Cost: 0
       Damage: 0
       Range: 0
-      ProjectilePrefabs: []
+      Interval: 0
+      ProjectileSpeed: 0
+      Effects: []
     UpgradeTowers: []
   _startValue:
     Name: Archer
@@ -32,18 +34,31 @@ MonoBehaviour:
       Cost: 30
       Damage: 5
       Range: 5
-      ProjectilePrefabs: []
+      Interval: 0.7
+      ProjectileSpeed: 40
+      Effects:
+      - {fileID: 11400000, guid: 9ee12b7496c91e347ac29d34e8cf9fab, type: 2}
+      - {fileID: 11400000, guid: 5227388f564d50e4e832ea9424600943, type: 2}
     UpgradeTowers:
     - Sprite: {fileID: 21300000, guid: 1ac7b1946e2bb0d42951cea15a2de459, type: 3}
       Cost: 20
       Damage: 8
       Range: 8
-      ProjectilePrefabs: []
+      Interval: 0.5
+      ProjectileSpeed: 50
+      Effects:
+      - {fileID: 11400000, guid: 8ce36d5a0baf0ac4ba6c7ee979a23619, type: 2}
+      - {fileID: 11400000, guid: 9ee12b7496c91e347ac29d34e8cf9fab, type: 2}
     - Sprite: {fileID: 21300000, guid: 7ff475a72b9d0cb4abcdfa54f5a6db47, type: 3}
       Cost: 30
       Damage: 15
       Range: 13
-      ProjectilePrefabs: []
+      Interval: 0.35
+      ProjectileSpeed: 70
+      Effects:
+      - {fileID: 11400000, guid: 8ce36d5a0baf0ac4ba6c7ee979a23619, type: 2}
+      - {fileID: 11400000, guid: 9ee12b7496c91e347ac29d34e8cf9fab, type: 2}
+      - {fileID: 11400000, guid: 5227388f564d50e4e832ea9424600943, type: 2}
   InitializeTypeRuntimeSet: 0
   _runtimeSet: []
   _startRuntimeSet: []
@@ -55,5 +70,7 @@ MonoBehaviour:
       Cost: 0
       Damage: 0
       Range: 0
-      ProjectilePrefabs: []
+      Interval: 0
+      ProjectileSpeed: 0
+      Effects: []
     UpgradeTowers: []

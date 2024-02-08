@@ -279,7 +279,9 @@ MonoBehaviour:
         Cost: 0
         Damage: 0
         Range: 0
-        ProjectilePrefabs: []
+        Interval: 0
+        ProjectileSpeed: 0
+        Effects: []
       UpgradeTowers: []
   _previewTowerEvent:
     _isVariable: 1
@@ -292,7 +294,9 @@ MonoBehaviour:
         Cost: 0
         Damage: 0
         Range: 0
-        ProjectilePrefabs: []
+        Interval: 0
+        ProjectileSpeed: 0
+        Effects: []
       UpgradeTowers: []
 --- !u!1 &341533374
 GameObject:

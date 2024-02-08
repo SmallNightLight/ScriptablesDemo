@@ -64,5 +64,6 @@ namespace ScriptableArchitecture.Data
         protected virtual void OnEnemyHit() { }
         protected virtual void OnUpdate(float deltaTime) { }
         protected virtual void OnEffectEnd() { }
+        public virtual int GetPriority() { return -1; }
     }
 }
