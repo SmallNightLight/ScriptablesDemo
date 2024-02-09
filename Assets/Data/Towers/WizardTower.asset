@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52fbde2715c39294bb354db41c88f6fc, type: 3}
+  m_Name: WizardTower
+  m_EditorClassIdentifier: 
+  VariableType: 0
+  InitializeTypeVariable: 2
+  _value:
+    Name: 
+    Description: 
+    StartTower:
+      Sprite: {fileID: 0}
+      Cost: 0
+      Range: 0
+      Interval: 0
+      ProjectileSpeed: 0
+      Effects: []
+    UpgradeTowers: []
+  _startValue:
+    Name: Wizard
+    Description: Mid Ranged Tower that deald AOE damage
+    StartTower:
+      Sprite: {fileID: 21300000, guid: a44bd641182b1064a97182897cbfa7e7, type: 3}
+      Cost: 40
+      Range: 5
+      Interval: 0.7
+      ProjectileSpeed: 60
+      Effects:
+      - {fileID: 11400000, guid: d9fb55bfe2d35c84996630598d21d8b9, type: 2}
+    UpgradeTowers:
+    - Sprite: {fileID: 21300000, guid: 974889237d0c35f46a5995c55e916803, type: 3}
+      Cost: 20
+      Range: 8
+      Interval: 0.5
+      ProjectileSpeed: 50
+      Effects:
+      - {fileID: 11400000, guid: dfad58e674fb63045bc029a13290783a, type: 2}
+      - {fileID: 11400000, guid: 9ee12b7496c91e347ac29d34e8cf9fab, type: 2}
+    - Sprite: {fileID: 21300000, guid: 49beba6932541bc4ea246d85a243d06e, type: 3}
+      Cost: 40
+      Range: 12
+      Interval: 0.3
+      ProjectileSpeed: 30
+      Effects:
+      - {fileID: 11400000, guid: 462d2cf5b2c4cfa4994b0ff5cb11b0cf, type: 2}
+      - {fileID: 11400000, guid: 9ee12b7496c91e347ac29d34e8cf9fab, type: 2}
+  InitializeTypeRuntimeSet: 0
+  _runtimeSet: []
+  _startRuntimeSet: []
+  DebugValue:
+    Name: 
+    Description: 
+    StartTower:
+      Sprite: {fileID: 0}
+      Cost: 0
+      Range: 0
+      Interval: 0
+      ProjectileSpeed: 0
+      Effects: []
+    UpgradeTowers: []

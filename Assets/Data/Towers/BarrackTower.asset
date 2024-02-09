@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52fbde2715c39294bb354db41c88f6fc, type: 3}
+  m_Name: BarrackTower
+  m_EditorClassIdentifier: 
+  VariableType: 0
+  InitializeTypeVariable: 2
+  _value:
+    Name: 
+    Description: 
+    StartTower:
+      Sprite: {fileID: 0}
+      Cost: 0
+      Range: 0
+      Interval: 0
+      ProjectileSpeed: 0
+      Effects: []
+    UpgradeTowers: []
+  _startValue:
+    Name: Barrack
+    Description: Low-Ranged Damage Tower
+    StartTower:
+      Sprite: {fileID: 21300000, guid: e53c805945e99884aaa7f1fadfbb7d4e, type: 3}
+      Cost: 20
+      Range: 4
+      Interval: 0.9
+      ProjectileSpeed: 60
+      Effects:
+      - {fileID: 11400000, guid: 175dee94277305f46ace14a65bac5380, type: 2}
+    UpgradeTowers:
+    - Sprite: {fileID: 21300000, guid: 235b5a432e77527488b7169a3e065f31, type: 3}
+      Cost: 40
+      Range: 6
+      Interval: 0.5
+      ProjectileSpeed: 80
+      Effects:
+      - {fileID: 11400000, guid: dced03c5299c0b84690fa66038bf8a79, type: 2}
+    - Sprite: {fileID: 21300000, guid: 2d3b2693be2271e4db47b87ec3543659, type: 3}
+      Cost: 70
+      Range: 7
+      Interval: 0.05
+      ProjectileSpeed: 100
+      Effects:
+      - {fileID: 11400000, guid: c8d86bb2157def24eacdaa051b099e62, type: 2}
+  InitializeTypeRuntimeSet: 0
+  _runtimeSet: []
+  _startRuntimeSet: []
+  DebugValue:
+    Name: 
+    Description: 
+    StartTower:
+      Sprite: {fileID: 0}
+      Cost: 0
+      Range: 0
+      Interval: 0
+      ProjectileSpeed: 0
+      Effects: []
+    UpgradeTowers: []

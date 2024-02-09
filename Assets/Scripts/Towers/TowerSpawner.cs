@@ -7,6 +7,8 @@ using UnityEngine.Tilemaps;
 [RequireComponent(typeof(Grid))]
 public class TowerSpawner : MonoBehaviour
 {
+    [Header("Data")]
+    [SerializeField] private IntReference _coins;
     [SerializeField] private BoolReference _canPlaceTower;
     [SerializeField] private BoolReference _inTowerPreview;
     [SerializeField] private Vector3Reference _worldMousePosition;
@@ -68,14 +70,17 @@ public class TowerSpawner : MonoBehaviour
     public void PlaceTower(Vector3 worldMousePosition)
     {
         Vector3Int cellPosition = GetCellPosition(worldMousePosition);
+        int cost = _previewTower.Value.StartTower.Cost;
 
-        if (!AddTowerPosition(cellPosition) || IsPath(cellPosition))
+        if (!HasCoins(cost) || IsPath(cellPosition) || !AddTowerPosition(cellPosition))
             return;
 
         Vector3 position = GetSnappedPosition(cellPosition);
         GameObject newTower = Instantiate(_towerPrefab, position, Quaternion.identity);
         newTower.transform.SetParent(transform);
         newTower.GetComponent<Tower>().TowerData = _previewTower;
+
+        _coins.Value -= cost;
 
         _inTowerPreview.Value = false;
         _previewSprite.sprite = null;
@@ -100,4 +105,6 @@ public class TowerSpawner : MonoBehaviour
         TileBase tile = map.GetTile(new Vector3Int(cellPosition.x, cellPosition.y, 0));
         return _pathTiles.Contains(tile);
     }
+
+    private bool HasCoins(int amount) => _coins.Value >= amount;
 }

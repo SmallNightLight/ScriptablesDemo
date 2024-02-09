@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93534622ab2769e4dac78288dbebaf06, type: 3}
-  m_Name: SlowEffect
+  m_Name: SlowEffectLow
   m_EditorClassIdentifier: 
   EnemyData:
     Health: 0
@@ -18,5 +18,7 @@ MonoBehaviour:
     Speed: 0
     Coins: 0
     Sprite: {fileID: 0}
-  Duration: 10
-  SlowDownFactor: 0.3
+    Position: {x: 0, y: 0, z: 0}
+    IsDead: 0
+  Duration: 1
+  SlowDownFactor: 0.9

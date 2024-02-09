@@ -48,6 +48,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e1532e1edebc30459b94c7965ad869e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _coins:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: 3efdcbb92f0cde747896134f0c0845ee, type: 2}
+    _constant: 0
   _canPlaceTower:
     _isVariable: 1
     _variable: {fileID: 11400000, guid: a3c94657fbbbddf4989c2801e33ddbe1, type: 2}
@@ -70,9 +74,10 @@ MonoBehaviour:
       StartTower:
         Sprite: {fileID: 0}
         Cost: 0
-        Damage: 0
         Range: 0
-        TowerType: 0
+        Interval: 0
+        ProjectileSpeed: 0
+        Effects: []
       UpgradeTowers: []
   _previewPossible: {r: 0.5570227, g: 0.9622642, b: 0.4765931, a: 1}
   _previewUnable: {r: 0.8584906, g: 0.43490097, b: 0.24701849, a: 1}

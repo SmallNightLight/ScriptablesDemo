@@ -18,7 +18,6 @@ namespace ScriptableArchitecture.Data
     {
         public Sprite Sprite;
         public int Cost;
-        public int Damage;
         public float Range;
         public float Interval;
         public float ProjectileSpeed;

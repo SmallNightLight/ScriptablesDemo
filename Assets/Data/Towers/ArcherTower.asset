@@ -20,7 +20,6 @@ MonoBehaviour:
     StartTower:
       Sprite: {fileID: 0}
       Cost: 0
-      Damage: 0
       Range: 0
       Interval: 0
       ProjectileSpeed: 0
@@ -28,37 +27,33 @@ MonoBehaviour:
     UpgradeTowers: []
   _startValue:
     Name: Archer
-    Description: Long ranged tower
+    Description: Long ranged debuff tower
     StartTower:
       Sprite: {fileID: 21300000, guid: b6b3b7fce2d1090499e1b062c280683b, type: 3}
       Cost: 30
-      Damage: 5
-      Range: 5
+      Range: 10
       Interval: 0.7
-      ProjectileSpeed: 40
+      ProjectileSpeed: 50
       Effects:
-      - {fileID: 11400000, guid: 9ee12b7496c91e347ac29d34e8cf9fab, type: 2}
+      - {fileID: 11400000, guid: 8ce36d5a0baf0ac4ba6c7ee979a23619, type: 2}
       - {fileID: 11400000, guid: 5227388f564d50e4e832ea9424600943, type: 2}
     UpgradeTowers:
     - Sprite: {fileID: 21300000, guid: 1ac7b1946e2bb0d42951cea15a2de459, type: 3}
       Cost: 20
-      Damage: 8
-      Range: 8
+      Range: 14
       Interval: 0.5
-      ProjectileSpeed: 50
+      ProjectileSpeed: 60
       Effects:
-      - {fileID: 11400000, guid: 8ce36d5a0baf0ac4ba6c7ee979a23619, type: 2}
-      - {fileID: 11400000, guid: 9ee12b7496c91e347ac29d34e8cf9fab, type: 2}
+      - {fileID: 11400000, guid: 175dee94277305f46ace14a65bac5380, type: 2}
+      - {fileID: 11400000, guid: a760c32a564796e47862e550c688c0be, type: 2}
     - Sprite: {fileID: 21300000, guid: 7ff475a72b9d0cb4abcdfa54f5a6db47, type: 3}
       Cost: 30
-      Damage: 15
-      Range: 13
+      Range: 20
       Interval: 0.35
       ProjectileSpeed: 70
       Effects:
-      - {fileID: 11400000, guid: 8ce36d5a0baf0ac4ba6c7ee979a23619, type: 2}
-      - {fileID: 11400000, guid: 9ee12b7496c91e347ac29d34e8cf9fab, type: 2}
-      - {fileID: 11400000, guid: 5227388f564d50e4e832ea9424600943, type: 2}
+      - {fileID: 11400000, guid: dced03c5299c0b84690fa66038bf8a79, type: 2}
+      - {fileID: 11400000, guid: 41a2a7c0e2af01547aa5341ae6675a8b, type: 2}
   InitializeTypeRuntimeSet: 0
   _runtimeSet: []
   _startRuntimeSet: []
@@ -68,7 +63,6 @@ MonoBehaviour:
     StartTower:
       Sprite: {fileID: 0}
       Cost: 0
-      Damage: 0
       Range: 0
       Interval: 0
       ProjectileSpeed: 0

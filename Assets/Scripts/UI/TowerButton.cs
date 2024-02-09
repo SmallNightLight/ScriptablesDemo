@@ -14,7 +14,17 @@ public class TowerButton : MonoBehaviour
     private void Start()
     {
         Image image = GetComponent<Image>();
+        RectTransform rectTransform = GetComponent<RectTransform>();
+
         image.sprite = _tower.Value.StartTower.Sprite;
+
+        float aspectRatio = _tower.Value.StartTower.Sprite.rect.width / _tower.Value.StartTower.Sprite.rect.height;
+        float width = rectTransform.rect.width;
+        float height = width / aspectRatio;
+
+        rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+        rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
+
     }
 
     public void Pressed()

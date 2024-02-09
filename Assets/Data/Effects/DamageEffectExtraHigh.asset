@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffe25a8673279ac41a09651bd4137453, type: 3}
-  m_Name: BurnEffect
+  m_Script: {fileID: 11500000, guid: 0eaec4300b16a4f43801ea5d06954f88, type: 3}
+  m_Name: DamageEffectExtraHigh
   m_EditorClassIdentifier: 
   EnemyData:
     Health: 0
@@ -20,5 +20,5 @@ MonoBehaviour:
     Sprite: {fileID: 0}
     Position: {x: 0, y: 0, z: 0}
     IsDead: 0
-  Duration: 10
-  TotalDamage: 10
+  Duration: 0
+  Damage: 100
