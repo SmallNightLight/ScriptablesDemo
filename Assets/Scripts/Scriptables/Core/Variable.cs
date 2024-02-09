@@ -118,6 +118,8 @@ namespace ScriptableArchitecture.Core
             Value = value;
             Log(_stacktraceEvent, $"Raised and set value to {Value}");
 
+            if (CheckForEventError()) return;
+
             for (int i = _listeners.Count - 1; i >= 0; i--)
             {
                 _listeners[i].OnEventRaised(value);
@@ -132,6 +134,8 @@ namespace ScriptableArchitecture.Core
 
         public void RegisterListener(IListener<T> listener)
         {
+            if (CheckForEventError()) return;
+
             if (!_listeners.Contains(listener))
             {
                 _listeners.Add(listener);
@@ -145,6 +149,8 @@ namespace ScriptableArchitecture.Core
 
         public void UnregisterListener(IListener<T> listener)
         {
+            if (CheckForEventError()) return;
+
             if (_listeners.Contains(listener))
             {
                 _listeners.Remove(listener);
@@ -160,6 +166,23 @@ namespace ScriptableArchitecture.Core
         {
             _listeners.Clear();
             Log(_stacktraceEvent, "Cleared all listeners");
+        }
+
+        private bool CheckForEventError()
+        {
+            if (!(VariableType == VariableType.VariableEvent || VariableType == VariableType.Event))
+            {
+                Debug.LogWarning($"Cant Raise event on a variable or RuntimeSet ({name})");
+                return true;
+            }
+
+            if (_listeners == null)
+            {
+                Debug.LogWarning($"Listeners list is null ({name})");
+                return true;
+            }
+
+            return false;
         }
 
         public List<IListener> GetListeners() => _listeners.Cast<IListener>().ToList();

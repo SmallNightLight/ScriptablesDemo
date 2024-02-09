@@ -6,7 +6,9 @@ public class Tower : MonoBehaviour
 {
     [Header("Data")]
     public TowerDataReference TowerData;
+    public Vector3Int CellPosition;
     [SerializeField] private EnemyDataReference _enemyList;
+    [SerializeField] private TowerCollectionReference _towerCollection;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject _projectilePrefab;
@@ -39,6 +41,8 @@ public class Tower : MonoBehaviour
     {
         if (_towerRenderer != null && _currentTower != null)
             _towerRenderer.sprite = _currentTower.Sprite;
+
+        _towerCollection.Value.Towers[CellPosition] = _currentTower;
     }
 
     private IEnumerator Attacking()

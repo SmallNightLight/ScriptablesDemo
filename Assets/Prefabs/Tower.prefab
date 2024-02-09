@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TowerData:
-    _isVariable: 0
+    _isVariable: 1
     _variable: {fileID: 0}
     _constant:
       Name: 
@@ -106,12 +106,12 @@ MonoBehaviour:
       StartTower:
         Sprite: {fileID: 0}
         Cost: 0
-        Damage: 0
         Range: 0
         Interval: 0
         ProjectileSpeed: 0
         Effects: []
       UpgradeTowers: []
+  CellPosition: {x: 0, y: 0, z: 0}
   _enemyList:
     _isVariable: 1
     _variable: {fileID: 11400000, guid: b27e6599758d40247b4353aabbbecf8a, type: 2}
@@ -122,5 +122,9 @@ MonoBehaviour:
       Coins: 0
       Sprite: {fileID: 0}
       Position: {x: 0, y: 0, z: 0}
+      IsDead: 0
+  _towerCollection:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: 9d75ed552fd676648b94f89f1cd1f2ec, type: 2}
   _projectilePrefab: {fileID: 287172967044142432, guid: ad53c1eee44fb19479eda262e05adf8b, type: 3}
   _towerRenderer: {fileID: 7051670900092165769}

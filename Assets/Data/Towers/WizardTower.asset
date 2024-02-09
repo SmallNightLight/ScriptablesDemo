@@ -18,6 +18,7 @@ MonoBehaviour:
     Name: 
     Description: 
     StartTower:
+      Name: 
       Sprite: {fileID: 0}
       Cost: 0
       Range: 0
@@ -29,6 +30,7 @@ MonoBehaviour:
     Name: Wizard
     Description: Mid Ranged Tower that deald AOE damage
     StartTower:
+      Name: Wizard Tower (1)
       Sprite: {fileID: 21300000, guid: a44bd641182b1064a97182897cbfa7e7, type: 3}
       Cost: 40
       Range: 5
@@ -37,7 +39,8 @@ MonoBehaviour:
       Effects:
       - {fileID: 11400000, guid: d9fb55bfe2d35c84996630598d21d8b9, type: 2}
     UpgradeTowers:
-    - Sprite: {fileID: 21300000, guid: 974889237d0c35f46a5995c55e916803, type: 3}
+    - Name: Wizard Tower (2)
+      Sprite: {fileID: 21300000, guid: 974889237d0c35f46a5995c55e916803, type: 3}
       Cost: 20
       Range: 8
       Interval: 0.5
@@ -45,7 +48,8 @@ MonoBehaviour:
       Effects:
       - {fileID: 11400000, guid: dfad58e674fb63045bc029a13290783a, type: 2}
       - {fileID: 11400000, guid: 9ee12b7496c91e347ac29d34e8cf9fab, type: 2}
-    - Sprite: {fileID: 21300000, guid: 49beba6932541bc4ea246d85a243d06e, type: 3}
+    - Name: Wizard Tower (3)
+      Sprite: {fileID: 21300000, guid: 49beba6932541bc4ea246d85a243d06e, type: 3}
       Cost: 40
       Range: 12
       Interval: 0.3
@@ -60,6 +64,7 @@ MonoBehaviour:
     Name: 
     Description: 
     StartTower:
+      Name: 
       Sprite: {fileID: 0}
       Cost: 0
       Range: 0

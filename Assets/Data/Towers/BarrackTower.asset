@@ -18,6 +18,7 @@ MonoBehaviour:
     Name: 
     Description: 
     StartTower:
+      Name: 
       Sprite: {fileID: 0}
       Cost: 0
       Range: 0
@@ -29,6 +30,7 @@ MonoBehaviour:
     Name: Barrack
     Description: Low-Ranged Damage Tower
     StartTower:
+      Name: Barrack Tower (1)
       Sprite: {fileID: 21300000, guid: e53c805945e99884aaa7f1fadfbb7d4e, type: 3}
       Cost: 20
       Range: 4
@@ -37,14 +39,16 @@ MonoBehaviour:
       Effects:
       - {fileID: 11400000, guid: 175dee94277305f46ace14a65bac5380, type: 2}
     UpgradeTowers:
-    - Sprite: {fileID: 21300000, guid: 235b5a432e77527488b7169a3e065f31, type: 3}
+    - Name: Barrack Tower (2)
+      Sprite: {fileID: 21300000, guid: 235b5a432e77527488b7169a3e065f31, type: 3}
       Cost: 40
       Range: 6
       Interval: 0.5
       ProjectileSpeed: 80
       Effects:
       - {fileID: 11400000, guid: dced03c5299c0b84690fa66038bf8a79, type: 2}
-    - Sprite: {fileID: 21300000, guid: 2d3b2693be2271e4db47b87ec3543659, type: 3}
+    - Name: Barrack Tower (3)
+      Sprite: {fileID: 21300000, guid: 2d3b2693be2271e4db47b87ec3543659, type: 3}
       Cost: 70
       Range: 7
       Interval: 0.05
@@ -58,6 +62,7 @@ MonoBehaviour:
     Name: 
     Description: 
     StartTower:
+      Name: 
       Sprite: {fileID: 0}
       Cost: 0
       Range: 0

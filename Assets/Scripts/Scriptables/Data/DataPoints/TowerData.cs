@@ -16,11 +16,18 @@ namespace ScriptableArchitecture.Data
     [System.Serializable]
     public class TowerSingle
     {
+        public string Name;
         public Sprite Sprite;
         public int Cost;
         public float Range;
         public float Interval;
         public float ProjectileSpeed;
         public List<Effect> Effects;
+    }
+
+    [System.Serializable]
+    public class TowerCollection
+    {
+        public Dictionary<Vector3Int, TowerSingle> Towers = new Dictionary<Vector3Int, TowerSingle>();
     }
 }
