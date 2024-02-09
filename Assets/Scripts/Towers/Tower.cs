@@ -30,8 +30,12 @@ public class Tower : MonoBehaviour
         StartCoroutine(Attacking());
     }
 
-    public void Upgrade()
+    public void Upgrade(Vector3Int towerCellPosition)
     {
+        if (CellPosition != towerCellPosition) return;
+
+        if (_level >= TowerData.Value.UpgradeTowers.Count) return;
+
         _level++;
         _currentTower = TowerData.Value.UpgradeTowers[_level - 1];
         UpdateTower();
@@ -43,6 +47,7 @@ public class Tower : MonoBehaviour
             _towerRenderer.sprite = _currentTower.Sprite;
 
         _towerCollection.Value.Towers[CellPosition] = _currentTower;
+        _towerCollection.Value.TowerBehaviour[CellPosition] = (TowerData.Value, _level);
     }
 
     private IEnumerator Attacking()

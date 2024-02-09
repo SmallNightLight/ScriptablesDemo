@@ -11,6 +11,20 @@ namespace ScriptableArchitecture.Data
         public string Description;
         public TowerSingle StartTower;
         public List<TowerSingle> UpgradeTowers;
+
+        public TowerSingle GetTower(int level)
+        {
+            if (level == 0)
+                return StartTower;
+
+            if (level < 0 || level > UpgradeTowers.Count)
+            {
+                Debug.LogError("Tower level is out of range");
+                return null;
+            }
+            
+            return UpgradeTowers[level - 1];
+        }
     }
 
     [System.Serializable]
@@ -29,5 +43,8 @@ namespace ScriptableArchitecture.Data
     public class TowerCollection
     {
         public Dictionary<Vector3Int, TowerSingle> Towers = new Dictionary<Vector3Int, TowerSingle>();
+
+        //Dictionary for all tower in the scene and their current level
+        public Dictionary<Vector3Int, (TowerData, int)> TowerBehaviour = new Dictionary<Vector3Int, (TowerData, int)>();
     }
 }

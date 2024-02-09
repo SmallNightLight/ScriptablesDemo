@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 406357247da1173478b270846fbcd219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: 865488156311241634, guid: fd6310c91f70e1f43bc98bbe1e25ed99, type: 3}
   _waves:
   - _isVariable: 1
     _variable: {fileID: 11400000, guid: bc9b8eb5953d7d04c97588c7ebc31c0b, type: 2}
@@ -56,7 +55,35 @@ MonoBehaviour:
     _constant:
       SpawnSpeed: 0
       EnemyData: []
-  Path:
+  _path:
     _isVariable: 1
     _variable: {fileID: 11400000, guid: 35143ff3dee12c441b8b1039190efd0b, type: 2}
     _constant: {x: 0, y: 0}
+  _enemyList:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: b27e6599758d40247b4353aabbbecf8a, type: 2}
+    _constant:
+      Health: 0
+      Damage: 0
+      Speed: 0
+      Coins: 0
+      Sprite: {fileID: 0}
+      Position: {x: 0, y: 0, z: 0}
+      IsDead: 0
+  _nextWaveEvent:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: 29e34971a8adc6f41be096abd4779fb3, type: 2}
+    _constant: 0
+  _startBuildPhasevent:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: 805925a27353c4546a06cd90eca7c893, type: 2}
+    _constant: 0
+  _endBuildPhasevent:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: 807e9f0a9991ef143ad76e54609bf949, type: 2}
+    _constant: 0
+  _enemyPrefab: {fileID: 865488156311241634, guid: fd6310c91f70e1f43bc98bbe1e25ed99, type: 3}
+  _buildTime:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: 52fd9287a4be3a94fbd52c34536259e2, type: 2}
+    _constant: 10

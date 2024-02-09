@@ -5,9 +5,18 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject _enemyPrefab;
+    [Header("Data")]
     [SerializeField] private List<WaveDataReference> _waves;
-    [SerializeField] private Vector2Reference Path;
+    [SerializeField] private Vector2Reference _path;
+    [SerializeField] private EnemyDataReference _enemyList;
+    [SerializeField] private IntReference _nextWaveEvent;
+    [SerializeField] private IntReference _startBuildPhasevent;
+    [SerializeField] private IntReference _endBuildPhasevent;
+
+    [Header("Settings")]
+    [SerializeField] private GameObject _enemyPrefab;
+    [SerializeField] private FloatReference _buildTime;
+
 
     private void Start()
     {
@@ -18,8 +27,14 @@ public class EnemySpawner : MonoBehaviour
     {
         for(int wave = 0; wave < _waves.Count; wave++)
         {
+            _nextWaveEvent.Raise(wave + 1);
             yield return StartCoroutine(SpawnWave(wave));
-            //yield return new Wait //wait until player has set up for next wave
+
+            yield return WaitForEndOfWave();
+
+            _startBuildPhasevent.Raise(wave + 1);
+            yield return new WaitForSeconds(_buildTime.Value);
+            _endBuildPhasevent.Raise(wave + 1);
         }
     }
 
@@ -40,10 +55,20 @@ public class EnemySpawner : MonoBehaviour
         {
             //Spawn enemy
             Enemy enemy = Instantiate(_enemyPrefab, transform).GetComponent<Enemy>();
-            enemy.BaseEnemyData = enemyWave.Enemy; //.Copy()
-            enemy.Path = Path;
+            enemy.BaseEnemyData = enemyWave.Enemy;
+            enemy.Path = _path;
 
             yield return new WaitForSeconds(_waves[waveIndex].Value.SpawnSpeed);
+        }
+    }
+
+    private IEnumerator WaitForEndOfWave()
+    {
+        while (true)
+        {
+            if (_enemyList.RuntimeSet.Count == 0) break;
+
+            yield return null;
         }
     }
 }

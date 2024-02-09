@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4893379369831284554}
   - component: {fileID: 7051670900092165769}
   - component: {fileID: 372167291160442157}
+  - component: {fileID: 5578353638835209737}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -104,6 +105,7 @@ MonoBehaviour:
       Name: 
       Description: 
       StartTower:
+        Name: 
         Sprite: {fileID: 0}
         Cost: 0
         Range: 0
@@ -128,3 +130,31 @@ MonoBehaviour:
     _variable: {fileID: 11400000, guid: 9d75ed552fd676648b94f89f1cd1f2ec, type: 2}
   _projectilePrefab: {fileID: 287172967044142432, guid: ad53c1eee44fb19479eda262e05adf8b, type: 3}
   _towerRenderer: {fileID: 7051670900092165769}
+--- !u!114 &5578353638835209737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601080569172190573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6689ca7f826095d41830ae4cb8c93118, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 372167291160442157}
+        m_TargetAssemblyTypeName: Tower, Assembly-CSharp
+        m_MethodName: Upgrade
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _event: {fileID: 11400000, guid: ed13b9181fd85cf4683722dc59cc0620, type: 2}

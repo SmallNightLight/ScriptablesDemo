@@ -18,6 +18,7 @@ public class TowerSpawner : MonoBehaviour
     [SerializeField] private TowerCollectionReference _towerCollection;
     [SerializeField] private TowerSingleReference _selectTowerEvent;
     [SerializeField] private BoolReference _deselectTowerEvent;
+    [SerializeField] private Vector3IntReference _currentSelectedCell;
 
     [SerializeField] private Color _previewPossible;
     [SerializeField] private Color _previewUnable;
@@ -90,6 +91,7 @@ public class TowerSpawner : MonoBehaviour
 
             if (hasCellTower && _towerCollection.Value.Towers.TryGetValue(cellPosition, out TowerSingle tower))
             {
+                _currentSelectedCell.Value = cellPosition;
                 _selectTowerEvent.Raise(tower);
             }
             else

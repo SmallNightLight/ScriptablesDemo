@@ -24,35 +24,41 @@ MonoBehaviour:
         _isVariable: 1
         _variable: {fileID: 11400000, guid: 908dc9d863de17440b6121852fce7d3e, type: 2}
         _constant:
-          Heath: 0
+          Health: 0
           Damage: 0
           Speed: 0
           Coins: 0
           Sprite: {fileID: 0}
+          Position: {x: 0, y: 0, z: 0}
+          IsDead: 0
       Count: 6
       Time: 8
     - Enemy:
         _isVariable: 1
         _variable: {fileID: 11400000, guid: 91b314a8196f1e04a90349ad6ab88305, type: 2}
         _constant:
-          Heath: 0
+          Health: 0
           Damage: 0
           Speed: 0
           Coins: 0
           Sprite: {fileID: 0}
+          Position: {x: 0, y: 0, z: 0}
+          IsDead: 0
       Count: 5
       Time: 5
     - Enemy:
         _isVariable: 1
         _variable: {fileID: 11400000, guid: 91b314a8196f1e04a90349ad6ab88305, type: 2}
         _constant:
-          Heath: 0
+          Health: 0
           Damage: 0
           Speed: 0
           Coins: 0
           Sprite: {fileID: 0}
+          Position: {x: 0, y: 0, z: 0}
+          IsDead: 0
       Count: 7
-      Time: 10
+      Time: 0
   InitializeTypeRuntimeSet: 0
   _runtimeSet: []
   _startRuntimeSet: []

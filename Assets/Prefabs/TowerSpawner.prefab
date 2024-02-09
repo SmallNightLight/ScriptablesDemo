@@ -72,6 +72,7 @@ MonoBehaviour:
       Name: 
       Description: 
       StartTower:
+        Name: 
         Sprite: {fileID: 0}
         Cost: 0
         Range: 0
@@ -86,6 +87,7 @@ MonoBehaviour:
     _isVariable: 1
     _variable: {fileID: 11400000, guid: ab0838e140eb96843838db3f7f2db0aa, type: 2}
     _constant:
+      Name: 
       Sprite: {fileID: 0}
       Cost: 0
       Range: 0
@@ -96,6 +98,10 @@ MonoBehaviour:
     _isVariable: 1
     _variable: {fileID: 11400000, guid: a3c95713b7a796342964e2f82c421aca, type: 2}
     _constant: 0
+  _currentSelectedCell:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: ed13b9181fd85cf4683722dc59cc0620, type: 2}
+    _constant: {x: 0, y: 0, z: 0}
   _previewPossible: {r: 0.5570227, g: 0.9622642, b: 0.4765931, a: 1}
   _previewUnable: {r: 0.8584906, g: 0.43490097, b: 0.24701849, a: 1}
   _mouseOffset: {x: 0, y: -0.4, z: 0}
