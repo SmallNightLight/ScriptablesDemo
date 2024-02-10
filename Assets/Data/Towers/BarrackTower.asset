@@ -33,8 +33,8 @@ MonoBehaviour:
       Name: Barrack Tower (1)
       Sprite: {fileID: 21300000, guid: e53c805945e99884aaa7f1fadfbb7d4e, type: 3}
       Cost: 20
-      Range: 4
-      Interval: 1.2
+      Range: 5
+      Interval: 0.8
       ProjectileSpeed: 60
       Effects:
       - {fileID: 11400000, guid: 175dee94277305f46ace14a65bac5380, type: 2}
@@ -43,7 +43,7 @@ MonoBehaviour:
       Sprite: {fileID: 21300000, guid: 235b5a432e77527488b7169a3e065f31, type: 3}
       Cost: 30
       Range: 6
-      Interval: 0.8
+      Interval: 0.5
       ProjectileSpeed: 80
       Effects:
       - {fileID: 11400000, guid: dced03c5299c0b84690fa66038bf8a79, type: 2}

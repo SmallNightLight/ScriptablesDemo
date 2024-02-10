@@ -110,6 +110,11 @@ namespace ScriptableArchitecture.Core
             Log(_stacktraceVariable, $"Set start value to {_startValue}");
         }
 
+        public void SetToStartValue()
+        {
+            Value = _startValue;
+        }
+
 
         //Event
 

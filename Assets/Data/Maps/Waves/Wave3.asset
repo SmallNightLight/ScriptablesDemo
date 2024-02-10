@@ -46,7 +46,7 @@ MonoBehaviour:
       Time: 5
     - Enemy:
         _isVariable: 1
-        _variable: {fileID: 11400000, guid: 91b314a8196f1e04a90349ad6ab88305, type: 2}
+        _variable: {fileID: 11400000, guid: cb2e59c09e67e7c4fa144a453cb25567, type: 2}
         _constant:
           Health: 0
           Speed: 0
@@ -54,7 +54,7 @@ MonoBehaviour:
           Sprite: {fileID: 0}
           Position: {x: 0, y: 0, z: 0}
           IsDead: 0
-      Count: 35
+      Count: 10
       Time: 0
   InitializeTypeRuntimeSet: 0
   _runtimeSet: []

@@ -9,15 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eaec4300b16a4f43801ea5d06954f88, type: 3}
-  m_Name: DamageEffectHigh
+  m_Script: {fileID: 11500000, guid: 36f84f64c48d10f458900bd2816b7d0a, type: 3}
+  m_Name: RestartEvent
   m_EditorClassIdentifier: 
-  EnemyData:
-    Health: 0
-    Speed: 0
-    Coins: 0
-    Sprite: {fileID: 0}
-    Position: {x: 0, y: 0, z: 0}
-    IsDead: 0
-  Duration: 0
-  Damage: 25
+  VariableType: 1
+  InitializeTypeVariable: 1
+  _value: 0
+  _startValue: 0
+  InitializeTypeRuntimeSet: 0
+  _runtimeSet: 
+  _startRuntimeSet: 
+  DebugValue: 0

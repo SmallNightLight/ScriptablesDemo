@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: HasReachedEnd
   m_EditorClassIdentifier: 
   VariableType: 0
-  InitializeTypeVariable: 0
-  _value: 0
+  InitializeTypeVariable: 1
+  _value: 1
   _startValue: 0
   InitializeTypeRuntimeSet: 0
   _runtimeSet: 

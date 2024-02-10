@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     public EnemyDataReference BaseEnemyData;
     [SerializeField] private EnemyDataReference _enemyList;
     public Vector2Reference Path;
+    [SerializeField] private BoolReference _restarted;
 
     [SerializeField] private EnemyData _currentEnemyData;
 
@@ -87,6 +88,8 @@ public class Enemy : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (_restarted.Value) return;
+
         _enemyList.Remove(_currentEnemyData);
 
         if (_reachedEnd) return;

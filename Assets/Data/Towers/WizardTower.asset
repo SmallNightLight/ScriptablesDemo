@@ -32,8 +32,8 @@ MonoBehaviour:
     StartTower:
       Name: Wizard Tower (1)
       Sprite: {fileID: 21300000, guid: a44bd641182b1064a97182897cbfa7e7, type: 3}
-      Cost: 40
-      Range: 5
+      Cost: 35
+      Range: 7
       Interval: 0.8
       ProjectileSpeed: 60
       Effects:
@@ -42,7 +42,7 @@ MonoBehaviour:
     - Name: Wizard Tower (2)
       Sprite: {fileID: 21300000, guid: 974889237d0c35f46a5995c55e916803, type: 3}
       Cost: 20
-      Range: 8
+      Range: 9
       Interval: 0.7
       ProjectileSpeed: 50
       Effects:
@@ -51,7 +51,7 @@ MonoBehaviour:
     - Name: Wizard Tower (3)
       Sprite: {fileID: 21300000, guid: 49beba6932541bc4ea246d85a243d06e, type: 3}
       Cost: 40
-      Range: 12
+      Range: 11
       Interval: 0.5
       ProjectileSpeed: 30
       Effects:

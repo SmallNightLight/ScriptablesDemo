@@ -22,9 +22,9 @@ MonoBehaviour:
     Position: {x: 0, y: 0, z: 0}
     IsDead: 0
   _startValue:
-    Health: 500
+    Health: 2000
     Speed: 2
-    Coins: 20
+    Coins: 7
     Sprite: {fileID: 21300000, guid: 0d28982940f30514db6b15b447d0a836, type: 3}
     Position: {x: 0, y: 0, z: 0}
     IsDead: 0
