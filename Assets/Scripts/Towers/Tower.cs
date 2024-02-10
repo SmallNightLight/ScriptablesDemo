@@ -30,6 +30,19 @@ public class Tower : MonoBehaviour
         StartCoroutine(Attacking());
     }
 
+    private void Update()
+    {
+        CheckForTowerDestruction();
+    }
+
+    private void CheckForTowerDestruction()
+    {
+        if (!_towerCollection.Value.TowerBehaviour.ContainsKey(CellPosition))
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void Upgrade(Vector3Int towerCellPosition)
     {
         if (CellPosition != towerCellPosition) return;
@@ -46,7 +59,6 @@ public class Tower : MonoBehaviour
         if (_towerRenderer != null && _currentTower != null)
             _towerRenderer.sprite = _currentTower.Sprite;
 
-        _towerCollection.Value.Towers[CellPosition] = _currentTower;
         _towerCollection.Value.TowerBehaviour[CellPosition] = (TowerData.Value, _level);
     }
 

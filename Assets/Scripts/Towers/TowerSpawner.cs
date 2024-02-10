@@ -18,6 +18,7 @@ public class TowerSpawner : MonoBehaviour
     [SerializeField] private TowerCollectionReference _towerCollection;
     [SerializeField] private TowerSingleReference _selectTowerEvent;
     [SerializeField] private BoolReference _deselectTowerEvent;
+    [SerializeField] private Vector3IntReference _upgradeTowerEvent;
     [SerializeField] private Vector3IntReference _currentSelectedCell;
 
     [SerializeField] private Color _previewPossible;
@@ -32,7 +33,6 @@ public class TowerSpawner : MonoBehaviour
     [SerializeField] private Receiver _groundTileMap;
     private Grid _grid;
 
-    private Dictionary<Vector3Int, TowerData> _currentTowerPositions = new Dictionary<Vector3Int, TowerData>();
     [SerializeField] private List<TileBase> _pathTiles = new List<TileBase>();
 
     private void Start()
@@ -45,10 +45,6 @@ public class TowerSpawner : MonoBehaviour
         if (_inTowerPreview.Value)
         {
             PreviewTower();
-        }
-        else
-        {
-            //CheckInput();
         }
 
         CheckInput();
@@ -73,7 +69,7 @@ public class TowerSpawner : MonoBehaviour
         _previewSprite.sprite = _previewTower.Value.StartTower.Sprite;
 
         Vector3Int cellPosition = GetCellPosition(_worldMousePosition.Value);
-        bool isPlacable = !_currentTowerPositions.ContainsKey(cellPosition) && !IsPath(cellPosition) && HasCoins(_previewTower.Value.StartTower.Cost);
+        bool isPlacable = !_towerCollection.Value.TowerBehaviour.ContainsKey(cellPosition) && !IsPath(cellPosition) && HasCoins(_previewTower.Value.StartTower.Cost);
 
         _previewSprite.color = isPlacable ? _previewPossible : _previewUnable;
         _previewSprite.transform.position = GetSnappedPosition(cellPosition);
@@ -87,11 +83,12 @@ public class TowerSpawner : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector3Int cellPosition = GetCellPosition(_worldMousePosition.Value);
-            bool hasCellTower = _towerCollection.Value.Towers.ContainsKey(cellPosition) && !IsPath(GetCellPosition(_worldMousePosition.Value));
 
-            if (hasCellTower && _towerCollection.Value.Towers.TryGetValue(cellPosition, out TowerSingle tower))
+            if (!IsPath(GetCellPosition(_worldMousePosition.Value)) && _towerCollection.Value.TowerBehaviour.TryGetValue(cellPosition, out (TowerData, int) towerData))
             {
                 _currentSelectedCell.Value = cellPosition;
+                _upgradeTowerEvent.Value = cellPosition;
+                TowerSingle tower = towerData.Item1.GetTower(towerData.Item2);
                 _selectTowerEvent.Raise(tower);
             }
             else
@@ -118,15 +115,14 @@ public class TowerSpawner : MonoBehaviour
         Vector3Int cellPosition = GetCellPosition(worldMousePosition);
         int cost = _previewTower.Value.StartTower.Cost;
 
-        if (!HasCoins(cost) || IsPath(cellPosition) || !AddTowerPosition(cellPosition, _previewTower.Value))
-            return;
+        if (!HasCoins(cost) || IsPath(cellPosition) || !CanPlaceTower(cellPosition)) return;
 
         Vector3 position = GetSnappedPosition(cellPosition);
         GameObject newTower = Instantiate(_towerPrefab, position, Quaternion.identity);
         newTower.transform.SetParent(transform);
 
         Tower tower = newTower.GetComponent<Tower>();
-        tower.TowerData = _previewTower;
+        tower.TowerData.Value = _previewTower.Value;
         tower.CellPosition = cellPosition;
 
         _coins.Value -= cost;
@@ -138,13 +134,9 @@ public class TowerSpawner : MonoBehaviour
 
     private Vector3Int GetCellPosition(Vector3 worldMousePosition) => _grid.WorldToCell(worldMousePosition + _mouseOffset);
 
-    private bool AddTowerPosition(Vector3Int cellPosition, TowerData tower)
+    private bool CanPlaceTower(Vector3Int cellPosition)
     {
-        if (_currentTowerPositions.ContainsKey(cellPosition))
-            return false;
-
-        _currentTowerPositions.Add(cellPosition, tower);
-        return true;
+        return !_towerCollection.Value.TowerBehaviour.ContainsKey(cellPosition);
     }
 
     private bool IsPath(Vector3Int cellPosition)

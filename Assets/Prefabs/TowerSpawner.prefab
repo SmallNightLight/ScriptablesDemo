@@ -98,9 +98,13 @@ MonoBehaviour:
     _isVariable: 1
     _variable: {fileID: 11400000, guid: a3c95713b7a796342964e2f82c421aca, type: 2}
     _constant: 0
-  _currentSelectedCell:
+  _upgradeTowerEvent:
     _isVariable: 1
     _variable: {fileID: 11400000, guid: ed13b9181fd85cf4683722dc59cc0620, type: 2}
+    _constant: {x: 0, y: 0, z: 0}
+  _currentSelectedCell:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: cef65c39b0a96544dbf49e214b340b3c, type: 2}
     _constant: {x: 0, y: 0, z: 0}
   _previewPossible: {r: 0.5570227, g: 0.9622642, b: 0.4765931, a: 1}
   _previewUnable: {r: 0.8584906, g: 0.43490097, b: 0.24701849, a: 1}

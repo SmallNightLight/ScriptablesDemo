@@ -42,8 +42,6 @@ namespace ScriptableArchitecture.Data
     [System.Serializable]
     public class TowerCollection
     {
-        public Dictionary<Vector3Int, TowerSingle> Towers = new Dictionary<Vector3Int, TowerSingle>();
-
         //Dictionary for all tower in the scene and their current level
         public Dictionary<Vector3Int, (TowerData, int)> TowerBehaviour = new Dictionary<Vector3Int, (TowerData, int)>();
     }
