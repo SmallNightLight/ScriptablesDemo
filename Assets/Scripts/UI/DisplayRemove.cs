@@ -36,7 +36,7 @@ public class DisplayRemove : MonoBehaviour
     /// </summary>
     public void Remove()
     {
-        _towerCollection.Value.TowerBehaviour.Remove(_currentSelectedCell.Value);
+        _towerCollection.Value.Towers.Remove(_currentSelectedCell.Value);
         _deselectTowerInfoEvent.Raise(true);
     }
 }

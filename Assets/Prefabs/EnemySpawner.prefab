@@ -55,6 +55,21 @@ MonoBehaviour:
     _constant:
       SpawnSpeed: 0
       EnemyData: []
+  - _isVariable: 1
+    _variable: {fileID: 11400000, guid: ba8446b4df520964b8a4ffa6ab9c8847, type: 2}
+    _constant:
+      SpawnSpeed: 0
+      EnemyData: []
+  - _isVariable: 1
+    _variable: {fileID: 11400000, guid: 6824d61e02fb86542b2406ef14e520b5, type: 2}
+    _constant:
+      SpawnSpeed: 0
+      EnemyData: []
+  - _isVariable: 1
+    _variable: {fileID: 11400000, guid: 8779a766e01f9dd4b928c381a9864333, type: 2}
+    _constant:
+      SpawnSpeed: 0
+      EnemyData: []
   _path:
     _isVariable: 1
     _variable: {fileID: 11400000, guid: 35143ff3dee12c441b8b1039190efd0b, type: 2}
@@ -64,7 +79,6 @@ MonoBehaviour:
     _variable: {fileID: 11400000, guid: b27e6599758d40247b4353aabbbecf8a, type: 2}
     _constant:
       Health: 0
-      Damage: 0
       Speed: 0
       Coins: 0
       Sprite: {fileID: 0}

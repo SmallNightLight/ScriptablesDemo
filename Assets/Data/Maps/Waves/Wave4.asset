@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24e811cf5ce541b4d93b1c219bfb98f8, type: 3}
-  m_Name: Wave2
+  m_Name: Wave4
   m_EditorClassIdentifier: 
   VariableType: 0
   InitializeTypeVariable: 2
@@ -18,8 +18,32 @@ MonoBehaviour:
     SpawnSpeed: 0
     EnemyData: []
   _startValue:
-    SpawnSpeed: 1.5
+    SpawnSpeed: 0.3
     EnemyData:
+    - Enemy:
+        _isVariable: 1
+        _variable: {fileID: 11400000, guid: cb2e59c09e67e7c4fa144a453cb25567, type: 2}
+        _constant:
+          Health: 0
+          Speed: 0
+          Coins: 0
+          Sprite: {fileID: 0}
+          Position: {x: 0, y: 0, z: 0}
+          IsDead: 0
+      Count: 10
+      Time: 10
+    - Enemy:
+        _isVariable: 1
+        _variable: {fileID: 11400000, guid: 91b314a8196f1e04a90349ad6ab88305, type: 2}
+        _constant:
+          Health: 0
+          Speed: 0
+          Coins: 0
+          Sprite: {fileID: 0}
+          Position: {x: 0, y: 0, z: 0}
+          IsDead: 0
+      Count: 40
+      Time: 10
     - Enemy:
         _isVariable: 1
         _variable: {fileID: 11400000, guid: 908dc9d863de17440b6121852fce7d3e, type: 2}
@@ -30,11 +54,11 @@ MonoBehaviour:
           Sprite: {fileID: 0}
           Position: {x: 0, y: 0, z: 0}
           IsDead: 0
-      Count: 6
-      Time: 8
+      Count: 50
+      Time: 10
     - Enemy:
         _isVariable: 1
-        _variable: {fileID: 11400000, guid: 91b314a8196f1e04a90349ad6ab88305, type: 2}
+        _variable: {fileID: 11400000, guid: cb2e59c09e67e7c4fa144a453cb25567, type: 2}
         _constant:
           Health: 0
           Speed: 0
@@ -42,31 +66,7 @@ MonoBehaviour:
           Sprite: {fileID: 0}
           Position: {x: 0, y: 0, z: 0}
           IsDead: 0
-      Count: 5
-      Time: 5
-    - Enemy:
-        _isVariable: 1
-        _variable: {fileID: 11400000, guid: 91b314a8196f1e04a90349ad6ab88305, type: 2}
-        _constant:
-          Health: 0
-          Speed: 0
-          Coins: 0
-          Sprite: {fileID: 0}
-          Position: {x: 0, y: 0, z: 0}
-          IsDead: 0
-      Count: 7
-      Time: 5
-    - Enemy:
-        _isVariable: 1
-        _variable: {fileID: 11400000, guid: 91b314a8196f1e04a90349ad6ab88305, type: 2}
-        _constant:
-          Health: 0
-          Speed: 0
-          Coins: 0
-          Sprite: {fileID: 0}
-          Position: {x: 0, y: 0, z: 0}
-          IsDead: 0
-      Count: 10
+      Count: 20
       Time: 0
   InitializeTypeRuntimeSet: 0
   _runtimeSet: []

@@ -34,24 +34,24 @@ MonoBehaviour:
       Sprite: {fileID: 21300000, guid: e53c805945e99884aaa7f1fadfbb7d4e, type: 3}
       Cost: 20
       Range: 4
-      Interval: 0.9
+      Interval: 1.2
       ProjectileSpeed: 60
       Effects:
       - {fileID: 11400000, guid: 175dee94277305f46ace14a65bac5380, type: 2}
     UpgradeTowers:
     - Name: Barrack Tower (2)
       Sprite: {fileID: 21300000, guid: 235b5a432e77527488b7169a3e065f31, type: 3}
-      Cost: 40
+      Cost: 30
       Range: 6
-      Interval: 0.5
+      Interval: 0.8
       ProjectileSpeed: 80
       Effects:
       - {fileID: 11400000, guid: dced03c5299c0b84690fa66038bf8a79, type: 2}
     - Name: Barrack Tower (3)
       Sprite: {fileID: 21300000, guid: 2d3b2693be2271e4db47b87ec3543659, type: 3}
-      Cost: 70
+      Cost: 50
       Range: 7
-      Interval: 0.05
+      Interval: 0.3
       ProjectileSpeed: 100
       Effects:
       - {fileID: 11400000, guid: c8d86bb2157def24eacdaa051b099e62, type: 2}

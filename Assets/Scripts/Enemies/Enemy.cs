@@ -75,7 +75,7 @@ public class Enemy : MonoBehaviour
             Debug.Log("Enemy reached end");
             _reachedEnd = true;
             _endCount.Value++;
-            Destroy(gameObject);
+            Death();
         }
     }
 

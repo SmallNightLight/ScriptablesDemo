@@ -69,7 +69,7 @@ public class TowerSpawner : MonoBehaviour
         _previewSprite.sprite = _previewTower.Value.StartTower.Sprite;
 
         Vector3Int cellPosition = GetCellPosition(_worldMousePosition.Value);
-        bool isPlacable = !_towerCollection.Value.TowerBehaviour.ContainsKey(cellPosition) && !IsPath(cellPosition) && HasCoins(_previewTower.Value.StartTower.Cost);
+        bool isPlacable = !_towerCollection.Value.Towers.ContainsKey(cellPosition) && !IsPath(cellPosition) && HasCoins(_previewTower.Value.StartTower.Cost);
 
         _previewSprite.color = isPlacable ? _previewPossible : _previewUnable;
         _previewSprite.transform.position = GetSnappedPosition(cellPosition);
@@ -84,11 +84,10 @@ public class TowerSpawner : MonoBehaviour
         {
             Vector3Int cellPosition = GetCellPosition(_worldMousePosition.Value);
 
-            if (!IsPath(GetCellPosition(_worldMousePosition.Value)) && _towerCollection.Value.TowerBehaviour.TryGetValue(cellPosition, out (TowerData, int) towerData))
+            if (!IsPath(GetCellPosition(_worldMousePosition.Value)) && _towerCollection.Value.TryGetTower(cellPosition, out TowerSingle tower))
             {
                 _currentSelectedCell.Value = cellPosition;
                 _upgradeTowerEvent.Value = cellPosition;
-                TowerSingle tower = towerData.Item1.GetTower(towerData.Item2);
                 _selectTowerEvent.Raise(tower);
             }
             else
@@ -136,7 +135,7 @@ public class TowerSpawner : MonoBehaviour
 
     private bool CanPlaceTower(Vector3Int cellPosition)
     {
-        return !_towerCollection.Value.TowerBehaviour.ContainsKey(cellPosition);
+        return !_towerCollection.Value.Towers.ContainsKey(cellPosition);
     }
 
     private bool IsPath(Vector3Int cellPosition)

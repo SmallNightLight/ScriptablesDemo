@@ -34,7 +34,7 @@ MonoBehaviour:
       Sprite: {fileID: 21300000, guid: a44bd641182b1064a97182897cbfa7e7, type: 3}
       Cost: 40
       Range: 5
-      Interval: 0.7
+      Interval: 0.8
       ProjectileSpeed: 60
       Effects:
       - {fileID: 11400000, guid: d9fb55bfe2d35c84996630598d21d8b9, type: 2}
@@ -43,7 +43,7 @@ MonoBehaviour:
       Sprite: {fileID: 21300000, guid: 974889237d0c35f46a5995c55e916803, type: 3}
       Cost: 20
       Range: 8
-      Interval: 0.5
+      Interval: 0.7
       ProjectileSpeed: 50
       Effects:
       - {fileID: 11400000, guid: dfad58e674fb63045bc029a13290783a, type: 2}
@@ -52,7 +52,7 @@ MonoBehaviour:
       Sprite: {fileID: 21300000, guid: 49beba6932541bc4ea246d85a243d06e, type: 3}
       Cost: 40
       Range: 12
-      Interval: 0.3
+      Interval: 0.5
       ProjectileSpeed: 30
       Effects:
       - {fileID: 11400000, guid: 462d2cf5b2c4cfa4994b0ff5cb11b0cf, type: 2}

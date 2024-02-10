@@ -12,18 +12,22 @@ namespace ScriptableArchitecture.Data
         public TowerSingle StartTower;
         public List<TowerSingle> UpgradeTowers;
 
-        public TowerSingle GetTower(int level)
+        public bool TryGetTower(int level, out TowerSingle tower)
         {
-            if (level == 0)
-                return StartTower;
-
             if (level < 0 || level > UpgradeTowers.Count)
             {
-                Debug.LogError("Tower level is out of range");
-                return null;
+                tower = null;
+                return false;
             }
-            
-            return UpgradeTowers[level - 1];
+
+            if (level == 0)
+            {
+                tower = StartTower;
+                return true;
+            }
+
+            tower = UpgradeTowers[level - 1];
+            return true;
         }
     }
 
@@ -43,6 +47,43 @@ namespace ScriptableArchitecture.Data
     public class TowerCollection
     {
         //Dictionary for all tower in the scene and their current level
-        public Dictionary<Vector3Int, (TowerData, int)> TowerBehaviour = new Dictionary<Vector3Int, (TowerData, int)>();
+        public Dictionary<Vector3Int, (TowerData, int)> Towers = new Dictionary<Vector3Int, (TowerData, int)>();
+
+        /// <summary>
+        /// Check wheter the tower at the given cell position can be further upgraded
+        /// </summary>
+        /// <param name="cellPosition"></param>
+        /// <returns></returns>
+        public bool CanBeUpgraded(Vector3Int cellPosition)
+        {
+            return TryGetTower(cellPosition, out TowerSingle tower, 1);
+        }
+
+
+        /// <summary>
+        /// Check wheter the tower at the given cell position can be upgraded with the current amount of coins
+        /// </summary>
+        public bool CanBeBoughtNext(Vector3Int cellPosition, int currentCoins)
+        {
+            if (TryGetTower(cellPosition, out TowerSingle tower, 1))
+            {
+                return currentCoins >= tower.Cost;
+            }
+
+            return false;
+        }
+
+        public bool TryGetTower(Vector3Int cellPosition, out TowerSingle tower, int levelOffset = 0)
+        {
+            if (Towers.TryGetValue(cellPosition, out (TowerData, int) towerBehaviour))
+            {
+                TowerData towerData = towerBehaviour.Item1;
+                int level = towerBehaviour.Item2;
+                return towerData.TryGetTower(level + levelOffset, out tower);
+            }
+
+            tower = null;
+            return false;
+        }
     }
 }

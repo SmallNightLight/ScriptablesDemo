@@ -57,6 +57,10 @@ MonoBehaviour:
     _isVariable: 1
     _variable: {fileID: 11400000, guid: ed13b9181fd85cf4683722dc59cc0620, type: 2}
     _constant: {x: 0, y: 0, z: 0}
+  _upgradeTowerFinishedEvent:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: ae046f97b6fdf8a468f0c7f68eb0ed95, type: 2}
+    _constant: {x: 0, y: 0, z: 0}
   _coins:
     _isVariable: 1
     _variable: {fileID: 11400000, guid: 3efdcbb92f0cde747896134f0c0845ee, type: 2}

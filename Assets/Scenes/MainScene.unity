@@ -1756,6 +1756,7 @@ GameObject:
   - component: {fileID: 1871668886}
   - component: {fileID: 1871668888}
   - component: {fileID: 1871668889}
+  - component: {fileID: 1871668890}
   m_Layer: 5
   m_Name: TowerInfo
   m_TagString: Untagged
@@ -1795,9 +1796,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aaa91a4d2f09814d8ea5270ed47c7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _towerCollection:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: 9d75ed552fd676648b94f89f1cd1f2ec, type: 2}
+  _currentSelectedCell:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: cef65c39b0a96544dbf49e214b340b3c, type: 2}
+    _constant: {x: 0, y: 0, z: 0}
+  _inTowerPreview:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: 7e68d058e7b460a448af9ba298e0f076, type: 2}
+    _constant: 0
   _panel: {fileID: 1522556733}
   _name: {fileID: 321393182}
   _cost: {fileID: 1019954425}
+  _upgradeCost: {fileID: 1899217504}
   _range: {fileID: 1165767778}
   _interval: {fileID: 799540233}
   _speed: {fileID: 1602157010}
@@ -1857,6 +1870,45 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _event: {fileID: 11400000, guid: a3c95713b7a796342964e2f82c421aca, type: 2}
+--- !u!114 &1871668890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871668884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6689ca7f826095d41830ae4cb8c93118, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1871668886}
+        m_TargetAssemblyTypeName: DisplayTowerInfo, Assembly-CSharp
+        m_MethodName: UpgradeTower
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _event: {fileID: 11400000, guid: ae046f97b6fdf8a468f0c7f68eb0ed95, type: 2}
+--- !u!114 &1899217504 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1502848070055610298, guid: 2600e40b9e214b34e9c4d9731807c949, type: 3}
+  m_PrefabInstance: {fileID: 2723091185743408877}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2060026896
 GameObject:
   m_ObjectHideFlags: 0
@@ -2400,6 +2452,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5782393846099849405, guid: 2600e40b9e214b34e9c4d9731807c949, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6064314749573834300, guid: 2600e40b9e214b34e9c4d9731807c949, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6064314749573834300, guid: 2600e40b9e214b34e9c4d9731807c949, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6064314749573834300, guid: 2600e40b9e214b34e9c4d9731807c949, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6064314749573834300, guid: 2600e40b9e214b34e9c4d9731807c949, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6064314749573834300, guid: 2600e40b9e214b34e9c4d9731807c949, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7699689760627486294, guid: 2600e40b9e214b34e9c4d9731807c949, type: 3}

@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyData:
     Health: 0
-    Damage: 0
     Speed: 0
     Coins: 0
     Sprite: {fileID: 0}
@@ -26,12 +25,11 @@ MonoBehaviour:
     _variable: {fileID: 11400000, guid: b27e6599758d40247b4353aabbbecf8a, type: 2}
     _constant:
       Health: 0
-      Damage: 0
       Speed: 0
       Coins: 0
       Sprite: {fileID: 0}
       Position: {x: 0, y: 0, z: 0}
       IsDead: 0
-  Damage: 40
+  Damage: 20
   Radius: 5
-  SecondaryDamage: 30
+  SecondaryDamage: 15

@@ -37,7 +37,7 @@ public class Tower : MonoBehaviour
 
     private void CheckForTowerDestruction()
     {
-        if (!_towerCollection.Value.TowerBehaviour.ContainsKey(CellPosition))
+        if (!_towerCollection.Value.Towers.ContainsKey(CellPosition))
         {
             Destroy(gameObject);
         }
@@ -59,7 +59,7 @@ public class Tower : MonoBehaviour
         if (_towerRenderer != null && _currentTower != null)
             _towerRenderer.sprite = _currentTower.Sprite;
 
-        _towerCollection.Value.TowerBehaviour[CellPosition] = (TowerData.Value, _level);
+        _towerCollection.Value.Towers[CellPosition] = (TowerData.Value, _level);
     }
 
     private IEnumerator Attacking()

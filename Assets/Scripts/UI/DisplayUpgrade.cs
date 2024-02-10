@@ -7,6 +7,7 @@ public class DisplayUpgrade : MonoBehaviour
     [Header("Data")]
     [SerializeField] private BoolReference _inTowerPreview;
     [SerializeField] private Vector3IntReference _upgradeTowerEvent;
+    [SerializeField] private Vector3IntReference _upgradeTowerFinishedEvent;
     [SerializeField] private IntReference _coins;
     [SerializeField] private TowerSingleReference _selectedTower;
     [SerializeField] private TowerCollectionReference _towerCollection;
@@ -28,7 +29,7 @@ public class DisplayUpgrade : MonoBehaviour
             return;
         }
 
-        bool isVisible = !_inTowerPreview.Value && CanBeUpgraded();
+        bool isVisible = !_inTowerPreview.Value && _towerCollection.Value.CanBeUpgraded(_upgradeTowerEvent.Value);
         _buttonObject.SetActive(isVisible);
 
         if (isVisible)
@@ -39,7 +40,7 @@ public class DisplayUpgrade : MonoBehaviour
                 return;
             }
 
-            _button.interactable = CanBeBought();
+            _button.interactable = _towerCollection.Value.CanBeBoughtNext(_upgradeTowerEvent.Value, _coins.Value);
         }
     }
 
@@ -49,39 +50,11 @@ public class DisplayUpgrade : MonoBehaviour
     public void Upgrade()
     {
         //Check if enough coins are available to buy the upgrade
-        if (CanBeUpgraded() && CanBeBought())
+        if (_towerCollection.Value.TryGetTower(_upgradeTowerEvent.Value, out TowerSingle tower, 1) && _towerCollection.Value.CanBeBoughtNext(_upgradeTowerEvent.Value, _coins.Value))
         {
-            _coins.Value -= _selectedTower.Value.Cost;
+            _coins.Value -= tower.Cost;
             _upgradeTowerEvent.Raise();
+            _upgradeTowerFinishedEvent.Raise(_upgradeTowerEvent.Value);
         }
-    }
-
-    private bool CanBeUpgraded()
-    {
-        if (_towerCollection.Value.TowerBehaviour.TryGetValue(_upgradeTowerEvent.Value, out (TowerData, int) towerBehaviour))
-        {
-            TowerData towerData = towerBehaviour.Item1;
-            int level = towerBehaviour.Item2;
-
-            return level < towerData.UpgradeTowers.Count;
-        }
-
-        return false;        
-    }
-
-    private bool CanBeBought()
-    {
-        if (_towerCollection.Value.TowerBehaviour.TryGetValue(_upgradeTowerEvent.Value, out (TowerData, int) towerBehaviour))
-        {
-            TowerData towerData = towerBehaviour.Item1;
-            int level = towerBehaviour.Item2;
-
-            if (level + 1 > towerData.UpgradeTowers.Count) return false;
-
-            TowerSingle tower = towerData.GetTower(level + 1);
-            return _coins.Value >= tower.Cost;
-        }
-
-        return false;
     }
 }

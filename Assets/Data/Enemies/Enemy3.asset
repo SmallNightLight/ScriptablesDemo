@@ -10,24 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bdc1fe27657d47143abe0161bf33347c, type: 3}
-  m_Name: Enemy1
+  m_Name: Enemy3
   m_EditorClassIdentifier: 
   VariableType: 0
   InitializeTypeVariable: 2
   _value:
     Health: 0
-    Damage: 0
     Speed: 0
     Coins: 0
     Sprite: {fileID: 0}
     Position: {x: 0, y: 0, z: 0}
     IsDead: 0
   _startValue:
-    Health: 100
-    Damage: 5
-    Speed: 1
-    Coins: 3
-    Sprite: {fileID: 21300000, guid: 098dc7d4fcfdc2d4184462319e192e36, type: 3}
+    Health: 300
+    Speed: 1.7
+    Coins: 10
+    Sprite: {fileID: 21300000, guid: 11079d6ec0e1fd047a6ea33bb08833ef, type: 3}
     Position: {x: 0, y: 0, z: 0}
     IsDead: 0
   InitializeTypeRuntimeSet: 0
@@ -35,7 +33,6 @@ MonoBehaviour:
   _startRuntimeSet: []
   DebugValue:
     Health: 0
-    Damage: 0
     Speed: 0
     Coins: 0
     Sprite: {fileID: 0}

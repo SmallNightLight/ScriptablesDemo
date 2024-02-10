@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b2ccfa777c2b574db40a7115f6f3186, type: 3}
-  m_Name: Coins
+  m_Script: {fileID: 11500000, guid: 5872c3cbef85bb744be25bce78310273, type: 3}
+  m_Name: UpgradeTowerFinishedEvent
   m_EditorClassIdentifier: 
-  VariableType: 0
-  InitializeTypeVariable: 1
-  _value: 64
-  _startValue: 50
+  VariableType: 2
+  InitializeTypeVariable: 0
+  _value: {x: 0, y: 0, z: 0}
+  _startValue: {x: 0, y: 0, z: 0}
   InitializeTypeRuntimeSet: 0
-  _runtimeSet: 
-  _startRuntimeSet: 
-  DebugValue: 0
+  _runtimeSet: []
+  _startRuntimeSet: []
+  DebugValue: {x: 0, y: 0, z: 0}
