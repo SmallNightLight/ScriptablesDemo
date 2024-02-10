@@ -96,6 +96,7 @@ MonoBehaviour:
     _isVariable: 1
     _variable: {fileID: 11400000, guid: 807e9f0a9991ef143ad76e54609bf949, type: 2}
     _constant: 0
+  _gameFinishedEvent: {fileID: 11400000, guid: fad4bf29a07987f42b57163d3cab438c, type: 2}
   _enemyPrefab: {fileID: 865488156311241634, guid: fd6310c91f70e1f43bc98bbe1e25ed99, type: 3}
   _buildTime:
     _isVariable: 1

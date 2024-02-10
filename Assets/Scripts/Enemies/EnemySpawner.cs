@@ -12,6 +12,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private IntReference _nextWaveEvent;
     [SerializeField] private IntReference _startBuildPhasevent;
     [SerializeField] private IntReference _endBuildPhasevent;
+    [SerializeField] private GameEvent _gameFinishedEvent;
 
     [Header("Settings")]
     [SerializeField] private GameObject _enemyPrefab;
@@ -32,10 +33,15 @@ public class EnemySpawner : MonoBehaviour
 
             yield return WaitForEndOfWave();
 
-            _startBuildPhasevent.Raise(wave + 1);
-            yield return new WaitForSeconds(_buildTime.Value);
-            _endBuildPhasevent.Raise(wave + 1);
+            if (wave + 1 < _waves.Count)
+            {
+                _startBuildPhasevent.Raise(wave + 1);
+                yield return new WaitForSeconds(_buildTime.Value);
+                _endBuildPhasevent.Raise(wave + 1);
+            }
         }
+
+        _gameFinishedEvent.Raise();
     }
 
     private IEnumerator SpawnWave(int waveIndex)

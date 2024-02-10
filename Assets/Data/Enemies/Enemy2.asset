@@ -24,7 +24,7 @@ MonoBehaviour:
   _startValue:
     Health: 200
     Speed: 1.5
-    Coins: 3
+    Coins: 5
     Sprite: {fileID: 21300000, guid: 959cfe070a699f142866f95e5270869b, type: 3}
     Position: {x: 0, y: 0, z: 0}
     IsDead: 0
