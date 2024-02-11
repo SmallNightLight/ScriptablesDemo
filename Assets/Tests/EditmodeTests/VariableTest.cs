@@ -4,6 +4,9 @@ using ScriptableArchitecture.Data;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Tests the int, bool, flaot vector3 variables also including RuntimeSets and Events
+/// </summary>
 public class VariableTest
 {
     /// <summary>

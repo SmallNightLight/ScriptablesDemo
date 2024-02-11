@@ -43,6 +43,24 @@ namespace ScriptableArchitecture.Core
             }
         }
 
+        /// <summary>
+        /// Use this function to override the variable
+        /// </summary>
+        /// <param name="newVariable"></param>
+        public void OverrideVariable(TVariable newVariable)
+        {
+            _variable = newVariable;
+        }
+
+        /// <summary>
+        /// Use this function to override whether the reference is a constant or a variable
+        /// </summary>
+        /// <param name="isVariable"></param>
+        public void OverrideIsVariable(bool isVariable)
+        {
+            _isVariable |= isVariable;
+        }
+
         //Event
 
         /// <summary>
