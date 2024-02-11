@@ -11,9 +11,6 @@ namespace ScriptableArchitecture.Core
     public abstract class Variable<T> : Variable, IGameEvent<T>
     {
         //Variable
-
-        public InitializeType InitializeTypeVariable;
-
         [SerializeField] private T _value;
         [SerializeField] private T _startValue;
 
@@ -49,7 +46,7 @@ namespace ScriptableArchitecture.Core
 
 
         //RuntimeSet
-        public InitializeType InitializeTypeRuntimeSet;
+        
 
         [SerializeField] private List<T> _runtimeSet;
         [SerializeField] private List<T> _startRuntimeSet;
@@ -349,5 +346,7 @@ namespace ScriptableArchitecture.Core
     public abstract class Variable : ScriptableObject 
     {
         public VariableType VariableType;
+        public InitializeType InitializeTypeVariable;
+        public InitializeType InitializeTypeRuntimeSet;
     }
 }

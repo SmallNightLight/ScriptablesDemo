@@ -58,7 +58,7 @@ namespace ScriptableArchitecture.Core
         /// <param name="isVariable"></param>
         public void OverrideIsVariable(bool isVariable)
         {
-            _isVariable |= isVariable;
+            _isVariable = isVariable;
         }
 
         //Event
