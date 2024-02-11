@@ -4,6 +4,9 @@ using UnityEngine.Audio;
 
 namespace ScriptableArchitecture.Data
 {
+    /// <summary>
+    /// DataPoint for sound data. Included the mixer, clip, volum, pitch and loop
+    /// </summary>
     [System.Serializable]
     public class SoundEffect : IDataPoint
     {

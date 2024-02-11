@@ -1,9 +1,11 @@
 using ScriptableArchitecture.Core;
 using UnityEngine;
-using ScriptableArchitecture.Data;
 
 namespace ScriptableArchitecture.Data
 {
+    /// <summary>
+    /// Small serialized class for Enemy Death data and the last position
+    /// </summary>
     [System.Serializable]
     public class EnemyDeathData : IDataPoint
     {

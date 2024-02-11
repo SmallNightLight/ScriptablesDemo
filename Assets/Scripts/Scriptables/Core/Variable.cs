@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace ScriptableArchitecture.Core
 {
+    /// <summary>
+    /// Represents a generic variable (Scriptable object) that has a Value, can be Raised with event structure, and runtimeset. 
+    /// Furthermore it allows to customizing the initializing of the variable (Default, Reset on Game start and readonly)
+    /// </summary>
     public abstract class Variable<T> : Variable, IGameEvent<T>
     {
         //Variable
@@ -13,6 +17,10 @@ namespace ScriptableArchitecture.Core
         [SerializeField] private T _value;
         [SerializeField] private T _startValue;
 
+        /// <summary>
+        /// Gets or sets the value of the variable. Doen't set the variable when readonly.
+        /// Gets the startvalue when readonly
+        /// </summary>
         public T Value
         {
             get 
@@ -46,6 +54,9 @@ namespace ScriptableArchitecture.Core
         [SerializeField] private List<T> _runtimeSet;
         [SerializeField] private List<T> _startRuntimeSet;
 
+        /// <summary>
+        /// Gets the runtimeset. When readonly gets the start runtimeset
+        /// </summary>
         public List<T> RuntimeSet
         {
             get
@@ -58,7 +69,10 @@ namespace ScriptableArchitecture.Core
         }
 
 
-        //OnEnable is called when the first scene is loaded, regardles if the scene has a reference to it (build game)
+        /// <summary>
+        /// Initializes the values on game start
+        /// This function is called when the first scene is loaded, regardles if the scene has a reference to it (build game)
+        /// </summary>
         private void OnEnable()
         {
             if (VariableType == VariableType.Variable || VariableType == VariableType.VariableEvent)
@@ -89,27 +103,34 @@ namespace ScriptableArchitecture.Core
                     _runtimeSet = new List<T>();
             }
 
-
-#if UNITY_EDITOR
             _stacktraceEvent.Clear();
-#endif
         }
 
 
         //Variable
 
+        /// <summary>
+        /// Function for settings the value by function. Use this for unity events
+        /// </summary>
         public void Set(T value)
         {
             Value = value;
-            Log(_stacktraceVariable, $"Set value to {Value}");
         }
 
+        /// <summary>
+        /// Overides the startvalue immediatly, use this function with caution as this might cause issues in the build.
+        /// Only use this for variable creation
+        /// </summary>
+        /// <param name="value"></param>
         public void SetStartValueImmediatly(T value)
         {
             _startValue = value;
             Log(_stacktraceVariable, $"Set start value to {_startValue}");
         }
 
+        /// <summary>
+        /// Resets the variable values to the start value
+        /// </summary>
         public void SetToStartValue()
         {
             Value = _startValue;
@@ -118,6 +139,9 @@ namespace ScriptableArchitecture.Core
 
         //Event
 
+        // <summary>
+        /// Raises the event with the generic value and notifies the listeners
+        /// </summary>
         public void Raise(T value)
         {
             Value = value;
@@ -132,11 +156,17 @@ namespace ScriptableArchitecture.Core
             }
         }
 
+        /// <summary>
+        /// Raises the event with the Variable Value
+        /// </summary>
         public void Raise()
         {
             Raise(Value);
         }
 
+        /// <summary>
+        /// Registers a listener for the event
+        /// </summary>
         public void RegisterListener(IListener<T> listener)
         {
             if (CheckForEventError()) return;
@@ -152,6 +182,9 @@ namespace ScriptableArchitecture.Core
             }
         }
 
+        /// <summary>
+        /// Unregisters a listener for the event
+        /// </summary>
         public void UnregisterListener(IListener<T> listener)
         {
             if (CheckForEventError()) return;
@@ -167,12 +200,19 @@ namespace ScriptableArchitecture.Core
             }
         }
 
+        /// <summary>
+        /// Removes all listeners
+        /// </summary>
         public void RemoveAllListeners()
         {
             _listeners.Clear();
             Log(_stacktraceEvent, "Cleared all listeners");
         }
 
+        /// <summary>
+        /// Checks if the variableType is not suited for events or if the listeners list is not inialized
+        /// </summary>
+        /// <returns></returns>
         private bool CheckForEventError()
         {
             if (!(VariableType == VariableType.VariableEvent || VariableType == VariableType.Event))
@@ -190,11 +230,17 @@ namespace ScriptableArchitecture.Core
             return false;
         }
 
+        /// <summary>
+        /// Gets the listeners as a IListener in a list
+        /// </summary>
         public List<IListener> GetListeners() => _listeners.Cast<IListener>().ToList();
 
 
         //RuntimeSet
 
+        /// <summary>
+        /// Adds the given value to the runtimeset. Only possible when the variable type is not readonly
+        /// </summary>
         public void Add(T value)
         {
             if (InitializeTypeRuntimeSet == InitializeType.ReadOnly)
@@ -207,6 +253,9 @@ namespace ScriptableArchitecture.Core
             Log(_stacktraceRuntimeSet, $"Added value to runtimeSet: {value}");
         }
 
+        /// <summary>
+        /// Removes the given value from the runtimeset. Only possible when the variable type is not readonly
+        /// </summary>
         public void Remove(T value)
         {
             if (InitializeTypeRuntimeSet == InitializeType.ReadOnly)
@@ -219,6 +268,9 @@ namespace ScriptableArchitecture.Core
             Log(_stacktraceRuntimeSet, $"Removed value from runtimeSet: {value}");
         }
 
+        /// <summary>
+        /// Cleares the runtimeset. Only possible when the variable type is not readonly
+        /// </summary>
         public void ClearRuntimeSet()
         {
             if (InitializeTypeRuntimeSet == InitializeType.ReadOnly)
@@ -234,23 +286,28 @@ namespace ScriptableArchitecture.Core
 
         //Debugging
 
+        /// <summary>
+        /// Logs a message to the stacktrace
+        /// </summary>
         private void Log(Stacktrace stacktrace, string message)
         {
-#if UNITY_EDITOR
             stacktrace.Add(message);
-#endif
         }
 
+        /// <summary>
+        /// Loga a message to the stacktrace with a listener. Appends the listener name if not null
+        /// </summary>
         private void LogListener(Stacktrace stacktrace, string message, IListener listener)
         {
-#if UNITY_EDITOR
             stacktrace.Add($"{message}" + (listener != null ? $" ({listener.GetName()})" : ""));
-#endif
         }
 
+        /// <summary>
+        /// Gets all stacktraces (Variable, Event, Runtimeset)
+        /// </summary>
         public Stacktrace[] GetStackTraces() => new Stacktrace[] { _stacktraceVariable, _stacktraceEvent, _stacktraceRuntimeSet };
 
-        //Initialize stack traces for different Variable Types with a maximum capacity
+        //Initialize stack traces for each variable type with a maximum capacity
         private Stacktrace _stacktraceVariable = new Stacktrace(VariableType.Variable, 14);
         private Stacktrace _stacktraceEvent = new Stacktrace(VariableType.Event, 100);
         private Stacktrace _stacktraceRuntimeSet = new Stacktrace(VariableType.RuntimeSet, 100);
@@ -258,6 +315,9 @@ namespace ScriptableArchitecture.Core
         public T DebugValue;
     }
 
+    /// <summary>
+    /// The base class for a Variable
+    /// </summary>
     public abstract class Variable : ScriptableObject 
     {
         public VariableType VariableType;

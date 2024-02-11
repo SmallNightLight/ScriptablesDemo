@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace ScriptableArchitecture.Data
 {
+    /// <summary>
+    /// Data to broadcast a message with a position and duration
+    /// </summary>
     [System.Serializable]
     public class WorldTextMessage : IDataPoint
     {

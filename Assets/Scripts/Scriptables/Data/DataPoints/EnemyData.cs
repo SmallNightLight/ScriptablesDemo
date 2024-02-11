@@ -5,6 +5,10 @@ using UnityEngine;
 
 namespace ScriptableArchitecture.Data
 {
+    /// <summary>
+    /// The data for an enemy unit. Can be used as a base but copy it for each individual enemy as its values are modified from the effects.
+    /// Includes health, speed, sprite and coins. Also provides functions for managing the effects
+    /// </summary>
     [System.Serializable]
     public class EnemyData : IDataPoint
     {
@@ -17,6 +21,9 @@ namespace ScriptableArchitecture.Data
         private List<Effect> _activeEffects = new List<Effect>();
         [HideInInspector] public bool IsDead;
 
+        /// <summary>
+        /// Gets a copy of the current enemy data
+        /// </summary>
         public EnemyData Copy()
         {
             EnemyData copy = new EnemyData();
@@ -28,6 +35,9 @@ namespace ScriptableArchitecture.Data
             return copy;
         }
 
+        /// <summary>
+        /// Adds an effect that will be updated here
+        /// </summary>
         public void AddEffect(Effect newEffect)
         {
             if (newEffect == null)
@@ -50,6 +60,9 @@ namespace ScriptableArchitecture.Data
             return !_activeEffects.Exists(item => item.GetType() == effect.GetType());
         }
 
+        /// <summary>
+        /// Updates all active effects and removes them when they have ended
+        /// </summary>
         public void UpdateEffects()
         {
             if (_activeEffects == null) return;

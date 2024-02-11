@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace ScriptableArchitecture.Data
 {
+    /// <summary>
+    /// The data for a a complete tower unit. Has start tower and a list of towers it can be upgraded to
+    /// </summary>
     [System.Serializable]
     public class TowerData : IDataPoint
     {
@@ -31,6 +34,9 @@ namespace ScriptableArchitecture.Data
         }
     }
 
+    /// <summary>
+    /// The data for the actual tower
+    /// </summary>
     [System.Serializable]
     public class TowerSingle
     {
@@ -43,6 +49,10 @@ namespace ScriptableArchitecture.Data
         public List<Effect> Effects;
     }
 
+    /// <summary>
+    /// The data for a tower collection that manages multiple towers and their location.
+    /// Has function to check for upgrades and whether they can be bought
+    /// </summary>
     [System.Serializable]
     public class TowerCollection
     {
@@ -52,8 +62,6 @@ namespace ScriptableArchitecture.Data
         /// <summary>
         /// Check wheter the tower at the given cell position can be further upgraded
         /// </summary>
-        /// <param name="cellPosition"></param>
-        /// <returns></returns>
         public bool CanBeUpgraded(Vector3Int cellPosition)
         {
             return TryGetTower(cellPosition, out TowerSingle tower, 1);
@@ -73,6 +81,10 @@ namespace ScriptableArchitecture.Data
             return false;
         }
 
+        /// <summary>
+        /// Tries to get the tower at given cell position. The offset can be used to get towers at different levels 
+        /// (1 for the next upgrade). Returns false if no tower could be found
+        /// </summary>
         public bool TryGetTower(Vector3Int cellPosition, out TowerSingle tower, int levelOffset = 0)
         {
             if (Towers.TryGetValue(cellPosition, out (TowerData, int) towerBehaviour))

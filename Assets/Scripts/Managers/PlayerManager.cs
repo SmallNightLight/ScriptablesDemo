@@ -17,7 +17,7 @@ public class PlayerManager : MonoBehaviour, ISetupManager, IUpdateManager
     [SerializeField] private BoolReference _restartEvent;
     [SerializeField] private BoolReference _selectingTower;
 
-    [SerializeField, Range(0.0f, 5.0f)] private float _gameSpeed = 1.0f;
+    [SerializeField, Range(0.0f, 10.0f)] private float _gameSpeed = 1.0f;
 
     /// <summary>
     /// Initializes some default values on game start
@@ -41,11 +41,36 @@ public class PlayerManager : MonoBehaviour, ISetupManager, IUpdateManager
     /// </summary>
     public void Update()
     {
-        Time.timeScale = _gameSpeed;
-
+        ManageGameSpeed();
         CheckForEnd();
         CheckForRestart();
     }
+
+    /// <summary>
+    /// Handles the game speed and allows the arrows to change it
+    /// </summary>
+    private void ManageGameSpeed()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            _gameSpeed *= 0.666f;
+            ClampGameSpeed();
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            _gameSpeed *= 1.5f;
+            ClampGameSpeed();
+        }
+
+        Time.timeScale = _gameSpeed;
+    }
+
+    /// <summary>
+    /// Clamps the game speed from 0.1 to 10
+    /// </summary>
+    private void ClampGameSpeed() => _gameSpeed = Mathf.Clamp(_gameSpeed, 0.1f, 5f);
 
     /// <summary>
     /// Checkf if the game has ended and calls the GameOver event

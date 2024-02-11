@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace ScriptableArchitecture.Data
 {
+    /// <summary>
+    /// Abstract class for an effect that can be applied to enemies, override this class for nay effect and modify the provided enemyData
+    /// </summary>
     public abstract class Effect : ScriptableObject
     {
         [HideInInspector] public EnemyData EnemyData;
@@ -12,7 +15,10 @@ namespace ScriptableArchitecture.Data
         private bool _effectStarted;
         private bool _effectEnded;
 
-        public void ApplyEffect()
+        /// <summary>
+        /// Start the effect
+        /// </summary>
+        private void ApplyEffect()
         {
             if (EnemyData == null)
             {
@@ -25,6 +31,9 @@ namespace ScriptableArchitecture.Data
             _timer = 0f;
         }
 
+        /// <summary>
+        /// Updates the effect and calls the start and end functions at the correct time
+        /// </summary>
         public void UpdateEffect(float deltaTime)
         {
             if (_effectEnded) return;
@@ -54,16 +63,33 @@ namespace ScriptableArchitecture.Data
             OnUpdate(deltaTime);
         }
 
+        /// <summary>
+        /// Clones the effec
+        /// </summary>
         public Effect Clone()
         {
             return MemberwiseClone() as Effect;
         }
 
+        /// <summary>
+        /// Checks whether the effect has aldready ended
+        /// </summary>
+        /// <returns></returns>
         public bool IsEnded() => _effectEnded;
 
+        /// <summary>
+        /// Override this function for the effect start
+        /// </summary>
         protected virtual void OnEnemyHit() { }
+
+        /// <summary>
+        /// Override this function for the effect update
+        /// </summary>
         protected virtual void OnUpdate(float deltaTime) { }
+
+        /// <summary>
+        /// Override this function for the effect end
+        /// </summary>
         protected virtual void OnEffectEnd() { }
-        public virtual int GetPriority() { return -1; }
     }
 }

@@ -5,6 +5,9 @@ using UnityEngine.Audio;
 
 namespace ScriptableArchitecture.Data
 {
+    /// <summary>
+    /// Manages audio
+    /// </summary>
     public class AudioManager : MonoBehaviour
     {
         public static SoundMode SOUNDMODE;
