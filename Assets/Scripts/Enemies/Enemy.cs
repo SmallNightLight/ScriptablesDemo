@@ -1,5 +1,6 @@
 using ScriptableArchitecture.Data;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -59,6 +60,13 @@ public class Enemy : MonoBehaviour
 
         if (_currentEnemyData.Health <= 0.5f)
             Death();
+
+        UpdateHealth();
+    }
+
+    private void UpdateHealth()
+    {
+        if (_healthDisplayer == null) return;
 
         _healthDisplayer.CurrentHealth = Mathf.Max(_currentEnemyData.Health, 0);
     }
