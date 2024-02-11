@@ -126,6 +126,10 @@ MonoBehaviour:
     _isVariable: 1
     _variable: {fileID: 11400000, guid: c2ca1e0a72b4b0e4c8f8c418b854587e, type: 2}
     _constant: 0
+  _invincibleEnemies:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: ab9d3bf462350a34d9ebc1a74aaf7d21, type: 2}
+    _constant: 0
   _currentEnemyData:
     Health: 0
     Speed: 0

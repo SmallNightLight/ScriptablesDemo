@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyDataReference _enemyList;
     public Vector2Reference Path;
     [SerializeField] private BoolReference _restarted;
+    [SerializeField] private BoolReference _invincibleEnemies;
 
     [SerializeField] private EnemyData _currentEnemyData;
 
@@ -27,6 +28,8 @@ public class Enemy : MonoBehaviour
 
     private int _pathIndex = 0;
     private bool _reachedEnd;
+
+    
 
     /// <summary>
     /// Initializes the enemy with base data and sets up its initial state by copying the provided BaseEnemyData
@@ -107,6 +110,8 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private void Death()
     {
+        if (_invincibleEnemies.Value) return;
+
         _currentEnemyData.IsDead = true;
         Destroy(gameObject);
     }

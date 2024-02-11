@@ -15,6 +15,8 @@ namespace ScriptableArchitecture.Data
         private bool _effectStarted;
         private bool _effectEnded;
 
+        public static bool INSTANTKILL;
+
         /// <summary>
         /// Start the effect
         /// </summary>
@@ -23,6 +25,12 @@ namespace ScriptableArchitecture.Data
             if (EnemyData == null)
             {
                 Debug.LogWarning("No EnemyData - no effect applied!");
+                return;
+            }
+
+            if (INSTANTKILL)
+            {
+                EnemyData.Health = 0;
                 return;
             }
 

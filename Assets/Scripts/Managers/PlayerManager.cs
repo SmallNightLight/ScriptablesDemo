@@ -17,6 +17,7 @@ public class PlayerManager : MonoBehaviour, ISetupManager, IUpdateManager
     [SerializeField] private BoolReference _restartEvent;
     [SerializeField] private BoolReference _selectingTower;
 
+    [Header("Debugging")]
     [SerializeField, Range(0.0f, 10.0f)] private float _gameSpeed = 1.0f;
 
     /// <summary>
