@@ -315,7 +315,9 @@ namespace ScriptableArchitecture.Core
         /// </summary>
         private void Log(Stacktrace stacktrace, string message)
         {
+#if UNITY_EDITOR
             stacktrace.Add(message);
+#endif
         }
 
         /// <summary>
@@ -323,7 +325,9 @@ namespace ScriptableArchitecture.Core
         /// </summary>
         private void LogListener(Stacktrace stacktrace, string message, IListener listener)
         {
+#if UNITY_EDITOR
             stacktrace.Add($"{message}" + (listener != null ? $" ({listener.GetName()})" : ""));
+#endif
         }
 
         /// <summary>

@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 using ScriptableArchitecture.Core;
 using System;
 using System.Collections.Generic;
@@ -50,4 +49,3 @@ public class Stacktrace
     /// </summary>
     public VariableType GetStackType() => _stackType;
 }
-#endif

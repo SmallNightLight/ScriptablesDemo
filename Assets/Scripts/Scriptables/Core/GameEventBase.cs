@@ -86,7 +86,9 @@ namespace ScriptableArchitecture.Core
         /// </summary>
         private void Log(string message, IListener listener)
         {
+#if UNITY_EDITOR
             _stacktrace.Add($"{message}" + (listener != null ? $" ({listener.GetName()})" : ""));
+#endif
         }
 
         /// <summary>
