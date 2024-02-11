@@ -88,7 +88,7 @@ namespace ScriptableArchitecture.Core
             if (VariableType == VariableType.Event || VariableType == VariableType.VariableEvent)
             {
                 //Only initilize lists when needed to avoid overhead
-                _listeners = new List<IListener<T>>();
+                InitializeListeners();
             }
             
             if (VariableType == VariableType.RuntimeSet)
@@ -100,7 +100,7 @@ namespace ScriptableArchitecture.Core
                 }
 
                 if (InitializeTypeRuntimeSet == InitializeType.Normal)
-                    _runtimeSet = new List<T>();
+                    InitializeRuntimeSet();
             }
 
             _stacktraceEvent.Clear();
@@ -235,6 +235,10 @@ namespace ScriptableArchitecture.Core
         /// </summary>
         public List<IListener> GetListeners() => _listeners.Cast<IListener>().ToList();
 
+        public void InitializeListeners()
+        {
+            _listeners = new List<IListener<T>>();
+        }
 
         //RuntimeSet
 
@@ -246,6 +250,18 @@ namespace ScriptableArchitecture.Core
             if (InitializeTypeRuntimeSet == InitializeType.ReadOnly)
             {
                 Debug.LogWarning($"Cannot add {value} to: {name} (Readonly)");
+                return;
+            }
+
+            if (VariableType != VariableType.RuntimeSet)
+            {
+                Debug.LogWarning("Cannot add the value to a non runtimeset");
+                return;
+            }
+
+            if (_runtimeSet == null)
+            {
+                Debug.LogWarning("RuntimeSet not initialized");
                 return;
             }
 
@@ -281,6 +297,14 @@ namespace ScriptableArchitecture.Core
 
             _runtimeSet.Clear();
             Log(_stacktraceRuntimeSet, $"Cleared runtimeSet");
+        }
+
+        /// <summary>
+        /// Initializes the runtimeset list
+        /// </summary>
+        public void InitializeRuntimeSet()
+        {
+            _runtimeSet = new List<T>();
         }
 
 
