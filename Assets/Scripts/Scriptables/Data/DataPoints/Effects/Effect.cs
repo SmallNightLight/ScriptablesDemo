@@ -9,7 +9,7 @@ namespace ScriptableArchitecture.Data
     {
         [HideInInspector] public EnemyData EnemyData;
 
-        [Tooltip("Duration in seconds to apply the effect - use 0 for instant effect")] public int Duration;
+        [Tooltip("Duration in seconds to apply the effect - use 0 for instant effect")] public float Duration;
 
         private float _timer;
         private bool _effectStarted;

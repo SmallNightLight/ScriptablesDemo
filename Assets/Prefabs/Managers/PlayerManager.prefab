@@ -1,0 +1,317 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1856027681780203064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 782998506917959632}
+  - component: {fileID: 5669030002503412243}
+  - component: {fileID: 297704725313917085}
+  - component: {fileID: 9065130481866588796}
+  - component: {fileID: 8059016976776682018}
+  m_Layer: 0
+  m_Name: PlayerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &782998506917959632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856027681780203064}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5669030002503412243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856027681780203064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e8d48d3e465f8642afa1bb4f2be7f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _coins:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: 3efdcbb92f0cde747896134f0c0845ee, type: 2}
+    _constant: 0
+  _enemyEndCount:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: b26bab6571c1d6548ab3388b6459a309, type: 2}
+    _constant: 3
+  _endCounter:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: 99bf1efc471ccad42a03aaa1bc691c1a, type: 2}
+    _constant: 0
+  _gameOverEvent: {fileID: 11400000, guid: 7527b641c67da594389c6a1ec207bfac, type: 2}
+  _hasReachedEnd:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: 2c34993023de0264f950551b3a348115, type: 2}
+    _constant: 0
+  _restartEvent:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: c2ca1e0a72b4b0e4c8f8c418b854587e, type: 2}
+    _constant: 0
+  _selectingTower:
+    _isVariable: 1
+    _variable: {fileID: 11400000, guid: b42826a6a21e2b941a6421a846c67aba, type: 2}
+    _constant: 0
+  _gameSpeed: 1
+--- !u!114 &297704725313917085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856027681780203064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d62740695b036494995f6a33ce226e17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5669030002503412243}
+        m_TargetAssemblyTypeName: PlayerManager, Assembly-CSharp
+        m_MethodName: EnemyDeath
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _event: {fileID: 11400000, guid: 866eb4bcd91861a4e8445ff01ce5527b, type: 2}
+--- !u!114 &9065130481866588796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856027681780203064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eb6ba977425f1c4885b6b34fead05b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 3efdcbb92f0cde747896134f0c0845ee, type: 2}
+        m_TargetAssemblyTypeName: ScriptableArchitecture.Core.Variable`1[[System.Int32,
+          mscorlib
+        m_MethodName: SetToStartValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 9d75ed552fd676648b94f89f1cd1f2ec, type: 2}
+        m_TargetAssemblyTypeName: ScriptableArchitecture.Data.TowerCollectionVariable,
+          ScriptableAssembly.Data
+        m_MethodName: ClearTowers
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: b27e6599758d40247b4353aabbbecf8a, type: 2}
+        m_TargetAssemblyTypeName: ScriptableArchitecture.Core.Variable`1[[ScriptableArchitecture.Data.EnemyData,
+          ScriptableAssembly.Data
+        m_MethodName: ClearRuntimeSet
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: a3c94657fbbbddf4989c2801e33ddbe1, type: 2}
+        m_TargetAssemblyTypeName: ScriptableArchitecture.Core.Variable`1[[System.Boolean,
+          mscorlib
+        m_MethodName: SetToStartValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 807e9f0a9991ef143ad76e54609bf949, type: 2}
+        m_TargetAssemblyTypeName: ScriptableArchitecture.Core.Variable`1[[System.Int32,
+          mscorlib
+        m_MethodName: SetToStartValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 99bf1efc471ccad42a03aaa1bc691c1a, type: 2}
+        m_TargetAssemblyTypeName: ScriptableArchitecture.Core.Variable`1[[System.Int32,
+          mscorlib
+        m_MethodName: SetToStartValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 2c34993023de0264f950551b3a348115, type: 2}
+        m_TargetAssemblyTypeName: ScriptableArchitecture.Core.Variable`1[[System.Boolean,
+          mscorlib
+        m_MethodName: SetToStartValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 7e68d058e7b460a448af9ba298e0f076, type: 2}
+        m_TargetAssemblyTypeName: ScriptableArchitecture.Core.Variable`1[[System.Boolean,
+          mscorlib
+        m_MethodName: SetToStartValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 29e34971a8adc6f41be096abd4779fb3, type: 2}
+        m_TargetAssemblyTypeName: ScriptableArchitecture.Core.Variable`1[[System.Int32,
+          mscorlib
+        m_MethodName: SetToStartValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 805925a27353c4546a06cd90eca7c893, type: 2}
+        m_TargetAssemblyTypeName: ScriptableArchitecture.Core.Variable`1[[System.Int32,
+          mscorlib
+        m_MethodName: SetToStartValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: a3c95713b7a796342964e2f82c421aca, type: 2}
+        m_TargetAssemblyTypeName: ScriptableArchitecture.Core.Variable`1[[System.Boolean,
+          mscorlib
+        m_MethodName: Raise
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  _event: {fileID: 11400000, guid: c2ca1e0a72b4b0e4c8f8c418b854587e, type: 2}
+--- !u!114 &8059016976776682018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856027681780203064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d923ca0399f2946a9dfeb692dc73b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: 7527b641c67da594389c6a1ec207bfac, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: a3c94657fbbbddf4989c2801e33ddbe1, type: 2}
+        m_TargetAssemblyTypeName: ScriptableArchitecture.Core.Variable`1[[System.Boolean,
+          mscorlib
+        m_MethodName: SetToStartValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 7e68d058e7b460a448af9ba298e0f076, type: 2}
+        m_TargetAssemblyTypeName: ScriptableArchitecture.Core.Variable`1[[System.Boolean,
+          mscorlib
+        m_MethodName: SetToStartValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: a3c95713b7a796342964e2f82c421aca, type: 2}
+        m_TargetAssemblyTypeName: ScriptableArchitecture.Core.Variable`1[[System.Boolean,
+          mscorlib
+        m_MethodName: Raise
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2

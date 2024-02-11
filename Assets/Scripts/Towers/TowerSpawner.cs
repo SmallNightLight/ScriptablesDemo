@@ -181,6 +181,13 @@ public class TowerSpawner : MonoBehaviour
     private bool IsPath(Vector3Int cellPosition)
     {
         Tilemap map = _groundTileMap.Value<Tilemap>();
+
+        if (map == null)
+        {
+            Debug.LogWarning("Groundtilemap os null - cant check path");
+            return false;
+        }
+
         TileBase tile = map.GetTile(new Vector3Int(cellPosition.x, cellPosition.y, 0));
         return _pathTiles.Contains(tile);
     }
