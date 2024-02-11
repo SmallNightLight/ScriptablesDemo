@@ -3,6 +3,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// Displays information about selected tower and from the preview tower
+/// </summary>
 public class DisplayTowerInfo : MonoBehaviour
 {
     [Header("Data")]
@@ -18,13 +21,18 @@ public class DisplayTowerInfo : MonoBehaviour
     [SerializeField] private TMP_Text _range;
     [SerializeField] private TMP_Text _interval;
     [SerializeField] private TMP_Text _speed;
-   
 
+    /// <summary>
+    /// Hides the panel on start by disableling it
+    /// </summary>
     private void Start()
     {
         _panel.SetActive(false);
     }
 
+    /// <summary>
+    /// Displays information about the given tower
+    /// </summary>
     public void SelectTower(TowerSingle tower)
     {
         _name.text = tower.Name;
@@ -52,6 +60,9 @@ public class DisplayTowerInfo : MonoBehaviour
         _panel.SetActive(true);
     }
 
+    /// <summary>
+    /// Tries to upgrades the tower at the given cell position
+    /// </summary>
     public void UpgradeTower(Vector3Int towerCellPosition)
     {
         if (_towerCollection.Value.TryGetTower(towerCellPosition, out TowerSingle tower))
@@ -60,6 +71,9 @@ public class DisplayTowerInfo : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Hides the tower information pane based on whether the mouse hovers over the object. Skip this check by settings immediate tp true
+    /// </summary>
     public void Deselect(bool immediated = false)
     {
         if (immediated || !EventSystem.current.IsPointerOverGameObject())

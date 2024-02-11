@@ -3,6 +3,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Displays the build timer using a slider UI element
+/// </summary>
 public class DisplayBuildTimer : MonoBehaviour
 {
     [Header("Data")]
@@ -14,16 +17,26 @@ public class DisplayBuildTimer : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Slider _slider;
 
+    /// <summary>
+    /// Initialization, hides the object by settings the height to 0
+    /// </summary>
     private void Start()
     {
         SetHeight(0);
     }
 
+    /// <summary>
+    /// Starts the build phase
+    /// </summary>
     public void StartBuildPhase()
     {
         StartCoroutine(BuildTimer());
     }
 
+    /// <summary>
+    /// Updates the slider to to move from 0 to 1 in the buildTime
+    /// Hides the object at the end by setting the hieght to 0
+    /// </summary>
     private IEnumerator BuildTimer()
     {
         SetHeight(_targetHeight);
@@ -40,6 +53,9 @@ public class DisplayBuildTimer : MonoBehaviour
         SetHeight(0);
     }
 
+    /// <summary>
+    /// Sets the height of rect transform
+    /// </summary>
     private void SetHeight(float newHeight)
     {
         RectTransform rectTransform = GetComponent<RectTransform>();
@@ -51,6 +67,5 @@ public class DisplayBuildTimer : MonoBehaviour
         }
 
         rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, newHeight);
-
     }
 }

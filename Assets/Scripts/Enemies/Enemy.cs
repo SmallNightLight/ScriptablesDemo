@@ -1,8 +1,10 @@
 using ScriptableArchitecture.Data;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Represents an enemy object that moves along a predefined path, takes damage, and eventually dies
+/// </summary>
 public class Enemy : MonoBehaviour
 {
     [Header("Data")]
@@ -25,6 +27,9 @@ public class Enemy : MonoBehaviour
     private int _pathIndex = 0;
     private bool _reachedEnd;
 
+    /// <summary>
+    /// Initializes the enemy with base data and sets up its initial state by copying the provided BaseEnemyData
+    /// </summary>
     private void Start()
     {
         _currentEnemyData = BaseEnemyData.Value.Copy();
@@ -43,6 +48,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates the behavior of the enemy and handles the reference data
+    /// </summary>
     private void Update()
     {
         MoveTowardsTarget();
@@ -55,11 +63,17 @@ public class Enemy : MonoBehaviour
         _healthDisplayer.CurrentHealth = Mathf.Max(_currentEnemyData.Health, 0);
     }
 
+    /// <summary>
+    /// Updates the reference data accordingly 
+    /// </summary>
     private void UpdatePosition()
     {
         _currentEnemyData.Position = transform.position;
     }
 
+    /// <summary>
+    /// Moves the enemy towards the next target on the path.
+    /// </summary>
     private void MoveTowardsTarget()
     {
         if (_pathIndex < Path.RuntimeSet.Count())
@@ -80,12 +94,18 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles the death of the enemy
+    /// </summary>
     private void Death()
     {
         _currentEnemyData.IsDead = true;
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// When the enemy is destroyed this function checks whether the enemy has been killed, has reached the end of the path or the game has ended and responds accordingly
+    /// </summary>
     private void OnDestroy()
     {
         if (_restarted.Value) return;

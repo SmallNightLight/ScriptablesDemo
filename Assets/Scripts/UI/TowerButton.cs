@@ -2,6 +2,9 @@ using ScriptableArchitecture.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Handles the logic for a button that selects a tower to preview
+/// </summary>
 [RequireComponent(typeof(Image))]
 public class TowerButton : MonoBehaviour
 {
@@ -11,6 +14,9 @@ public class TowerButton : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private TowerDataReference _previewTowerEvent;
 
+    /// <summary>
+    /// Initializes the image to the correct tower sprite and adjusts its height to fit the aspec ratio
+    /// </summary>
     private void Start()
     {
         Image image = GetComponent<Image>();
@@ -24,9 +30,11 @@ public class TowerButton : MonoBehaviour
 
         rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
         rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
-
     }
 
+    /// <summary>
+    /// Raises the event for previewing the tower when the button is pressed
+    /// </summary>
     public void Pressed()
     {
         _previewTowerEvent.Raise(_tower.Value);

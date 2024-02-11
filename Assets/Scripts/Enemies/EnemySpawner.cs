@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Spawns waves of enemies based on on the provided waves and calls the wave events
+/// </summary>
 public class EnemySpawner : MonoBehaviour
 {
     [Header("Data")]
@@ -18,14 +21,21 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private FloatReference _buildTime;
 
-
+    /// <summary>
+    /// Initializes spawning of waves on start
+    /// </summary>
     private void Start()
     {
         StartCoroutine(SpawnAllWaves());
     }
 
+    /// <summary>
+    /// Spawns all waves in order
+    /// </summary>
     private IEnumerator SpawnAllWaves()
     {
+        if (_waves == null) yield break;
+
         for(int wave = 0; wave < _waves.Count; wave++)
         {
             _nextWaveEvent.Raise(wave + 1);
@@ -44,8 +54,13 @@ public class EnemySpawner : MonoBehaviour
         _gameFinishedEvent.Raise();
     }
 
+    /// <summary>
+    /// Spawns a wave of enemies
+    /// </summary>
     private IEnumerator SpawnWave(int waveIndex)
     {
+        if (_waves[waveIndex].Value.EnemyData == null) yield break;
+
         for (int i = 0; i < _waves[waveIndex].Value.EnemyData.Count; i++)
         {
             yield return StartCoroutine(SpawnEnemyWave(waveIndex, i));
@@ -53,9 +68,14 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Spawns enemies for a sub wave
+    /// </summary>
     private IEnumerator SpawnEnemyWave(int waveIndex, int enemyWaveIndex)
     {
         WaveData.EnemyWave enemyWave = _waves[waveIndex].Value.EnemyData[enemyWaveIndex];
+
+        if (enemyWave == null) yield break;
 
         for (int i = 0; i < _waves[waveIndex].Value.EnemyData[enemyWaveIndex].Count; i++)
         {
@@ -68,6 +88,9 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Waits for the end of the wave before proceeding to the next action
+    /// </summary>
     private IEnumerator WaitForEndOfWave()
     {
         while (true)

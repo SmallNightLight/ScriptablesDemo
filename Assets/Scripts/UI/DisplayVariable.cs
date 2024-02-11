@@ -3,6 +3,9 @@ using TMPro;
 using ScriptableArchitecture.Core;
 using ScriptableArchitecture.Data;
 
+/// <summary>
+/// Displays the value of a variable with optional text before and after
+/// </summary>
 [RequireComponent(typeof(TMP_Text))]
 public class DisplayVariable : MonoBehaviour
 {
@@ -11,11 +14,17 @@ public class DisplayVariable : MonoBehaviour
     [SerializeField] private string _textAfter;
     private TMP_Text _textAsset;
 
+    /// <summary>
+    /// Initializes ny getting the TMP_Text component
+    /// </summary>
     private void Start()
     {
         _textAsset = GetComponent<TMP_Text>();
     }
 
+    /// <summary>
+    /// Updates the displayed text with the value of the variable. Currently works with IntVariable, FloatVariable, BoolVariable, Vector2Variable and Vector3Variable
+    /// </summary>
     private void Update()
     {
         if (_variable is IntVariable)

@@ -2,6 +2,9 @@ using ScriptableArchitecture.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Handles the upgradd button and initializes a tower upgrade
+/// </summary>
 public class DisplayUpgrade : MonoBehaviour
 {
     [Header("Data")]
@@ -16,11 +19,17 @@ public class DisplayUpgrade : MonoBehaviour
     [SerializeField] private GameObject _buttonObject;
     [SerializeField] private Button _button;
 
+    /// <summary>
+    /// Updates the button
+    /// </summary>
     private void Update()
     {
         SetButtonVisibility();
     }
 
+    /// <summary>
+    /// Sets the visibility and interactability of the upgrade button based on tower upgrade conditions and whether the tower is in preview
+    /// </summary>
     private void SetButtonVisibility()
     {
         if (_buttonObject == null)
@@ -45,7 +54,7 @@ public class DisplayUpgrade : MonoBehaviour
     }
 
     /// <summary>
-    /// Upgarded the current selected tower if possible and updates the coins
+    /// Upgrades the currently selected tower if possible and updates the coins
     /// </summary>
     public void Upgrade()
     {

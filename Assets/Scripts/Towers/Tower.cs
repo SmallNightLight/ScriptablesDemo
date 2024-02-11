@@ -2,6 +2,9 @@ using ScriptableArchitecture.Data;
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Represents a tower object with the ability to attack enemies
+/// </summary>
 public class Tower : MonoBehaviour
 {
     [Header("Data")]
@@ -18,9 +21,11 @@ public class Tower : MonoBehaviour
 
     private TowerSingle _currentTower;
     private int _level;
-
     private EnemyData _currentTarget;
 
+    /// <summary>
+    /// Initializes the tower
+    /// </summary>
     private void Start()
     {
         _level = 0;
@@ -30,11 +35,17 @@ public class Tower : MonoBehaviour
         StartCoroutine(Attacking());
     }
 
+    /// <summary>
+    /// Updates the tower
+    /// </summary>
     private void Update()
     {
         CheckForTowerDestruction();
     }
 
+    /// <summary>
+    /// Checks if tower has been destroyed and destroys it if necessary
+    /// </summary>
     private void CheckForTowerDestruction()
     {
         if (!_towerCollection.Value.Towers.ContainsKey(CellPosition))
@@ -42,7 +53,9 @@ public class Tower : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    /// <summary>
+    /// Upgrades the tower if the given cell position and its own cell position match. In addition it checks wheter a tower can even be upgraded further
+    /// </summary>
     public void Upgrade(Vector3Int towerCellPosition)
     {
         if (CellPosition != towerCellPosition) return;
@@ -54,6 +67,9 @@ public class Tower : MonoBehaviour
         UpdateTower();
     }
 
+    /// <summary>
+    /// Updates the reference tower data and updates the visuals
+    /// </summary>
     private void UpdateTower()
     {
         if (_towerRenderer != null && _currentTower != null)
@@ -62,6 +78,10 @@ public class Tower : MonoBehaviour
         _towerCollection.Value.Towers[CellPosition] = (TowerData.Value, _level);
     }
 
+    /// <summary>
+    /// The main Attack loop that is always active and tries to find enemies in range to attack
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Attacking()
     {
         while (true)
@@ -70,6 +90,11 @@ public class Tower : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks if the current target enemy is still active and in range and spawns a projectile towards it. 
+    /// If this is not the case it tries to find a new enemy target
+    /// </summary>
+    /// <returns>True if it is currently attacking an enemy</returns>
     private bool Attack()
     {
         if ((_currentTarget != null && TargetInRange(_currentTarget)) || GetNextTarget(out _currentTarget))
@@ -91,6 +116,10 @@ public class Tower : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Gets the next target enemy for the tower to attack
+    /// </summary>
+    /// <returns>True if a target is found</returns>
     private bool GetNextTarget(out EnemyData enemyData)
     {
         for(int i = 0; i < _enemyList.RuntimeSet.Count; i++)
@@ -106,6 +135,10 @@ public class Tower : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Checks if the given enemy is within range of the tower
+    /// </summary>
+    /// <returns>True if the enemy is in range</returns>
     private bool TargetInRange(EnemyData enemyData)
     {
         return !enemyData.IsDead && Vector2.Distance(transform.position, enemyData.Position) < _currentTower.Range;

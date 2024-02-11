@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+/// <summary>
+/// Spawns towers on the grid and handles player input related to towers like selecting, deselecting and previewing
+/// </summary>
 [RequireComponent(typeof(Grid))]
 public class TowerSpawner : MonoBehaviour
 {
@@ -35,11 +38,17 @@ public class TowerSpawner : MonoBehaviour
 
     [SerializeField] private List<TileBase> _pathTiles = new List<TileBase>();
 
+    /// <summary>
+    /// Initializes the tower spawner
+    /// </summary>
     private void Start()
     {
         _grid = GetComponent<Grid>();
     }
 
+    /// <summary>
+    /// Handles player input for tower preview and selecting and deselecting
+    /// </summary>
     private void Update()
     {
         if (_inTowerPreview.Value)
@@ -50,18 +59,27 @@ public class TowerSpawner : MonoBehaviour
         CheckInput();
     }
 
+    /// <summary>
+    /// Enables the tower preview feature with the values of the previewTower reference
+    /// </summary>
     public void EnableTowerPreview()
     {
         _inTowerPreview.Value = true;
         _selectTowerEvent.Raise(_previewTower.Value.StartTower);
     }
 
+    /// <summary>
+    /// Disables the tower preview feature
+    /// </summary>
     public void DisableTowerPreview()
     {
         _inTowerPreview.Value = false;
         _previewSprite.sprite = null;
     }
 
+    /// <summary>
+    /// Displays the tower preview with the correct visual representation when it is placable or not
+    /// </summary>
     private void PreviewTower()
     {
         if (_previewSprite == null || _previewTower.Value.StartTower == null) return;
@@ -103,12 +121,18 @@ public class TowerSpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles mouse events for tower placement
+    /// </summary>
     public void MouseDown(Vector3 worldMousePosition)
     {
         if (_inTowerPreview.Value)
             PlaceTower(worldMousePosition);
     }
 
+    /// <summary>
+    /// Places a tower at the specified position with the given mouse position in world space
+    /// </summary>
     public void PlaceTower(Vector3 worldMousePosition)
     {
         Vector3Int cellPosition = GetCellPosition(worldMousePosition);
@@ -129,15 +153,31 @@ public class TowerSpawner : MonoBehaviour
         DisableTowerPreview();
     }
 
+    /// <summary>
+    /// Calculates the correct tower position for tower placement with a defined offset based on the cell position
+    /// </summary>
+    /// <returns>Tower position in world space</returns>
     private Vector3 GetSnappedPosition(Vector3Int cellPosition) => _grid.GetCellCenterWorld(cellPosition) + _objectOffset;
 
+    /// <summary>
+    /// Converts the given world mouse position to cell position
+    /// </summary>
+    /// <returns>Cell position in grid space.</returns>
     private Vector3Int GetCellPosition(Vector3 worldMousePosition) => _grid.WorldToCell(worldMousePosition + _mouseOffset);
 
+    /// <summary>
+    /// Checks if a tower can be placed at the specified cell position and the place is not already occupied by another tower
+    /// </summary>
+    /// <returns>True if a tower can be placed</returns>
     private bool CanPlaceTower(Vector3Int cellPosition)
     {
         return !_towerCollection.Value.Towers.ContainsKey(cellPosition);
     }
 
+    /// <summary>
+    /// Checks if the specified cell position is part of the path
+    /// </summary>
+    /// <returns>True if the cell is part of the path</returns>
     private bool IsPath(Vector3Int cellPosition)
     {
         Tilemap map = _groundTileMap.Value<Tilemap>();
@@ -145,5 +185,9 @@ public class TowerSpawner : MonoBehaviour
         return _pathTiles.Contains(tile);
     }
 
+    /// <summary>
+    /// Checks if the player has enough coins to for the given amount to be subtracted
+    /// </summary>
+    /// <returns>True if the player has enough coins</returns>
     private bool HasCoins(int amount) => _coins.Value >= amount;
 }

@@ -1,6 +1,9 @@
 using ScriptableArchitecture.Data;
 using UnityEngine;
 
+/// <summary>
+/// Represents a projectile object that flies towards an enemy and applies effects on impact
+/// </summary>
 public class Projectile : MonoBehaviour
 {
     [Header("Data")]
@@ -10,19 +13,19 @@ public class Projectile : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float _targetMargin;
 
-    private void Start()
-    {
-        
-    }
-
+    /// <summary>
+    /// Updates the projectile position
+    /// </summary>
     private void Update()
     {
         MoveTowardsTarget();
     }
 
+    /// <summary>
+    /// Moves the projectile towards the enemy position until it reaches it and applies the effects
+    /// </summary>
     private void MoveTowardsTarget()
     {
-        //Moves towards the enemy position until it reaches the next target
         transform.position = Vector2.MoveTowards(transform.position, EnemyData.Position, TowerData.ProjectileSpeed * Time.deltaTime);
 
         if (Vector3.Distance(transform.position, EnemyData.Position) < _targetMargin)
@@ -32,6 +35,9 @@ public class Projectile : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Applies effects to the target enemy on impact
+    /// </summary>
     private void ApplyEffects()
     {
         foreach (Effect baseEffect in TowerData.Effects)
